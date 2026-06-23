@@ -13,129 +13,192 @@
   --gold-light:#E2CC9A;
   --parchment:#F5EDD8;
   --mahogany:#2C1810;
-  --umber:#6B4E3D;
 }
 html{scroll-behavior:smooth;}
 body{background:var(--ink);color:var(--parchment);font-family:'Inter',sans-serif;overflow-x:hidden;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(10,8,4,0.85);backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(200,169,110,0.12);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);text-decoration:none;}
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:rgba(10,8,4,0.88);backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(200,169,110,0.12);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);text-decoration:none;}
 .nav-logo span{color:var(--gold);}
-.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,237,216,0.5);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.burger span{display:block;width:22px;height:1px;background:var(--gold);transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;inset:0;top:57px;background:rgba(10,8,4,0.97);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;color:var(--parchment);text-decoration:none;letter-spacing:0.06em;}
+.mobile-menu a:hover{color:var(--gold);}
 
-/* HERO */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;}
-.hero-left{display:flex;flex-direction:column;justify-content:center;}
+/* ── HERO ── */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;gap:40px;}
+.hero-left{display:flex;flex-direction:column;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
-.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:80px;font-weight:300;line-height:0.95;color:var(--parchment);margin-bottom:12px;}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;line-height:0.95;color:var(--parchment);margin-bottom:12px;}
 .hero-title em{font-style:italic;color:var(--gold-light);}
-.hero-sub{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;font-style:italic;color:rgba(200,169,110,0.7);margin-bottom:40px;}
-.hero-desc{font-size:14px;line-height:1.8;color:rgba(245,237,216,0.5);max-width:380px;margin-bottom:48px;}
-.btn-primary{display:inline-block;padding:16px 40px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;cursor:pointer;border:none;}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:rgba(200,169,110,0.7);margin-bottom:32px;}
+.hero-desc{font-size:14px;line-height:1.8;color:rgba(245,237,216,0.48);max-width:380px;margin-bottom:40px;}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px;}
+.btn-primary{display:inline-block;padding:15px 36px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;border:none;cursor:pointer;}
 .btn-primary:hover{background:var(--gold-light);}
-.btn-ghost{display:inline-block;padding:15px 40px;background:transparent;border:0.5px solid rgba(200,169,110,0.3);color:var(--gold);font-size:11px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;margin-left:12px;}
+.btn-ghost{display:inline-block;padding:14px 36px;background:transparent;border:0.5px solid rgba(200,169,110,0.3);color:var(--gold);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;}
 .btn-ghost:hover{border-color:var(--gold);background:rgba(200,169,110,0.08);}
-.hero-right{display:flex;justify-content:center;align-items:center;position:relative;}
-.hero-ring{width:380px;height:380px;border-radius:50%;border:0.5px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;position:relative;}
-.hero-ring::before{content:'';position:absolute;width:320px;height:320px;border-radius:50%;border:0.5px solid rgba(200,169,110,0.08);}
-.cup-wrap{position:relative;}
+.hero-right{display:flex;justify-content:center;align-items:center;}
+.hero-ring{width:min(340px,80vw);height:min(340px,80vw);border-radius:50%;border:0.5px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;position:relative;}
+.hero-ring::before{content:'';position:absolute;width:85%;height:85%;border-radius:50%;border:0.5px solid rgba(200,169,110,0.07);}
 
-/* MARQUEE */
+/* ── MARQUEE ── */
 .marquee-bar{border-top:0.5px solid rgba(200,169,110,0.15);border-bottom:0.5px solid rgba(200,169,110,0.15);padding:14px 0;overflow:hidden;white-space:nowrap;}
-.marquee-inner{display:inline-flex;animation:marquee 18s linear infinite;gap:0;}
-.marquee-item{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.4);padding:0 40px;}
-.marquee-dot{color:var(--gold);opacity:0.4;}
+.marquee-inner{display:inline-flex;animation:marquee 18s linear infinite;}
+.marquee-item{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.4);padding:0 32px;}
+.marquee-dot{color:var(--gold);opacity:0.3;}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* SHOP */
-#shop{padding:120px 48px;}
-.section-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
-.section-eyebrow::before{content:'';width:32px;height:1px;background:var(--gold);}
-.section-title{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--parchment);margin-bottom:64px;line-height:1.1;}
+/* ── SHOP ── */
+#shop{padding:100px 24px;}
+.section-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.section-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,52px);font-weight:300;color:var(--parchment);margin-bottom:48px;line-height:1.1;}
 .section-title em{font-style:italic;color:var(--gold-light);}
-.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.product-card{background:rgba(245,237,216,0.03);border:0.5px solid rgba(200,169,110,0.1);padding:40px 32px;transition:border-color 0.3s,background 0.3s;cursor:pointer;position:relative;overflow:hidden;}
+.products-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
+.product-card{background:rgba(245,237,216,0.03);border:0.5px solid rgba(200,169,110,0.1);padding:32px 24px;transition:border-color 0.3s,background 0.3s;cursor:pointer;position:relative;overflow:hidden;}
 .product-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.3s;}
 .product-card:hover{border-color:rgba(200,169,110,0.3);background:rgba(200,169,110,0.04);}
 .product-card:hover::after{opacity:1;}
 .product-card.featured{grid-column:span 2;}
-.card-tag{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;opacity:0.6;}
-.card-name{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--parchment);margin-bottom:8px;line-height:1.1;}
-.card-desc{font-size:13px;line-height:1.7;color:rgba(245,237,216,0.45);margin-bottom:28px;}
-.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.6;}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,32px);font-weight:300;color:var(--parchment);margin-bottom:8px;line-height:1.1;}
+.card-desc{font-size:13px;line-height:1.7;color:rgba(245,237,216,0.42);margin-bottom:24px;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 .card-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--gold);}
 .card-price span{font-size:16px;}
-.card-weights{display:flex;gap:6px;}
-.w-pill{font-size:10px;letter-spacing:0.1em;padding:4px 10px;border:0.5px solid rgba(200,169,110,0.2);color:rgba(200,169,110,0.5);}
+.card-weights{display:flex;gap:5px;flex-wrap:wrap;}
+.w-pill{font-size:10px;letter-spacing:0.1em;padding:4px 9px;border:0.5px solid rgba(200,169,110,0.2);color:rgba(200,169,110,0.5);}
 .w-pill.sel{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,0.1);}
 
-/* BUY DRAWER */
+/* ── DRAWER ── */
 .drawer-overlay{position:fixed;inset:0;background:rgba(10,8,4,0.7);z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;}
 .drawer-overlay.open{opacity:1;pointer-events:all;}
-.drawer{position:fixed;right:-480px;top:0;bottom:0;width:420px;background:var(--mahogany);border-left:0.5px solid rgba(200,169,110,0.2);z-index:201;transition:right 0.35s cubic-bezier(0.4,0,0.2,1);padding:40px 36px;display:flex;flex-direction:column;gap:24px;overflow-y:auto;}
-.drawer.open{right:0;}
-.drawer-close{align-self:flex-end;background:none;border:none;color:rgba(200,169,110,0.5);font-size:22px;cursor:pointer;line-height:1;}
+.drawer{position:fixed;bottom:-100%;left:0;right:0;max-height:90vh;background:var(--mahogany);border-top:0.5px solid rgba(200,169,110,0.2);z-index:201;transition:bottom 0.35s cubic-bezier(0.4,0,0.2,1);padding:28px 24px 40px;display:flex;flex-direction:column;gap:20px;overflow-y:auto;border-radius:16px 16px 0 0;}
+.drawer.open{bottom:0;}
+.drawer-handle{width:36px;height:3px;background:rgba(200,169,110,0.3);border-radius:2px;margin:0 auto -8px;}
+.drawer-close{align-self:flex-end;background:none;border:none;color:rgba(200,169,110,0.5);font-size:24px;cursor:pointer;line-height:1;margin-top:-8px;}
 .drawer-close:hover{color:var(--gold);}
-.drawer-product{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--parchment);line-height:1.1;}
-.drawer-sub{font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.5);}
+.drawer-product{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--parchment);line-height:1.1;}
+.drawer-sub{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:4px;}
 .drawer-divider{height:0.5px;background:rgba(200,169,110,0.15);}
 .d-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:8px;}
 .d-weights{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
-.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:rgba(245,237,216,0.45);font-size:11px;letter-spacing:0.08em;padding:10px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;}
+.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:rgba(245,237,216,0.45);font-size:11px;letter-spacing:0.08em;padding:12px 4px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;touch-action:manipulation;}
 .d-wbtn:hover,.d-wbtn.active{border-color:var(--gold);color:var(--gold-light);background:rgba(200,169,110,0.1);}
-.d-qty{display:flex;align-items:center;gap:0;width:fit-content;}
-.d-qbtn{width:38px;height:38px;background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;}
+.d-qty{display:flex;align-items:center;width:fit-content;}
+.d-qbtn{width:44px;height:44px;background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;touch-action:manipulation;}
 .d-qbtn:hover{background:rgba(200,169,110,0.1);}
-.d-qnum{width:50px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--parchment);border-top:0.5px solid rgba(200,169,110,0.2);border-bottom:0.5px solid rgba(200,169,110,0.2);}
+.d-qnum{width:54px;height:44px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--parchment);border-top:0.5px solid rgba(200,169,110,0.2);border-bottom:0.5px solid rgba(200,169,110,0.2);}
 .d-price-row{display:flex;align-items:baseline;gap:6px;}
-.d-price{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:var(--parchment);}
-.d-curr{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);align-self:flex-start;margin-top:10px;}
-.d-cta{padding:16px;background:var(--gold);border:none;color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif;width:100%;}
+.d-price{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--parchment);}
+.d-curr{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);align-self:flex-start;margin-top:8px;}
+.d-cta{padding:17px;background:var(--gold);border:none;color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif;width:100%;touch-action:manipulation;}
 .d-cta:hover{background:var(--gold-light);}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--mahogany);border:0.5px solid var(--gold);color:var(--parchment);font-size:11px;letter-spacing:0.12em;padding:12px 28px;transition:transform 0.3s;z-index:300;}
-.toast.show{transform:translateX(-50%) translateY(0);}
 
-/* ABOUT */
-#about{padding:120px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;border-top:0.5px solid rgba(200,169,110,0.1);}
-.about-img{position:relative;}
-.about-box{width:100%;aspect-ratio:4/5;background:linear-gradient(135deg,var(--mahogany),rgba(44,24,16,0.4));border:0.5px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;}
-.about-box svg{opacity:0.3;}
-.about-badge{position:absolute;bottom:-20px;right:-20px;width:110px;height:110px;border-radius:50%;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
-.about-badge span:first-child{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--ink);line-height:1;}
-.about-badge span:last-child{font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink);opacity:0.7;}
-.about-content{display:flex;flex-direction:column;gap:24px;}
-.about-title{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--parchment);line-height:1.1;}
+/* ── ABOUT ── */
+#about{padding:100px 24px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;border-top:0.5px solid rgba(200,169,110,0.1);}
+.about-box{width:100%;aspect-ratio:4/5;background:linear-gradient(135deg,var(--mahogany),rgba(44,24,16,0.4));border:0.5px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;position:relative;}
+.about-badge{position:absolute;bottom:-16px;right:-16px;width:100px;height:100px;border-radius:50%;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;}
+.about-badge span:first-child{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--ink);line-height:1;}
+.about-badge span:last-child{font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);opacity:0.7;}
+.about-content{display:flex;flex-direction:column;gap:20px;}
+.about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4vw,52px);font-weight:300;color:var(--parchment);line-height:1.1;}
 .about-title em{font-style:italic;color:var(--gold-light);}
-.about-body{font-size:14px;line-height:1.85;color:rgba(245,237,216,0.5);}
-.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:12px;}
-.stat-box{border:0.5px solid rgba(200,169,110,0.15);padding:20px;}
-.stat-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--gold);}
-.stat-label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,237,216,0.35);margin-top:4px;}
+.about-body{font-size:14px;line-height:1.85;color:rgba(245,237,216,0.48);}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+.stat-box{border:0.5px solid rgba(200,169,110,0.15);padding:16px;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);}
+.stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,237,216,0.32);margin-top:4px;}
 
-/* FOOTER */
-footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;justify-content:space-between;align-items:center;}
+/* ── FOOTER ── */
+footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;}
 .footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);}
 .footer-logo span{color:var(--gold);}
-.footer-copy{font-size:11px;color:rgba(245,237,216,0.25);letter-spacing:0.1em;}
-.footer-links{display:flex;gap:28px;}
+.footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
 .footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.4);text-decoration:none;transition:color 0.2s;}
 .footer-links a:hover{color:var(--gold);}
+.footer-copy{font-size:11px;color:rgba(245,237,216,0.2);letter-spacing:0.08em;}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--mahogany);border:0.5px solid var(--gold);color:var(--parchment);font-size:11px;letter-spacing:0.12em;padding:12px 28px;transition:transform 0.3s;z-index:300;white-space:nowrap;border-radius:2px;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* ══════════════════════════════
+   RESPONSIVE BREAKPOINTS
+══════════════════════════════ */
+
+/* Tablet */
+@media(max-width:900px){
+  #hero{grid-template-columns:1fr;padding:100px 24px 60px;text-align:center;}
+  .hero-eyebrow{justify-content:center;}
+  .hero-desc{max-width:100%;}
+  .btn-row{justify-content:center;}
+  .hero-right{display:none;}
+  #about{grid-template-columns:1fr;gap:40px;}
+  .about-img{max-width:380px;margin:0 auto;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .product-card.featured{grid-column:span 2;}
+}
+
+/* Mobile */
+@media(max-width:600px){
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  .burger{display:flex;}
+
+  #hero{padding:90px 20px 56px;}
+  .hero-title{font-size:clamp(44px,13vw,64px);}
+
+  #shop{padding:72px 16px;}
+  .products-grid{grid-template-columns:1fr;gap:2px;}
+  .product-card.featured{grid-column:span 1;}
+  .section-title{margin-bottom:32px;}
+
+  #about{padding:72px 16px;grid-template-columns:1fr;}
+  .about-img{max-width:100%;}
+  .about-badge{width:84px;height:84px;bottom:-12px;right:-4px;}
+  .about-badge span:first-child{font-size:22px;}
+  .about-stats{grid-template-columns:1fr 1fr;}
+
+  .drawer{padding:20px 18px 36px;border-radius:14px 14px 0 0;}
+  .drawer-product{font-size:26px;}
+}
+
+@media(max-width:380px){
+  .hero-title{font-size:40px;}
+  .about-stats{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="#hero" class="nav-logo">Abija <span>Tea</span></a>
   <ul class="nav-links">
-    <li><a href="#hero" class="active" onclick="setActive(this)">Home</a></li>
-    <li><a href="#shop" onclick="setActive(this)">Shop</a></li>
-    <li><a href="#about" onclick="setActive(this)">About</a></li>
+    <li><a href="#hero" class="active">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">About</a></li>
   </ul>
+  <div class="burger" onclick="toggleMenu()" aria-label="Menu">
+    <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#shop" onclick="closeMenu()">Shop</a>
+  <a href="#about" onclick="closeMenu()">About</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -143,37 +206,42 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
     <div class="hero-eyebrow">Abija Tea · Est. 2024</div>
     <h1 class="hero-title">Cyclone<br><em>English<br>Breakfast</em></h1>
     <p class="hero-sub">Single-estate blend, highland grown</p>
-    <p class="hero-desc">Born from mist-shrouded Ceylon estates where altitude and patience converge. A full-bodied morning tea with a brisk amber character — crafted to weather anything the day demands.</p>
-    <div>
+    <p class="hero-desc">Born from mist-shrouded Ceylon estates where altitude and patience converge — crafted to weather anything the day demands.</p>
+    <div class="btn-row">
       <a href="#shop" class="btn-primary">Shop Now</a>
       <a href="#about" class="btn-ghost">Our Story</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-ring">
-      <div class="cup-wrap">
-        <svg width="220" height="180" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="tg" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#8B4513" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#3D1A0A"/>
-            </radialGradient>
-            <radialGradient id="cg" cx="30%" cy="20%" r="80%">
-              <stop offset="0%" stop-color="#F5EDD8"/>
-              <stop offset="100%" stop-color="#D4C4A0"/>
-            </radialGradient>
-          </defs>
-          <ellipse cx="100" cy="148" rx="62" ry="10" fill="#C4B08A" opacity="0.4"/>
-          <path d="M55 100 Q52 140 62 143 Q100 150 138 143 Q148 140 145 100 Z" fill="url(#cg)"/>
-          <ellipse cx="100" cy="100" rx="45" ry="12" fill="url(#tg)"/>
-          <ellipse cx="100" cy="100" rx="45" ry="12" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.6"/>
-          <path d="M55 100 Q58 94 100 92 Q142 94 145 100" fill="none" stroke="#D8C898" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M144 108 Q162 108 162 122 Q162 136 144 134" fill="none" stroke="#C8A96E" stroke-width="2.5" stroke-linecap="round"/>
-          <path d="M82 95 Q78 80 82 65 Q86 50 82 35" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0.5;0" begin="0s"/><animate attributeName="d" dur="3s" repeatCount="indefinite" values="M82 95 Q78 80 82 65 Q86 50 82 35;M82 95 Q86 78 82 63 Q78 48 82 33;M82 95 Q78 80 82 65 Q86 50 82 35"/></path>
-          <path d="M100 92 Q96 75 100 58 Q104 42 100 26" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0.6;0" begin="0.5s"/></path>
-          <path d="M118 95 Q122 78 118 62 Q114 47 118 32" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0.4;0" begin="1s"/></path>
-        </svg>
-      </div>
+      <svg width="200" height="170" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="tg" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#8B4513" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#3D1A0A"/>
+          </radialGradient>
+          <radialGradient id="cg" cx="30%" cy="20%" r="80%">
+            <stop offset="0%" stop-color="#F5EDD8"/>
+            <stop offset="100%" stop-color="#D4C4A0"/>
+          </radialGradient>
+        </defs>
+        <ellipse cx="100" cy="148" rx="62" ry="10" fill="#C4B08A" opacity="0.4"/>
+        <path d="M55 100 Q52 140 62 143 Q100 150 138 143 Q148 140 145 100 Z" fill="url(#cg)"/>
+        <ellipse cx="100" cy="100" rx="45" ry="12" fill="url(#tg)"/>
+        <ellipse cx="100" cy="100" rx="45" ry="12" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.6"/>
+        <path d="M55 100 Q58 94 100 92 Q142 94 145 100" fill="none" stroke="#D8C898" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M144 108 Q162 108 162 122 Q162 136 144 134" fill="none" stroke="#C8A96E" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M82 95 Q78 80 82 65 Q86 50 82 35" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0">
+          <animate attributeName="opacity" dur="3s" repeatCount="indefinite" values="0;0.5;0" begin="0s"/>
+          <animate attributeName="d" dur="3s" repeatCount="indefinite" values="M82 95 Q78 80 82 65 Q86 50 82 35;M82 95 Q86 78 82 63 Q78 48 82 33;M82 95 Q78 80 82 65 Q86 50 82 35"/>
+        </path>
+        <path d="M100 92 Q96 75 100 58 Q104 42 100 26" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0">
+          <animate attributeName="opacity" dur="3.5s" repeatCount="indefinite" values="0;0.6;0" begin="0.5s"/>
+        </path>
+        <path d="M118 95 Q122 78 118 62 Q114 47 118 32" fill="none" stroke="#C8A96E" stroke-width="1.2" stroke-linecap="round" opacity="0">
+          <animate attributeName="opacity" dur="2.8s" repeatCount="indefinite" values="0;0.4;0" begin="1s"/>
+        </path>
+      </svg>
     </div>
   </div>
 </section>
@@ -201,7 +269,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
   <div class="section-eyebrow">Our Collection</div>
   <h2 class="section-title">The <em>Cyclone</em><br>Collection</h2>
   <div class="products-grid">
-    <div class="product-card featured" onclick="openDrawer('Cyclone English Breakfast','Full-bodied · Brisk · Amber','14.99')">
+    <div class="product-card featured" onclick="openDrawer('Cyclone English Breakfast','Signature Blend · Best Seller','14.99')">
       <div class="card-tag">Signature Blend · Best Seller</div>
       <h3 class="card-name">Cyclone<br>English Breakfast</h3>
       <p class="card-desc">Our flagship morning blend. Grown at 1,800m in Ceylon's hill country, this BOP grade leaf delivers a brisk, full-bodied cup with a deep amber liquor. Pairs beautifully with milk.</p>
@@ -214,29 +282,23 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
         </div>
       </div>
     </div>
-    <div class="product-card" onclick="openDrawer('Cyclone Reserve','Rare · Smooth · Golden','24.99')">
+    <div class="product-card" onclick="openDrawer('Cyclone Reserve','Limited Reserve','24.99')">
       <div class="card-tag">Limited Reserve</div>
-      <h3 class="card-name">Cyclone<br>Reserve</h3>
-      <p class="card-desc">A rare single-flush harvest. Delicate, smooth, and golden — for those who appreciate restraint.</p>
-      <div class="card-footer">
-        <div class="card-price"><span>£</span>24.99</div>
-      </div>
+      <h3 class="card-name">Cyclone Reserve</h3>
+      <p class="card-desc">A rare single-flush harvest. Delicate, smooth, and golden.</p>
+      <div class="card-footer"><div class="card-price"><span>£</span>24.99</div></div>
     </div>
-    <div class="product-card" onclick="openDrawer('Cyclone Earl Grey','Bergamot · Floral · Bright','16.99')">
+    <div class="product-card" onclick="openDrawer('Cyclone Earl Grey','Bergamot · Floral','16.99')">
       <div class="card-tag">Coming Soon</div>
-      <h3 class="card-name">Cyclone<br>Earl Grey</h3>
-      <p class="card-desc">Our Ceylon base meets cold-pressed bergamot oil from Calabria. Bright, floral, unmistakable.</p>
-      <div class="card-footer">
-        <div class="card-price"><span>£</span>16.99</div>
-      </div>
+      <h3 class="card-name">Cyclone Earl Grey</h3>
+      <p class="card-desc">Ceylon base meets cold-pressed bergamot from Calabria. Bright, floral, unmistakable.</p>
+      <div class="card-footer"><div class="card-price"><span>£</span>16.99</div></div>
     </div>
-    <div class="product-card" onclick="openDrawer('Gift Set — Trio','All three Cyclone blends','48.99')">
+    <div class="product-card" onclick="openDrawer('Cyclone Trio Gift Set','Gift Collection','48.99')">
       <div class="card-tag">Gift Collection</div>
-      <h3 class="card-name">The Cyclone<br>Trio Gift Set</h3>
-      <p class="card-desc">All three blends in a hand-finished gift box. The perfect introduction to Abija Tea.</p>
-      <div class="card-footer">
-        <div class="card-price"><span>£</span>48.99</div>
-      </div>
+      <h3 class="card-name">Cyclone Trio Gift Set</h3>
+      <p class="card-desc">All three blends in a hand-finished gift box — the perfect introduction to Abija Tea.</p>
+      <div class="card-footer"><div class="card-price"><span>£</span>48.99</div></div>
     </div>
   </div>
 </section>
@@ -245,41 +307,29 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
 <section id="about">
   <div class="about-img">
     <div class="about-box">
-      <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25">
         <circle cx="60" cy="60" r="50" stroke="#C8A96E" stroke-width="0.5"/>
-        <circle cx="60" cy="60" r="38" stroke="#C8A96E" stroke-width="0.5"/>
+        <circle cx="60" cy="60" r="36" stroke="#C8A96E" stroke-width="0.5"/>
         <path d="M60 20 Q70 40 60 60 Q50 80 60 100" stroke="#C8A96E" stroke-width="1" fill="none"/>
         <path d="M20 60 Q40 50 60 60 Q80 70 100 60" stroke="#C8A96E" stroke-width="1" fill="none"/>
-        <circle cx="60" cy="60" r="4" fill="#C8A96E" opacity="0.6"/>
+        <circle cx="60" cy="60" r="4" fill="#C8A96E"/>
       </svg>
-    </div>
-    <div class="about-badge">
-      <span>2024</span>
-      <span>Founded</span>
+      <div class="about-badge">
+        <span>2024</span>
+        <span>Founded</span>
+      </div>
     </div>
   </div>
   <div class="about-content">
     <div class="section-eyebrow">Our Story</div>
     <h2 class="about-title">Tea as an <em>art</em>,<br>not a habit</h2>
-    <p class="about-body">Abija Tea was born from a single question: why does morning tea have to be ordinary? We sourced directly from highland estates in Sri Lanka's Uva and Nuwara Eliya regions — places where mist, altitude, and volcanic soil create something extraordinary.</p>
-    <p class="about-body">The Cyclone collection is our answer. Each blend is small-batch, single-estate, and crafted with the same attention a winemaker gives a grand cru. No blending floors. No commodity tea. Just the leaf, the land, and the cup.</p>
+    <p class="about-body">Abija Tea was born from a single question: why does morning tea have to be ordinary? We sourced directly from highland estates in Sri Lanka's Uva and Nuwara Eliya regions.</p>
+    <p class="about-body">Each blend is small-batch, single-estate, and crafted with the same attention a winemaker gives a grand cru. No blending floors. No commodity tea. Just the leaf, the land, and the cup.</p>
     <div class="about-stats">
-      <div class="stat-box">
-        <div class="stat-num">1,800<span style="font-size:20px">m</span></div>
-        <div class="stat-label">Altitude grown</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">3</div>
-        <div class="stat-label">Partner estates</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">40<span style="font-size:20px">+</span></div>
-        <div class="stat-label">Cups per 100g</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num">0</div>
-        <div class="stat-label">Compromise</div>
-      </div>
+      <div class="stat-box"><div class="stat-num">1,800<span style="font-size:18px">m</span></div><div class="stat-label">Altitude grown</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Partner estates</div></div>
+      <div class="stat-box"><div class="stat-num">40<span style="font-size:18px">+</span></div><div class="stat-label">Cups per 100g</div></div>
+      <div class="stat-box"><div class="stat-num">0</div><div class="stat-label">Compromise</div></div>
     </div>
   </div>
 </section>
@@ -292,12 +342,13 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
   </div>
-  <div class="footer-copy">© 2024 Abija Tea. All rights reserved.</div>
+  <div class="footer-copy">© 2024 Abija Tea · Ceylon Highland · All rights reserved.</div>
 </footer>
 
-<!-- DRAWER -->
+<!-- DRAWER (bottom sheet on mobile) -->
 <div class="drawer-overlay" id="overlay" onclick="closeDrawer()"></div>
 <div class="drawer" id="drawer">
+  <div class="drawer-handle"></div>
   <button class="drawer-close" onclick="closeDrawer()">×</button>
   <div>
     <p class="drawer-sub" id="d-sub">Signature Blend</p>
@@ -307,9 +358,9 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
   <div>
     <p class="d-label">Select Weight</p>
     <div class="d-weights">
-      <button class="d-wbtn" onclick="selW(this,'14.99','~40 cups')">100g</button>
-      <button class="d-wbtn active" onclick="selW(this,'29.99','~100 cups')">250g</button>
-      <button class="d-wbtn" onclick="selW(this,'49.99','~200 cups')">500g</button>
+      <button class="d-wbtn" onclick="selW(this,'14.99')">100g</button>
+      <button class="d-wbtn active" onclick="selW(this,'29.99')">250g</button>
+      <button class="d-wbtn" onclick="selW(this,'49.99')">500g</button>
     </div>
   </div>
   <div>
@@ -331,15 +382,32 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:48px;display:flex;j
 <div class="toast" id="toast">Added to your order ✓</div>
 
 <script>
-function setActive(el){document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));el.classList.add('active');}
+// Mobile menu
+let menuOpen=false;
+function toggleMenu(){
+  menuOpen=!menuOpen;
+  document.getElementById('mobileMenu').classList.toggle('open',menuOpen);
+  document.body.style.overflow=menuOpen?'hidden':'';
+  document.getElementById('b1').style.transform=menuOpen?'rotate(45deg) translate(4px,4px)':'';
+  document.getElementById('b2').style.opacity=menuOpen?'0':'1';
+  document.getElementById('b3').style.transform=menuOpen?'rotate(-45deg) translate(4px,-4px)':'';
+}
+function closeMenu(){
+  menuOpen=false;
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('b1').style.transform='';
+  document.getElementById('b2').style.opacity='1';
+  document.getElementById('b3').style.transform='';
+}
 
-let qty=1,curPrice=29.99;
+// Drawer
+let qty=1;
 function openDrawer(name,sub,price){
   document.getElementById('d-name').textContent=name;
   document.getElementById('d-sub').textContent=sub;
   document.getElementById('d-price').textContent=price;
-  curPrice=parseFloat(price);qty=1;
-  document.getElementById('d-qty').textContent=1;
+  qty=1;document.getElementById('d-qty').textContent=1;
   document.querySelectorAll('.d-wbtn').forEach((b,i)=>b.classList.toggle('active',i===1));
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
@@ -353,7 +421,6 @@ function closeDrawer(){
 function selW(el,price){
   document.querySelectorAll('.d-wbtn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  curPrice=parseFloat(price);
   document.getElementById('d-price').textContent=price;
 }
 function chQty(d){qty=Math.max(1,qty+d);document.getElementById('d-qty').textContent=qty;}
@@ -366,16 +433,12 @@ function addCart(){
 
 // Active nav on scroll
 window.addEventListener('scroll',()=>{
-  const sections=['hero','shop','about'];
   const links=document.querySelectorAll('.nav-links a');
-  sections.forEach((id,i)=>{
+  ['hero','shop','about'].forEach((id,i)=>{
     const el=document.getElementById(id);
     if(el){
-      const rect=el.getBoundingClientRect();
-      if(rect.top<=100&&rect.bottom>100){
-        links.forEach(l=>l.classList.remove('active'));
-        links[i].classList.add('active');
-      }
+      const r=el.getBoundingClientRect();
+      if(r.top<=100&&r.bottom>100){links.forEach(l=>l.classList.remove('active'));links[i].classList.add('active');}
     }
   });
 });
