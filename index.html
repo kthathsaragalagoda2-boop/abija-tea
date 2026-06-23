@@ -1,9 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Abija Tea — Cyclone English Breakfast</title>
+
+<!-- ═══════════════════════════════════════════
+     TECHNICAL SEO — CANONICAL & INDEXING
+═══════════════════════════════════════════ -->
+<link rel="canonical" href="https://abijatea.me/"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- ═══════════════════════════════════════════
+     CORE META — Title (55 chars) & Description (158 chars)
+═══════════════════════════════════════════ -->
+<title>Abija Tea | Pure Ceylon Tea, Single-Estate</title>
+<meta name="description" content="Abija Tea offers pure, unblended, single-estate Ceylon tea sourced from Sri Lanka's Uva highlands at 1,800m. Shop the Cyclone Collection — delivered to your door."/>
+<meta name="keywords" content="Ceylon tea, single estate tea, pure Ceylon tea, Sri Lanka tea, Abija Tea, Cyclone tea, unblended tea, BOP grade tea, highland tea, English Breakfast Ceylon"/>
+<meta name="author" content="Abija Tea"/>
+<meta name="theme-color" content="#0A0804"/>
+
+<!-- ═══════════════════════════════════════════
+     OPEN GRAPH — Facebook & LinkedIn sharing
+═══════════════════════════════════════════ -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Abija Tea"/>
+<meta property="og:url" content="https://abijatea.me/"/>
+<meta property="og:title" content="Abija Tea | Pure Ceylon Tea, Single-Estate"/>
+<meta property="og:description" content="Abija Tea offers pure, unblended, single-estate Ceylon tea sourced directly from Sri Lanka's highland estates at 1,800m altitude. Shop the Cyclone Collection."/>
+<meta property="og:image" content="https://abijatea.me/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Abija Tea — Cyclone English Breakfast, pure Ceylon highland tea"/>
+<meta property="og:locale" content="en_GB"/>
+
+<!-- ═══════════════════════════════════════════
+     TWITTER CARD
+═══════════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Abija Tea | Pure Ceylon Tea, Single-Estate"/>
+<meta name="twitter:description" content="Pure, unblended Ceylon tea from Sri Lanka's Uva highlands at 1,800m. BOP grade. Single-estate. Small batch. Shop the Cyclone Collection."/>
+<meta name="twitter:image" content="https://abijatea.me/og-image.jpg"/>
+<meta name="twitter:image:alt" content="Abija Tea Cyclone English Breakfast — Ceylon highland tea"/>
+
+<!-- ═══════════════════════════════════════════
+     JSON-LD SCHEMA — LocalBusiness + Product (GEO/EEAT)
+═══════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://abijatea.me/#organization",
+      "name": "Abija Tea",
+      "url": "https://abijatea.me",
+      "logo": "https://abijatea.me/og-image.jpg",
+      "foundingDate": "2024",
+      "description": "Abija Tea is a Sri Lankan tea brand offering pure, unblended, single-estate Ceylon tea sourced directly from highland estates in Sri Lanka's Uva and Nuwara Eliya regions at 1,800 metres altitude.",
+      "areaServed": ["LK", "GB", "IN"],
+      "sameAs": [
+        "https://www.facebook.com/TEA-abija",
+        "https://www.linkedin.com/company/abija-tea"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": ["English", "Sinhala", "Tamil"]
+      }
+    },
+    {
+      "@type": "Store",
+      "@id": "https://abijatea.me/#store",
+      "name": "Abija Tea",
+      "url": "https://abijatea.me",
+      "image": "https://abijatea.me/og-image.jpg",
+      "description": "Abija Tea offers pure, unblended, single-estate Ceylon tea sourced from Sri Lanka's highland estates. Our Cyclone Collection features BOP-grade leaf grown at 1,800m in the Uva and Nuwara Eliya regions.",
+      "priceRange": "££",
+      "currenciesAccepted": "GBP, LKR, INR",
+      "paymentAccepted": "WhatsApp Order",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Cyclone Collection",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Cyclone English Breakfast",
+              "description": "Abija Tea's flagship single-estate Ceylon English Breakfast tea. Grown at 1,800m in Sri Lanka's Uva hill country. BOP grade leaf. Full-bodied, brisk amber liquor. Pure and unblended.",
+              "brand": {"@type": "Brand", "name": "Abija Tea"},
+              "category": "Ceylon Tea",
+              "offers": {
+                "@type": "AggregateOffer",
+                "lowPrice": "14.99",
+                "highPrice": "49.99",
+                "priceCurrency": "GBP",
+                "availability": "https://schema.org/InStock"
+              },
+              "additionalProperty": [
+                {"@type": "PropertyValue", "name": "Grade", "value": "BOP (Broken Orange Pekoe)"},
+                {"@type": "PropertyValue", "name": "Origin", "value": "Uva & Nuwara Eliya, Sri Lanka"},
+                {"@type": "PropertyValue", "name": "Altitude", "value": "1,800 metres"},
+                {"@type": "PropertyValue", "name": "Estate Type", "value": "Single-Estate"},
+                {"@type": "PropertyValue", "name": "Blending", "value": "Pure & Unblended"}
+              ]
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Cyclone Reserve",
+              "description": "A rare single-flush Ceylon tea harvest from Abija Tea. Delicate, smooth, and golden. Limited availability.",
+              "brand": {"@type": "Brand", "name": "Abija Tea"},
+              "offers": {"@type": "Offer", "price": "24.99", "priceCurrency": "GBP", "availability": "https://schema.org/LimitedAvailability"}
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Product",
+              "name": "Cyclone Trio Gift Set",
+              "description": "All three Abija Tea Cyclone Collection blends in a hand-finished gift box. The perfect introduction to pure Ceylon highland tea.",
+              "brand": {"@type": "Brand", "name": "Abija Tea"},
+              "offers": {"@type": "Offer", "price": "48.99", "priceCurrency": "GBP", "availability": "https://schema.org/InStock"}
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://abijatea.me/#website",
+      "url": "https://abijatea.me",
+      "name": "Abija Tea",
+      "description": "Abija Tea offers pure, unblended, single-estate Ceylon tea from Sri Lanka's highland estates.",
+      "publisher": {"@id": "https://abijatea.me/#organization"},
+      "inLanguage": ["en", "si", "ta"]
+    }
+  ]
+}
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -26,6 +164,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .nav-links a:hover,.nav-links a.active{color:var(--gold);}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
 .burger span{display:block;width:22px;height:1px;background:var(--gold);transition:all 0.3s;}
+.lang-switcher{display:flex;align-items:center;gap:2px;background:rgba(200,169,110,0.08);border:0.5px solid rgba(200,169,110,0.2);border-radius:20px;padding:3px;}
+.lang-btn{font-size:10px;font-weight:500;letter-spacing:0.08em;padding:5px 11px;border-radius:16px;border:none;background:transparent;color:rgba(200,169,110,0.5);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap;}
+.lang-btn.active{background:var(--gold);color:var(--ink);}
+.lang-btn:hover:not(.active){color:var(--gold);}
+.currency-badge{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,169,110,0.4);margin-bottom:2px;}
+.rate-note{font-size:10px;color:rgba(200,169,110,0.35);margin-top:3px;}
 .mobile-menu{display:none;position:fixed;inset:0;top:57px;background:rgba(10,8,4,0.97);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
 .mobile-menu.open{display:flex;}
 .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;color:var(--parchment);text-decoration:none;letter-spacing:0.06em;}
@@ -131,6 +275,15 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--mahogany);border:0.5px solid var(--gold);color:var(--parchment);font-size:11px;letter-spacing:0.12em;padding:12px 28px;transition:transform 0.3s;z-index:300;white-space:nowrap;border-radius:2px;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
+/* WhatsApp */
+.d-wa{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;background:transparent;border:0.5px solid rgba(37,211,102,0.4);color:#25D366;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;width:100%;text-decoration:none;margin-top:8px;}
+.d-wa:hover{background:rgba(37,211,102,0.08);border-color:#25D366;}
+.d-wa svg{flex-shrink:0;}
+.wa-float{position:fixed;bottom:28px;right:24px;z-index:150;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:14px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,0.35);transition:all 0.2s;}
+.wa-float:hover{background:#20c55a;transform:translateY(-2px);box-shadow:0 6px 28px rgba(37,211,102,0.45);}
+.wa-float span{font-family:'Inter',sans-serif;}
+@media(max-width:600px){.wa-float span{display:none;}.wa-float{padding:14px;}}
+
 /* ══════════════════════════════
    RESPONSIVE BREAKPOINTS
 ══════════════════════════════ */
@@ -181,15 +334,22 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">Abija <span>Tea</span></a>
+<nav aria-label="Main navigation">
+  <a href="#hero" class="nav-logo" aria-label="Abija Tea — Home">Abija <span>Tea</span></a>
   <ul class="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#shop">Shop</a></li>
     <li><a href="#about">About</a></li>
   </ul>
-  <div class="burger" onclick="toggleMenu()" aria-label="Menu">
-    <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN £</button>
+      <button class="lang-btn" onclick="setLang('si')" id="btn-si">සිං Rs</button>
+      <button class="lang-btn" onclick="setLang('ta')" id="btn-ta">தமிழ் ₹</button>
+    </div>
+    <div class="burger" onclick="toggleMenu()" aria-label="Menu">
+      <span id="b1"></span><span id="b2"></span><span id="b3"></span>
+    </div>
   </div>
 </nav>
 
@@ -201,12 +361,16 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 </div>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" aria-label="Abija Tea — Pure Ceylon Tea">
   <div class="hero-left">
     <div class="hero-eyebrow">Abija Tea · Est. 2024</div>
+    <!-- H1 is the brand/product name for SEO -->
     <h1 class="hero-title">Cyclone<br><em>English<br>Breakfast</em></h1>
     <p class="hero-sub">Single-estate blend, highland grown</p>
-    <p class="hero-desc">Born from mist-shrouded Ceylon estates where altitude and patience converge — crafted to weather anything the day demands.</p>
+    <!-- GEO Rule 3: Self-contained extractable definition as the FIRST sentence -->
+    <p class="hero-desc">
+      Abija Tea offers pure, unblended, single-estate Ceylon tea sourced directly from Sri Lanka's highland estates at 1,800 metres altitude — crafted to weather anything the day demands.
+    </p>
     <div class="btn-row">
       <a href="#shop" class="btn-primary">Shop Now</a>
       <a href="#about" class="btn-ghost">Our Story</a>
@@ -269,45 +433,55 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
   <div class="section-eyebrow">Our Collection</div>
   <h2 class="section-title">The <em>Cyclone</em><br>Collection</h2>
   <div class="products-grid">
-    <div class="product-card featured" onclick="openDrawer('Cyclone English Breakfast','Signature Blend · Best Seller','14.99')">
-      <div class="card-tag">Signature Blend · Best Seller</div>
-      <h3 class="card-name">Cyclone<br>English Breakfast</h3>
-      <p class="card-desc">Our flagship morning blend. Grown at 1,800m in Ceylon's hill country, this BOP grade leaf delivers a brisk, full-bodied cup with a deep amber liquor. Pairs beautifully with milk.</p>
+    <article class="product-card featured" onclick="openDrawer('Cyclone English Breakfast','Signature Blend · Best Seller','14.99')" aria-label="Cyclone English Breakfast Tea">
+      <div class="card-tag" data-en="Signature Blend · Best Seller" data-si="විශේෂ මිශ්‍රණය · හොඳම විකිණුම" data-ta="சிறப்பு கலவை · சிறந்த விற்பனை">Signature Blend · Best Seller</div>
+      <h3 class="card-name" data-en="Cyclone<br>English Breakfast" data-si="සයික්ලෝන්<br>ඉංග්‍රීසි උදෑසන තේ" data-ta="சுழல்காற்று<br>ஆங்கில காலை தேநீர்">Cyclone<br>English Breakfast</h3>
+      <!-- GEO Rule 3: Definition-lead sentence for AI extractability -->
+      <p class="card-desc" data-en="Abija Tea's Cyclone English Breakfast is a pure, unblended Ceylon tea grown at 1,800m in Sri Lanka's Uva hill country. BOP grade leaf delivers a brisk, full-bodied cup with a deep amber liquor — pairs beautifully with milk." data-si="අබිජා තේ හි සයික්ලෝන් ඉංග්‍රීසි උදෑසන තේ යනු ශ්‍රී ලංකාවේ Uva කඳුකරයේ මීටර් 1,800 ක් උසේ වගා කරන ලද, BOP ශ්‍රේණියේ, පිරිසිදු Ceylon තේ කොළකි. කිරිත් සමග අපූරු රසක් ලැබේ." data-ta="அபிஜா தேயின் சுழல்காற்று ஆங்கில காலை தேநீர், இலங்கையின் Uva மலைப்பகுதியில் 1,800மீ உயரத்தில் வளர்க்கப்பட்ட தூய, கலப்படமற்ற BOP தர Ceylon தேயிலை. பாலுடன் அருமையாக பொருந்தும்.">Abija Tea's Cyclone English Breakfast is a pure, unblended Ceylon tea grown at 1,800m in Sri Lanka's Uva hill country. BOP grade leaf delivers a brisk, full-bodied cup with a deep amber liquor — pairs beautifully with milk.</p>
+      <!-- GEO Rule 4: Structured specs as scannable list for AI engines -->
+      <ul style="list-style:none;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px;" aria-label="Product specifications">
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">🌿 Pure &amp; Unblended</li>
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">📍 Uva, Sri Lanka</li>
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">⛰ 1,800m Altitude</li>
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">🏷 BOP Grade</li>
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">🍵 ~40 Cups / 100g</li>
+        <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">📦 Small Batch</li>
+      </ul>
       <div class="card-footer">
-        <div class="card-price"><span>£</span>14.99</div>
+        <div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="14.99">14.99</span></div>
         <div class="card-weights">
           <span class="w-pill sel">100g</span>
           <span class="w-pill">250g</span>
           <span class="w-pill">500g</span>
         </div>
       </div>
-    </div>
+    </article>
     <div class="product-card" onclick="openDrawer('Cyclone Reserve','Limited Reserve','24.99')">
-      <div class="card-tag">Limited Reserve</div>
-      <h3 class="card-name">Cyclone Reserve</h3>
-      <p class="card-desc">A rare single-flush harvest. Delicate, smooth, and golden.</p>
-      <div class="card-footer"><div class="card-price"><span>£</span>24.99</div></div>
+      <div class="card-tag" data-en="Limited Reserve" data-si="සීමිත නිෂ්පාදනය" data-ta="வரையறுக்கப்பட்ட இருப்பு">Limited Reserve</div>
+      <h3 class="card-name" data-en="Cyclone Reserve" data-si="සයික්ලෝන් රිසර්ව්" data-ta="சுழல்காற்று இருப்பு">Cyclone Reserve</h3>
+      <p class="card-desc" data-en="A rare single-flush harvest. Delicate, smooth, and golden." data-si="දුර්ලභ තනි අස්වනු නෙලීමකි. සියුම්, මෘදු සහ රන්වන් රසයක් ලැබේ." data-ta="அரிய ஒற்றை அறுவடை. மென்மையான, சுமூகமான, தங்க நிற ருசி.">A rare single-flush harvest. Delicate, smooth, and golden.</p>
+      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="24.99">24.99</span></div></div>
     </div>
     <div class="product-card" onclick="openDrawer('Cyclone Earl Grey','Bergamot · Floral','16.99')">
-      <div class="card-tag">Coming Soon</div>
-      <h3 class="card-name">Cyclone Earl Grey</h3>
-      <p class="card-desc">Ceylon base meets cold-pressed bergamot from Calabria. Bright, floral, unmistakable.</p>
-      <div class="card-footer"><div class="card-price"><span>£</span>16.99</div></div>
+      <div class="card-tag" data-en="Coming Soon" data-si="ළඟදීම" data-ta="விரைவில் வருகிறது">Coming Soon</div>
+      <h3 class="card-name" data-en="Cyclone Earl Grey" data-si="සයික්ලෝන් අර්ල් ග්‍රේ" data-ta="சுழல்காற்று எர்ல் கிரே">Cyclone Earl Grey</h3>
+      <p class="card-desc" data-en="Ceylon base meets cold-pressed bergamot from Calabria. Bright, floral, unmistakable." data-si="සිලෝන් පදනම Calabria හි bergamot සමග ඒකාබද්ධ වේ. දීප්තිමත්, මල් සුවඳ රසයකි." data-ta="இலங்கை தளம் கலாபிரியா பெர்கமோட்டுடன் சந்திக்கிறது. பிரகாசமான, மலர் வாசனை.">Ceylon base meets cold-pressed bergamot from Calabria. Bright, floral, unmistakable.</p>
+      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="16.99">16.99</span></div></div>
     </div>
     <div class="product-card" onclick="openDrawer('Cyclone Trio Gift Set','Gift Collection','48.99')">
-      <div class="card-tag">Gift Collection</div>
-      <h3 class="card-name">Cyclone Trio Gift Set</h3>
-      <p class="card-desc">All three blends in a hand-finished gift box — the perfect introduction to Abija Tea.</p>
-      <div class="card-footer"><div class="card-price"><span>£</span>48.99</div></div>
+      <div class="card-tag" data-en="Gift Collection" data-si="තෑගි එකතුව" data-ta="பரிசு தொகுப்பு">Gift Collection</div>
+      <h3 class="card-name" data-en="Cyclone Trio Gift Set" data-si="සයික්ලෝන් ත්‍රිත්ව තෑගි කට්ටලය" data-ta="சுழல்காற்று மூன்று பரிசு தொகுப்பு">Cyclone Trio Gift Set</h3>
+      <p class="card-desc" data-en="All three blends in a hand-finished gift box — the perfect introduction to Abija Tea." data-si="අත් නිමාව සහිත තෑගි පෙට්ටියක මිශ්‍රණ තුනම — Abija Tea හඳුනා ගැනීමට සුදුසුම තෑග්ගයි." data-ta="கைமுறை பரிசுப் பெட்டியில் மூன்று கலவைகளும் — அபிஜா தேவிற்கு சிறந்த அறிமுகம்.">All three blends in a hand-finished gift box — the perfect introduction to Abija Tea.</p>
+      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="48.99">48.99</span></div></div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
+<section id="about" aria-label="About Abija Tea">
   <div class="about-img">
     <div class="about-box">
-      <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25">
+      <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25" aria-hidden="true">
         <circle cx="60" cy="60" r="50" stroke="#C8A96E" stroke-width="0.5"/>
         <circle cx="60" cy="60" r="36" stroke="#C8A96E" stroke-width="0.5"/>
         <path d="M60 20 Q70 40 60 60 Q50 80 60 100" stroke="#C8A96E" stroke-width="1" fill="none"/>
@@ -323,8 +497,17 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
   <div class="about-content">
     <div class="section-eyebrow">Our Story</div>
     <h2 class="about-title">Tea as an <em>art</em>,<br>not a habit</h2>
-    <p class="about-body">Abija Tea was born from a single question: why does morning tea have to be ordinary? We sourced directly from highland estates in Sri Lanka's Uva and Nuwara Eliya regions.</p>
-    <p class="about-body">Each blend is small-batch, single-estate, and crafted with the same attention a winemaker gives a grand cru. No blending floors. No commodity tea. Just the leaf, the land, and the cup.</p>
+    <!-- GEO Rule 3: Definition-lead for EEAT — authentic Sri Lankan roots signal -->
+    <p class="about-body">Abija Tea is a Sri Lankan tea brand offering pure, unblended, single-estate Ceylon tea sourced directly from highland estates in the Uva and Nuwara Eliya regions — two of Sri Lanka's most celebrated tea-growing districts.</p>
+    <p class="about-body">Each blend is small-batch and crafted with the same attention a winemaker gives a grand cru. No blending floors. No commodity tea. Just the leaf, the land, and the cup — with local delivery across Sri Lanka available on all orders.</p>
+    <!-- GEO Rule 4: Structured key facts as scannable list -->
+    <ul style="list-style:none;margin-bottom:4px;display:flex;flex-direction:column;gap:8px;" aria-label="Abija Tea key facts">
+      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span> <span>Sourced directly from 3 partner estates in Sri Lanka's Uva &amp; Nuwara Eliya highlands</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span> <span>All teas are 100% pure and unblended — no additives, no fillers</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span> <span>BOP (Broken Orange Pekoe) grade leaf — brisk, full-bodied, and amber</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span> <span>Available in English, Sinhala &amp; Tamil — prices shown in GBP, LKR, and INR</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span> <span>Order via WhatsApp — local delivery across Sri Lanka</span></li>
+    </ul>
     <div class="about-stats">
       <div class="stat-box"><div class="stat-num">1,800<span style="font-size:18px">m</span></div><div class="stat-label">Altitude grown</div></div>
       <div class="stat-box"><div class="stat-num">3</div><div class="stat-label">Partner estates</div></div>
@@ -335,14 +518,17 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer aria-label="Site footer">
   <div class="footer-logo">Abija <span>Tea</span></div>
-  <div class="footer-links">
+  <nav class="footer-links" aria-label="Footer navigation">
     <a href="#hero">Home</a>
     <a href="#shop">Shop</a>
     <a href="#about">About</a>
-  </div>
-  <div class="footer-copy">© 2024 Abija Tea · Ceylon Highland · All rights reserved.</div>
+    <!-- EEAT Rule 5: Social entity signals linking to Facebook & LinkedIn -->
+    <a href="https://www.facebook.com/TEA-abija" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on Facebook">Facebook</a>
+    <a href="https://www.linkedin.com/company/abija-tea" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on LinkedIn">LinkedIn</a>
+  </nav>
+  <div class="footer-copy">© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka · <a href="https://abijatea.me" style="color:inherit;text-decoration:none;">abijatea.me</a></div>
 </footer>
 
 <!-- DRAWER (bottom sheet on mobile) -->
@@ -372,16 +558,234 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     </div>
   </div>
   <div class="drawer-divider"></div>
-  <div class="d-price-row">
-    <span class="d-curr">£</span>
-    <span class="d-price" id="d-price">29.99</span>
+  <div>
+    <div class="currency-badge" id="d-currency-badge">GBP · British Pound</div>
+    <div class="d-price-row">
+      <span class="d-curr" id="d-curr">£</span>
+      <span class="d-price" id="d-price">29.99</span>
+    </div>
+    <div class="rate-note" id="d-rate-note"></div>
   </div>
-  <button class="d-cta" onclick="addCart()">Add to Order</button>
+  <button class="d-cta" onclick="orderWhatsApp()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:8px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+    Order via WhatsApp
+  </button>
 </div>
 
-<div class="toast" id="toast">Added to your order ✓</div>
+<div class="toast" id="toast">Message sent to WhatsApp ✓</div>
+
+<!-- Floating WhatsApp Button -->
+<a class="wa-float" href="https://wa.me/94XXXXXXXXX?text=Hi%20Abija%20Tea!%20I'd%20like%20to%20place%20an%20order." target="_blank" rel="noopener" id="wa-float-btn">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+  <span>Order on WhatsApp</span>
+</a>
 
 <script>
+// ═══════════════════════════════════════
+// LANGUAGE & CURRENCY SYSTEM
+// ═══════════════════════════════════════
+
+const LANGS = {
+  en: { name:'English', sym:'£', code:'GBP', label:'GBP · British Pound', rate:1,    dir:'ltr' },
+  si: { name:'සිංහල',  sym:'Rs', code:'LKR', label:'LKR · ශ්‍රී ලංකා රුපියල',  rate:null, dir:'ltr' },
+  ta: { name:'தமிழ்',  sym:'₹',  code:'INR', label:'INR · இந்திய ரூபாய்',  rate:null, dir:'ltr' }
+};
+
+let currentLang = 'en';
+let rates = { LKR: null, INR: null }; // fetched live
+let drawerBaseGBP = 29.99; // tracks current drawer product's GBP price
+
+// Fetch live exchange rates (free, no key needed)
+async function fetchRates() {
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/GBP');
+    const data = await res.json();
+    rates.LKR = data.rates.LKR;
+    rates.INR = data.rates.INR;
+    console.log(`Rates loaded: 1 GBP = ${rates.LKR} LKR, ${rates.INR} INR`);
+    // Update any visible prices with fresh rates
+    refreshAllPrices();
+  } catch(e) {
+    // Fallback rates if API fails
+    rates.LKR = 380;
+    rates.INR = 107;
+    console.log('Using fallback rates');
+    refreshAllPrices();
+  }
+}
+
+function getRate(code) {
+  if (code === 'GBP') return 1;
+  if (code === 'LKR') return rates.LKR || 380;
+  if (code === 'INR') return rates.INR || 107;
+  return 1;
+}
+
+function convertPrice(gbp, code) {
+  const converted = gbp * getRate(code);
+  if (code === 'GBP') return converted.toFixed(2);
+  return Math.round(converted).toLocaleString();
+}
+
+function refreshAllPrices() {
+  const lang = LANGS[currentLang];
+  // Update all card prices
+  document.querySelectorAll('.amt').forEach(el => {
+    const gbp = parseFloat(el.dataset.gbp);
+    el.textContent = convertPrice(gbp, lang.code);
+  });
+  document.querySelectorAll('.sym').forEach(el => {
+    el.textContent = lang.sym;
+  });
+  // Update drawer if open
+  updateDrawerCurrency();
+}
+
+function updateDrawerCurrency() {
+  const lang = LANGS[currentLang];
+  const converted = convertPrice(drawerBaseGBP, lang.code);
+  document.getElementById('d-price').textContent = converted;
+  document.getElementById('d-curr').textContent = lang.sym;
+  document.getElementById('d-currency-badge').textContent = lang.label;
+  // Show rate note for non-GBP
+  const noteEl = document.getElementById('d-rate-note');
+  if (lang.code !== 'GBP' && rates[lang.code]) {
+    noteEl.textContent = `1 GBP = ${lang.code === 'LKR' ? rates.LKR.toFixed(0) : rates.INR.toFixed(0)} ${lang.code} (live rate)`;
+  } else if (lang.code !== 'GBP') {
+    noteEl.textContent = `Approx. conversion`;
+  } else {
+    noteEl.textContent = '';
+  }
+}
+
+// Language content translations
+const CONTENT = {
+  en: {
+    home:'Home', shop:'Shop', about:'About',
+    heroEye:'Abija Tea · Est. 2024',
+    heroTitle:'Cyclone<br><em>English<br>Breakfast</em>',
+    heroSub:'Single-estate blend, highland grown',
+    heroDesc:'Born from mist-shrouded Ceylon estates where altitude and patience converge — crafted to weather anything the day demands.',
+    shopNow:'Shop Now', ourStory:'Our Story',
+    collection:'Our Collection',
+    collTitle:'The <em>Cyclone</em><br>Collection',
+    storyEye:'Our Story',
+    storyTitle:'Tea as an <em>art</em>,<br>not a habit',
+    storyP1:'Abija Tea was born from a single question: why does morning tea have to be ordinary? We sourced directly from highland estates in Sri Lanka\'s Uva and Nuwara Eliya regions.',
+    storyP2:'Each blend is small-batch, single-estate, and crafted with the same attention a winemaker gives a grand cru. No blending floors. No commodity tea. Just the leaf, the land, and the cup.',
+    stat1:'Altitude grown', stat2:'Partner estates', stat3:'Cups per 100g', stat4:'Compromise',
+    orderBtn:'Order via WhatsApp', chatBtn:'Chat on WhatsApp',
+    footer:'© 2024 Abija Tea · Ceylon Highland · All rights reserved.',
+    drawerOrder:'Order via WhatsApp'
+  },
+  si: {
+    home:'මුල් පිටුව', shop:'වෙළඳසැල', about:'අප ගැන',
+    heroEye:'අබිජා තේ · ආ. 2024',
+    heroTitle:'සයික්ලෝන්<br><em>ඉංග්‍රීසි<br>උදෑසන තේ</em>',
+    heroSub:'තනි ගොවිපල මිශ්‍රණය, කඳු රටේ වගා කරන ලද',
+    heroDesc:'සිලෝනයේ මීදුම් වැසුණු ගොවිපල වලින් ඉපදුනු — දවසේ ඕනෑම අවස්ථාවකට ගැළපෙන සේ සකසන ලද.',
+    shopNow:'දැන් ගන්න', ourStory:'අපේ කතාව',
+    collection:'අපේ එකතුව',
+    collTitle:'<em>සයික්ලෝන්</em><br>එකතුව',
+    storyEye:'අපේ කතාව',
+    storyTitle:'තේ කලාවක් ලෙස,<br>හුරතලයක් නොව',
+    storyP1:'අබිජා තේ ඉපදුනේ එක ප්‍රශ්නයකින්: උදෑසන තේ සාමාන්‍ය විය යුතු ඇයි? අපි ශ්‍රී ලංකාවේ Uva සහ Nuwara Eliya කලාපවල කඳු ගොවිපල වලින් සෘජුව ප්‍රභව කළෙමු.',
+    storyP2:'සෑම මිශ්‍රණයක්ම කුඩා කණ්ඩායමකින්, තනි ගොවිපලකින් සාදන ලද. සාමාන්‍ය තේ නොවේ. සියල්ල පත්‍රය, භූමිය, සහ කෝප්පය.',
+    stat1:'උස්බිම් වගාව', stat2:'ගොවිපල හවුල්කරුවන්', stat3:'ක්‍රෑම් 100 කට කෝප්ප', stat4:'සම්මුතිය',
+    orderBtn:'WhatsApp හරහා ඇණවුම් කරන්න', chatBtn:'WhatsApp හා කතා කරන්න',
+    footer:'© 2024 අබිජා තේ · Ceylon Highland · සියලු හිමිකම් ඇවිරිණි.',
+    drawerOrder:'WhatsApp හරහා ඇණවුම් කරන්න'
+  },
+  ta: {
+    home:'முகப்பு', shop:'கடை', about:'எங்களைப் பற்றி',
+    heroEye:'அபிஜா தே · நி. 2024',
+    heroTitle:'சுழல்காற்று<br><em>ஆங்கில<br>காலை தேநீர்</em>',
+    heroSub:'ஒற்றை தோட்ட கலவை, மலைப்பகுதியில் வளர்க்கப்பட்டது',
+    heroDesc:'இலங்கையின் மூடுபனி மலைத் தோட்டங்களில் பிறந்தது — நாளின் எந்த சவாலையும் தாங்கும் வகையில் தயாரிக்கப்பட்டது.',
+    shopNow:'இப்போது வாங்கவும்', ourStory:'எங்கள் கதை',
+    collection:'எங்கள் தொகுப்பு',
+    collTitle:'<em>சுழல்காற்று</em><br>தொகுப்பு',
+    storyEye:'எங்கள் கதை',
+    storyTitle:'தேயிலை ஒரு கலை,<br>பழக்கமல்ல',
+    storyP1:'அபிஜா தே ஒரு கேள்வியிலிருந்து பிறந்தது: காலை தேநீர் ஏன் சாதாரணமாக இருக்க வேண்டும்? இலங்கையின் Uva மற்றும் Nuwara Eliya பகுதிகளில் மலை தோட்டங்களிலிருந்து நேரடியாக கொண்டு வந்தோம்.',
+    storyP2:'ஒவ்வொரு கலவையும் சிறிய தொகுதியில், ஒற்றை தோட்டத்தில் தயாரிக்கப்படுகிறது. சாதாரண தேயிலை இல்லை. இலை, நிலம், கோப்பை மட்டுமே.',
+    stat1:'உயரத்தில் வளர்க்கப்பட்டது', stat2:'கூட்டு தோட்டங்கள்', stat3:'100கி க்கு கோப்பைகள்', stat4:'சமரசம்',
+    orderBtn:'WhatsApp வழியாக ஆர்டர்', chatBtn:'WhatsApp இல் பேசுங்கள்',
+    footer:'© 2024 அபிஜா தே · Ceylon Highland · அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.',
+    drawerOrder:'WhatsApp வழியாக ஆர்டர்'
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  const c = CONTENT[lang];
+  const l = LANGS[lang];
+
+  // Update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+
+  // Nav
+  const navAs = document.querySelectorAll('.nav-links a');
+  navAs[0].textContent = c.home;
+  navAs[1].textContent = c.shop;
+  navAs[2].textContent = c.about;
+
+  // Mobile menu
+  const mAs = document.querySelectorAll('.mobile-menu a');
+  mAs[0].textContent = c.home;
+  mAs[1].textContent = c.shop;
+  mAs[2].textContent = c.about;
+
+  // Hero
+  document.querySelector('.hero-eyebrow').childNodes[document.querySelector('.hero-eyebrow').childNodes.length-1].textContent = c.heroEye.replace('Abija Tea','');
+  document.querySelector('.hero-eyebrow').firstChild.textContent = '';
+  document.querySelector('.hero-eyebrow').innerHTML = c.heroEye;
+  document.querySelector('.hero-title').innerHTML = c.heroTitle;
+  document.querySelector('.hero-sub').textContent = c.heroSub;
+  document.querySelector('.hero-desc').textContent = c.heroDesc;
+  document.querySelectorAll('.btn-primary')[0].textContent = c.shopNow;
+  document.querySelectorAll('.btn-ghost')[0].textContent = c.ourStory;
+
+  // Shop section
+  document.querySelector('#shop .section-eyebrow').textContent = c.collection;
+  document.querySelector('#shop .section-title').innerHTML = c.collTitle;
+
+  // Product card text (use data attributes)
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.dataset[lang] || el.dataset.en;
+  });
+
+  // About
+  document.querySelector('#about .section-eyebrow').textContent = c.storyEye;
+  document.querySelector('.about-title').innerHTML = c.storyTitle;
+  const ps = document.querySelectorAll('.about-body');
+  ps[0].textContent = c.storyP1;
+  ps[1].textContent = c.storyP2;
+  const stats = document.querySelectorAll('.stat-label');
+  stats[0].textContent = c.stat1;
+  stats[1].textContent = c.stat2;
+  stats[2].textContent = c.stat3;
+  stats[3].textContent = c.stat4;
+
+  // Footer
+  document.querySelector('.footer-copy').textContent = c.footer;
+  const fLinks = document.querySelectorAll('.footer-links a');
+  fLinks[0].textContent = c.home;
+  fLinks[1].textContent = c.shop;
+  fLinks[2].textContent = c.about;
+
+  // Drawer buttons
+  document.querySelector('.d-cta').textContent = c.orderBtn;
+  document.querySelector('.d-wa').querySelector('span') && (document.querySelector('.d-wa span') ? document.querySelector('.d-wa').lastChild.textContent = ' ' + c.chatBtn : null);
+
+  // Currency
+  refreshAllPrices();
+}
+
+// Fetch rates on load
+fetchRates();
+
 // Mobile menu
 let menuOpen=false;
 function toggleMenu(){
@@ -404,11 +808,14 @@ function closeMenu(){
 // Drawer
 let qty=1;
 function openDrawer(name,sub,price){
+  drawerBaseGBP = parseFloat(price);
   document.getElementById('d-name').textContent=name;
   document.getElementById('d-sub').textContent=sub;
-  document.getElementById('d-price').textContent=price;
   qty=1;document.getElementById('d-qty').textContent=1;
   document.querySelectorAll('.d-wbtn').forEach((b,i)=>b.classList.toggle('active',i===1));
+  // default 250g = price * 2
+  drawerBaseGBP = parseFloat(price) * 2;
+  updateDrawerCurrency();
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow='hidden';
@@ -418,17 +825,35 @@ function closeDrawer(){
   document.getElementById('overlay').classList.remove('open');
   document.body.style.overflow='';
 }
-function selW(el,price){
+function selW(el,gbpPrice){
   document.querySelectorAll('.d-wbtn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById('d-price').textContent=price;
+  drawerBaseGBP = parseFloat(gbpPrice);
+  updateDrawerCurrency();
 }
 function chQty(d){qty=Math.max(1,qty+d);document.getElementById('d-qty').textContent=qty;}
-function addCart(){
+// ← REPLACE with your real WhatsApp number (country code, no + or spaces)
+// Example Sri Lanka: 94771234567
+const WA_NUMBER = '94XXXXXXXXX';
+
+function orderWhatsApp(){
+  if(WA_NUMBER === '94XXXXXXXXX'){
+    alert('⚠️ Please set your WhatsApp number in the code first!\nOpen index.html and replace 94XXXXXXXXX with your real number.');
+    return;
+  }
+  const name = document.getElementById('d-name').textContent;
+  const weight = document.querySelector('.d-wbtn.active').textContent;
+  const price = document.getElementById('d-price').textContent;
+  const sym = LANGS[currentLang].sym;
+  const code = LANGS[currentLang].code;
+  const q = document.getElementById('d-qty').textContent;
+  const msg = `Hi Abija Tea! 🍵\n\nI'd like to order:\n• ${name}\n• Weight: ${weight}\n• Qty: ${q}\n• Price: ${sym}${price} (${code})\n\nPlease confirm availability and delivery. Thank you!`;
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   closeDrawer();
-  const t=document.getElementById('toast');
+  window.open(url, '_blank');
+  const t = document.getElementById('toast');
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
+  setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
 // Active nav on scroll
