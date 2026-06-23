@@ -131,15 +131,6 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--mahogany);border:0.5px solid var(--gold);color:var(--parchment);font-size:11px;letter-spacing:0.12em;padding:12px 28px;transition:transform 0.3s;z-index:300;white-space:nowrap;border-radius:2px;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 
-/* WhatsApp */
-.d-wa{display:flex;align-items:center;justify-content:center;gap:10px;padding:15px;background:transparent;border:0.5px solid rgba(37,211,102,0.4);color:#25D366;font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;width:100%;text-decoration:none;margin-top:8px;}
-.d-wa:hover{background:rgba(37,211,102,0.08);border-color:#25D366;}
-.d-wa svg{flex-shrink:0;}
-.wa-float{position:fixed;bottom:28px;right:24px;z-index:150;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:14px 20px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,0.35);transition:all 0.2s;}
-.wa-float:hover{background:#20c55a;transform:translateY(-2px);box-shadow:0 6px 28px rgba(37,211,102,0.45);}
-.wa-float span{font-family:'Inter',sans-serif;}
-@media(max-width:600px){.wa-float span{display:none;}.wa-float{padding:14px;}}
-
 /* ══════════════════════════════
    RESPONSIVE BREAKPOINTS
 ══════════════════════════════ */
@@ -385,20 +376,10 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     <span class="d-curr">£</span>
     <span class="d-price" id="d-price">29.99</span>
   </div>
-  <button class="d-cta" onclick="orderWhatsApp()">Order via WhatsApp</button>
-  <a class="d-wa" id="wa-link" href="#" target="_blank" rel="noopener">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-    Chat on WhatsApp
-  </a>
+  <button class="d-cta" onclick="addCart()">Add to Order</button>
 </div>
 
-<div class="toast" id="toast">Message sent to WhatsApp ✓</div>
-
-<!-- Floating WhatsApp Button -->
-<a class="wa-float" href="https://wa.me/94XXXXXXXXX?text=Hi%20Abija%20Tea!%20I'd%20like%20to%20place%20an%20order." target="_blank" rel="noopener" id="wa-float-btn">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-  <span>Order on WhatsApp</span>
-</a>
+<div class="toast" id="toast">Added to your order ✓</div>
 
 <script>
 // Mobile menu
@@ -443,22 +424,11 @@ function selW(el,price){
   document.getElementById('d-price').textContent=price;
 }
 function chQty(d){qty=Math.max(1,qty+d);document.getElementById('d-qty').textContent=qty;}
-// ← REPLACE with your real WhatsApp number (country code, no + or spaces)
-const WA_NUMBER = '94716399502';
-
-function orderWhatsApp(){
-  const name = document.getElementById('d-name').textContent;
-  const weight = document.querySelector('.d-wbtn.active').textContent;
-  const price = document.getElementById('d-price').textContent;
-  const q = document.getElementById('d-qty').textContent;
-  const msg = `Hi Abija Tea! 🍵\n\nI'd like to order:\n• ${name}\n• Weight: ${weight}\n• Qty: ${q}\n• Price: £${price}\n\nPlease confirm availability and delivery details. Thank you!`;
-  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-  document.getElementById('wa-link').href = url;
-  window.open(url, '_blank');
+function addCart(){
   closeDrawer();
-  const t = document.getElementById('toast');
+  const t=document.getElementById('toast');
   t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 2500);
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 
 // Active nav on scroll
