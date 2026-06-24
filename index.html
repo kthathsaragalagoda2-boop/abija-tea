@@ -425,7 +425,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .product-card:hover{border-color:rgba(200,169,110,0.3);background:rgba(200,169,110,0.04);}
 .product-card:hover::after{opacity:1;}
 .product-card.featured{grid-column:span 2;}
-.card-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.6;}
+.card-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;opacity:1;}
 .card-name{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,32px);font-weight:300;color:var(--parchment);margin-bottom:8px;line-height:1.1;}
 .card-desc{font-size:13px;line-height:1.7;color:rgba(245,237,216,0.72);margin-bottom:24px;}
 .card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
@@ -557,9 +557,9 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
   </ul>
   <div style="display:flex;align-items:center;gap:14px;">
     <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN · Rs</button>
-      <button class="lang-btn" onclick="setLang('si')" id="btn-si">සිං Rs</button>
-      <button class="lang-btn" onclick="setLang('ta')" id="btn-ta">தமிழ் ₹</button>
+      <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
+      <button class="lang-btn" onclick="setLang('si')" id="btn-si">සිං</button>
+      <button class="lang-btn" onclick="setLang('ta')" id="btn-ta">தமிழ்</button>
     </div>
     <button class="burger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn">
       <span id="b1"></span><span id="b2"></span><span id="b3"></span>
@@ -768,7 +768,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     <a href="https://www.facebook.com/TEA-abija" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on Facebook">Facebook</a>
     <a href="https://www.linkedin.com/company/abija-tea" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on LinkedIn">LinkedIn</a>
   </nav>
-  <div class="footer-copy">© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka · <a href="https://abijatea.me" style="color:rgba(245,237,216,0.65);text-decoration:underline;text-underline-offset:2px;">abijatea.me</a></div>
+  <div class="footer-copy">© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka · <a href="https://abijatea.me" style="color:var(--parchment);text-decoration:underline;text-underline-offset:2px;">abijatea.me</a></div>
 </footer>
 
 <!-- DRAWER (bottom sheet on mobile) -->
@@ -826,11 +826,9 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 // ═══════════════════════════════════════
 
 const LANGS = {
-  en: { name:'English', sym:'Rs', code:'LKR', label:'LKR · Sri Lanka Rupee', rate:null, dir:'ltr' },
-  si: { name:'සිංහල',  sym:'රු', code:'LKR', label:'LKR · ශ්‍රී ලංකා රුපියල',  rate:null, dir:'ltr' },
-  ta: { name:'தமிழ்',  sym:'₹',  code:'INR', label:'INR · இந்திய ரூபாய்',  rate:null, dir:'ltr' }
-};
-  ta: { name:'தமிழ்',  sym:'₹',  code:'INR', label:'INR · இந்திய ரூபாய்',  rate:null, dir:'ltr' }
+  en: { name:'English', sym:'Rs', code:'LKR', label:'LKR - Sri Lanka Rupee', rate:null, dir:'ltr' },
+  si: { name:'Sinhala', sym:'Rs', code:'LKR', label:'LKR - Sri Lanka Rupee', rate:null, dir:'ltr' },
+  ta: { name:'Tamil',   sym:'INR', code:'INR', label:'INR - Indian Rupee',   rate:null, dir:'ltr' }
 };
 
 let currentLang = 'en';
