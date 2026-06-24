@@ -388,8 +388,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .mobile-menu a:hover{color:var(--gold);}
 
 /* ── HERO ── */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:120px 48px 80px;gap:40px;}
-.hero-left{display:flex;flex-direction:column;}
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0;gap:0;position:relative;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:120px 48px 80px;position:relative;z-index:2;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;line-height:0.95;color:var(--parchment);margin-bottom:12px;}
@@ -401,12 +401,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .btn-primary:hover{background:var(--gold-light);}
 .btn-ghost{display:inline-block;padding:14px 36px;background:transparent;border:0.5px solid rgba(200,169,110,0.3);color:var(--gold);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;}
 .btn-ghost:hover{border-color:var(--gold);background:rgba(200,169,110,0.08);}
-.hero-right{display:flex;justify-content:center;align-items:center;}
-.hero-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;}
-.hero-logo-ring{width:min(360px,82vw);height:min(360px,82vw);border-radius:50%;border:0.5px solid rgba(200,169,110,0.2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,rgba(44,24,16,0.4) 0%,transparent 70%);}
-.hero-logo-ring::before{content:'';position:absolute;width:105%;height:105%;border-radius:50%;border:0.5px solid rgba(200,169,110,0.08);}
-.hero-logo-img{width:88%;height:88%;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 32px rgba(200,169,110,0.25));}
-.hero-logo-glow{position:absolute;width:min(360px,82vw);height:min(360px,82vw);border-radius:50%;background:radial-gradient(ellipse at center,rgba(200,169,110,0.06) 0%,transparent 65%);pointer-events:none;}
+.hero-right{display:flex;justify-content:center;align-items:stretch;position:relative;overflow:hidden;}
+.hero-art-wrap{position:relative;width:100%;height:100%;min-height:500px;}
+.hero-art-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
+.hero-art-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(10,8,4,0.5) 30%,rgba(10,8,4,0) 60%),linear-gradient(to top,var(--ink) 0%,transparent 20%);pointer-events:none;}
 
 /* ── MARQUEE ── */
 .marquee-bar{border-top:0.5px solid rgba(200,169,110,0.15);border-bottom:0.5px solid rgba(200,169,110,0.15);padding:14px 0;overflow:hidden;white-space:nowrap;}
@@ -505,11 +503,12 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 
 /* Tablet */
 @media(max-width:900px){
-  #hero{grid-template-columns:1fr;padding:100px 24px 60px;text-align:center;}
-  .hero-eyebrow{justify-content:center;}
+  #hero{grid-template-columns:1fr;min-height:100vh;}
+  .hero-left{padding:100px 24px 60px;background:linear-gradient(to bottom,rgba(10,8,4,0.85) 0%,rgba(10,8,4,0.7) 100%);}
+  .hero-right{position:fixed;inset:0;z-index:-1;opacity:0.35;}
+  .hero-art-overlay{background:none;}
   .hero-desc{max-width:100%;}
   .btn-row{justify-content:center;}
-  .hero-right{display:none;}
   #about{grid-template-columns:1fr;gap:40px;}
   .about-img{max-width:380px;margin:0 auto;}
   .products-grid{grid-template-columns:1fr 1fr;}
@@ -550,10 +549,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 
 <!-- NAV -->
 <nav aria-label="Main navigation">
-  <a href="#hero" class="nav-logo" aria-label="Abija Tea — Home">
-    <img src="/logo.png" alt="Abija Tea logo" class="nav-logo-img" width="36" height="36"/>
-    Abija <span>Tea</span>
-  </a>
+  <a href="#hero" class="nav-logo" aria-label="Abija Tea — Home">Abija <span>Tea</span></a>
   <ul class="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#shop">Shop</a></li>
@@ -573,7 +569,6 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu" aria-modal="true">
-  <img src="/logo.png" alt="Abija Tea" style="width:80px;height:80px;border-radius:50%;object-fit:contain;margin-bottom:8px;opacity:0.9;"/>
   <a href="#hero" onclick="closeMenu()">Home</a>
   <a href="#shop" onclick="closeMenu()">Shop</a>
   <a href="#about" onclick="closeMenu()">About</a>
@@ -596,12 +591,10 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
       <a href="#about" class="btn-ghost">Our Belief</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-logo-wrap">
-      <div class="hero-logo-ring">
-        <img src="/logo.png" alt="Abija Tea — Psychedelic Blends, Tea Co. Est. 2024" class="hero-logo-img" width="340" height="340"/>
-      </div>
-      <div class="hero-logo-glow" aria-hidden="true"></div>
+  <div class="hero-right" aria-hidden="true">
+    <div class="hero-art-wrap">
+      <img src="/hero-art.png" alt="" class="hero-art-img" fetchpriority="high" decoding="async"/>
+      <div class="hero-art-overlay"></div>
     </div>
   </div>
 </section>
@@ -725,8 +718,14 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 <!-- ABOUT -->
 <section id="about" aria-label="About Abija Tea">
   <div class="about-img">
-    <div class="about-box" style="padding:0;overflow:hidden;background:transparent;border:none;">
-      <img src="/logo.png" alt="Abija Tea brand logo" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 32px rgba(200,169,110,0.2));" width="400" height="500"/>
+    <div class="about-box">
+      <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="opacity:0.25">
+        <circle cx="60" cy="60" r="50" stroke="#C8A96E" stroke-width="0.5"/>
+        <circle cx="60" cy="60" r="36" stroke="#C8A96E" stroke-width="0.5"/>
+        <path d="M60 20 Q70 40 60 60 Q50 80 60 100" stroke="#C8A96E" stroke-width="1" fill="none"/>
+        <path d="M20 60 Q40 50 60 60 Q80 70 100 60" stroke="#C8A96E" stroke-width="1" fill="none"/>
+        <circle cx="60" cy="60" r="4" fill="#C8A96E"/>
+      </svg>
       <div class="about-badge">
         <span>2024</span>
         <span>Founded</span>
