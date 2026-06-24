@@ -347,7 +347,10 @@ body.lang-si .lang-en-only { display:none; }
   opacity: 0.7;
 }
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -367,14 +370,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,237,216,0.5);text-decoration:none;transition:color 0.2s;}
 .nav-links a:hover,.nav-links a.active{color:var(--gold);}
-.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;outline:none;}
+.burger:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px;}
 .burger span{display:block;width:22px;height:1px;background:var(--gold);transition:all 0.3s;}
 .lang-switcher{display:flex;align-items:center;gap:2px;background:rgba(200,169,110,0.08);border:0.5px solid rgba(200,169,110,0.2);border-radius:20px;padding:3px;}
 .lang-btn{font-size:10px;font-weight:500;letter-spacing:0.08em;padding:5px 11px;border-radius:16px;border:none;background:transparent;color:rgba(200,169,110,0.5);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap;}
 .lang-btn.active{background:var(--gold);color:var(--ink);}
 .lang-btn:hover:not(.active){color:var(--gold);}
-.currency-badge{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,169,110,0.4);margin-bottom:2px;}
-.rate-note{font-size:10px;color:rgba(200,169,110,0.35);margin-top:3px;}
+.currency-badge{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,169,110,0.80);margin-bottom:2px;}
+.rate-note{font-size:10px;color:rgba(200,169,110,0.80);margin-top:3px;}
 .mobile-menu{display:none;position:fixed;inset:0;top:57px;background:rgba(10,8,4,0.97);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:40px;}
 .mobile-menu.open{display:flex;}
 .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;color:var(--parchment);text-decoration:none;letter-spacing:0.06em;}
@@ -388,7 +392,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;line-height:0.95;color:var(--parchment);margin-bottom:12px;}
 .hero-title em{font-style:italic;color:var(--gold-light);}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:rgba(200,169,110,0.7);margin-bottom:32px;}
-.hero-desc{font-size:14px;line-height:1.8;color:rgba(245,237,216,0.48);max-width:380px;margin-bottom:40px;}
+.hero-desc{font-size:14px;line-height:1.8;color:rgba(245,237,216,0.75);max-width:380px;margin-bottom:40px;}
 .btn-row{display:flex;flex-wrap:wrap;gap:10px;}
 .btn-primary{display:inline-block;padding:15px 36px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:background 0.2s;border:none;cursor:pointer;}
 .btn-primary:hover{background:var(--gold-light);}
@@ -401,7 +405,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 /* ── MARQUEE ── */
 .marquee-bar{border-top:0.5px solid rgba(200,169,110,0.15);border-bottom:0.5px solid rgba(200,169,110,0.15);padding:14px 0;overflow:hidden;white-space:nowrap;}
 .marquee-inner{display:inline-flex;animation:marquee 18s linear infinite;}
-.marquee-item{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.4);padding:0 32px;}
+.marquee-item{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:rgba(200,169,110,0.75);padding:0 32px;}
 .marquee-dot{color:var(--gold);opacity:0.3;}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -419,12 +423,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .product-card.featured{grid-column:span 2;}
 .card-tag{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;opacity:0.6;}
 .card-name{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,32px);font-weight:300;color:var(--parchment);margin-bottom:8px;line-height:1.1;}
-.card-desc{font-size:13px;line-height:1.7;color:rgba(245,237,216,0.42);margin-bottom:24px;}
+.card-desc{font-size:13px;line-height:1.7;color:rgba(245,237,216,0.72);margin-bottom:24px;}
 .card-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 .card-price{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--gold);}
 .card-price span{font-size:16px;}
 .card-weights{display:flex;gap:5px;flex-wrap:wrap;}
-.w-pill{font-size:10px;letter-spacing:0.1em;padding:4px 9px;border:0.5px solid rgba(200,169,110,0.2);color:rgba(200,169,110,0.5);}
+.w-pill{font-size:10px;letter-spacing:0.1em;padding:4px 9px;border:0.5px solid rgba(200,169,110,0.2);color:rgba(200,169,110,0.80);}
 .w-pill.sel{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,0.1);}
 
 /* ── DRAWER ── */
@@ -440,7 +444,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .drawer-divider{height:0.5px;background:rgba(200,169,110,0.15);}
 .d-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:8px;}
 .d-weights{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
-.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:rgba(245,237,216,0.45);font-size:11px;letter-spacing:0.08em;padding:12px 4px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;touch-action:manipulation;}
+.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:rgba(245,237,216,0.72);font-size:11px;letter-spacing:0.08em;padding:12px 4px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;touch-action:manipulation;}
 .d-wbtn:hover,.d-wbtn.active{border-color:var(--gold);color:var(--gold-light);background:rgba(200,169,110,0.1);}
 .d-qty{display:flex;align-items:center;width:fit-content;}
 .d-qbtn{width:44px;height:44px;background:transparent;border:0.5px solid rgba(200,169,110,0.2);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;touch-action:manipulation;}
@@ -461,18 +465,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .about-content{display:flex;flex-direction:column;gap:20px;}
 .about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4vw,52px);font-weight:300;color:var(--parchment);line-height:1.1;}
 .about-title em{font-style:italic;color:var(--gold-light);}
-.about-body{font-size:14px;line-height:1.85;color:rgba(245,237,216,0.48);}
+.about-body{font-size:14px;line-height:1.85;color:rgba(245,237,216,0.75);}
 .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
 .stat-box{border:0.5px solid rgba(200,169,110,0.15);padding:16px;}
 .stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);}
-.stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,237,216,0.32);margin-top:4px;}
+.stat-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,237,216,0.72);margin-top:4px;}
 
 /* ── FOOTER ── */
 footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;}
 .footer-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);}
 .footer-logo span{color:var(--gold);}
 .footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
-.footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.4);text-decoration:none;transition:color 0.2s;}
+.footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.75);text-decoration:none;transition:color 0.2s;}
 .footer-links a:hover{color:var(--gold);}
 .footer-copy{font-size:11px;color:rgba(245,237,216,0.2);letter-spacing:0.08em;}
 
@@ -552,20 +556,21 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
       <button class="lang-btn" onclick="setLang('si')" id="btn-si">සිං Rs</button>
       <button class="lang-btn" onclick="setLang('ta')" id="btn-ta">தமிழ் ₹</button>
     </div>
-    <div class="burger" onclick="toggleMenu()" aria-label="Menu">
+    <button class="burger" onclick="toggleMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn">
       <span id="b1"></span><span id="b2"></span><span id="b3"></span>
-    </div>
+    </button>
   </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu" aria-modal="true">
   <a href="#hero" onclick="closeMenu()">Home</a>
   <a href="#shop" onclick="closeMenu()">Shop</a>
   <a href="#about" onclick="closeMenu()">About</a>
 </div>
 
 <!-- HERO -->
+<main id="main-content">
 <section id="hero" aria-label="Abija Tea — Pure Ceylon Tea">
   <div class="hero-left">
     <div class="hero-eyebrow">Abija Tea · Talawakelle, Kandy · Est. 2024</div>
@@ -729,7 +734,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
         <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.55);border:0.5px solid rgba(200,169,110,0.15);padding:4px 10px;">✗ No Blending</li>
       </ul>
       <div class="card-footer">
-        <div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="12.99">12.99</span></div>
+        <div class="card-price"><span class="sym">Rs</span><span class="amt" data-gbp="12.99">12.99</span></div>
         <div class="card-weights">
           <span class="w-pill sel">100g</span>
           <span class="w-pill">250g</span>
@@ -752,7 +757,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
         data-ta="Talawakelle இலிருந்து வலுவான, சுத்தமான, நேர்மையான தினசரி தேநீர். ஏற்றுமதி தர கருப்பு டஸ்ட் — தூய்மையான மற்றும் கலப்படமற்றது.">
         Strong, clean, honest daily tea from Talawakelle. Export-quality black dust — pure and unblended at an honest price. What tea was before shortcuts existed.
       </p>
-      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="8.99">8.99</span></div></div>
+      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span><span class="amt" data-gbp="8.99">8.99</span></div></div>
     </div>
 
     <!-- GREEN TEA -->
@@ -766,7 +771,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
         data-ta="Talawakelle இலிருந்து தூய, சுவையில்லாத Ceylon பச்சை தேநீர். இயற்கை ஆன்டிஆக்ஸிடன்ட்கள். கொழுப்பு எரிசக்தி, வளர்சிதை மாற்றம், மன தெளிவை ஆதரிக்கிறது.">
         Pure, unflavoured Ceylon green tea from Talawakelle. No additives. Natural antioxidants, supports fat burning, metabolism, and mental clarity. The real green tea — not the flavoured version the market sells.
       </p>
-      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="13.99">13.99</span></div></div>
+      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span><span class="amt" data-gbp="13.99">13.99</span></div></div>
     </div>
 
     <!-- SILVER TIPS -->
@@ -780,7 +785,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
         data-ta="Talawakelle இலிருந்து அரிய, கைகளால் பறிக்கப்பட்ட வெள்ளை தேயிலை மொட்டுகள். குறைந்தபட்சம். நேர்த்தி. பரிசாக தரத்தக்கது.">
         Rare, handpicked white tea buds from Talawakelle. Minimal. Elegant. Gift-worthy. Silver Tips are what tea is at its most honest — nothing added, nothing taken away.
       </p>
-      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="34.99">34.99</span></div></div>
+      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span><span class="amt" data-gbp="34.99">34.99</span></div></div>
     </div>
 
     <!-- GOLDEN TIPS -->
@@ -794,7 +799,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
         data-ta="அபிஜாவின் கிரீட மணி. Talawakelle இலிருந்து வரையறுக்கப்பட்ட அறுவடை — ஆழமான நறுமணம், மென்மையான உடல். இது தேயிலை மகத்துவம்.">
         The crown jewel of Abija. A limited harvest from Talawakelle — deep aroma, smooth body, and a richness that cannot be manufactured. This is what tea greatness tastes like.
       </p>
-      <div class="card-footer"><div class="card-price"><span class="sym">£</span><span class="amt" data-gbp="44.99">44.99</span></div></div>
+      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span><span class="amt" data-gbp="44.99">44.99</span></div></div>
     </div>
 
   </div>
@@ -825,11 +830,11 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     <p class="about-body">Most tea brands today use colouring to fake strength, add flavours to hide poor quality, and blend waste tea. Abija exists to set a different standard. The estate name is printed boldly on every product. Transparency is not a marketing choice — it is a non-negotiable.</p>
     <!-- GEO Rule 4: Structured facts from brand document -->
     <ul style="list-style:none;margin-bottom:16px;display:flex;flex-direction:column;gap:8px;" aria-label="Abija Tea brand facts">
-      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Estate: Talawakelle, Kandy, Sri Lanka — printed boldly on every product</span></li>
-      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>No colouring · No flavouring · No blending · No additives — ever</span></li>
-      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>You can see real tea particles with the naked eye</span></li>
-      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Natural tea flower aroma — not manufactured fragrance</span></li>
-      <li style="font-size:13px;color:rgba(245,237,216,0.48);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Available in English, Sinhala &amp; Tamil · GBP, LKR &amp; INR · WhatsApp ordering</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.75);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Estate: Talawakelle, Kandy, Sri Lanka — printed boldly on every product</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.75);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>No colouring · No flavouring · No blending · No additives — ever</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.75);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>You can see real tea particles with the naked eye</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.75);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Natural tea flower aroma — not manufactured fragrance</span></li>
+      <li style="font-size:13px;color:rgba(245,237,216,0.75);display:flex;gap:10px;align-items:flex-start;"><span style="color:var(--gold);flex-shrink:0;">✦</span><span>Available in English, Sinhala &amp; Tamil · GBP, LKR &amp; INR · WhatsApp ordering</span></li>
     </ul>
     <div class="about-stats">
       <div class="stat-box"><div class="stat-num">5</div><div class="stat-label" id="sl-stat1">Products</div></div>
@@ -839,6 +844,8 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer aria-label="Site footer">
@@ -882,9 +889,9 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
   </div>
   <div class="drawer-divider"></div>
   <div>
-    <div class="currency-badge" id="d-currency-badge">GBP · British Pound</div>
+    <div class="currency-badge" id="d-currency-badge">LKR · Sri Lanka Rupee</div>
     <div class="d-price-row">
-      <span class="d-curr" id="d-curr">£</span>
+      <span class="d-curr" id="d-curr">Rs</span>
       <span class="d-price" id="d-price">29.99</span>
     </div>
     <div class="rate-note" id="d-rate-note"></div>
@@ -898,7 +905,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 <div class="toast" id="toast">Message sent to WhatsApp ✓</div>
 
 <!-- Floating WhatsApp Button -->
-<a class="wa-float" href="https://wa.me/94XXXXXXXXX?text=Hi%20Abija%20Tea!%20I'd%20like%20to%20place%20an%20order." target="_blank" rel="noopener" id="wa-float-btn">
+<a class="wa-float" href="https://wa.me/94XXXXXXXXX?text=Hi%20Abija%20Tea!%20I'd%20like%20to%20place%20an%20order." target="_blank" rel="noopener noreferrer" id="wa-float-btn" aria-label="Order Abija Tea on WhatsApp">
   <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
   <span>Order on WhatsApp</span>
 </a>
@@ -911,6 +918,8 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 const LANGS = {
   en: { name:'English', sym:'Rs', code:'LKR', label:'LKR · Sri Lanka Rupee', rate:null, dir:'ltr' },
   si: { name:'සිංහල',  sym:'රු', code:'LKR', label:'LKR · ශ්‍රී ලංකා රුපියල',  rate:null, dir:'ltr' },
+  ta: { name:'தமிழ்',  sym:'₹',  code:'INR', label:'INR · இந்திய ரூபாய்',  rate:null, dir:'ltr' }
+};
   ta: { name:'தமிழ்',  sym:'₹',  code:'INR', label:'INR · இந்திய ரூபாய்',  rate:null, dir:'ltr' }
 };
 
@@ -1110,7 +1119,7 @@ function setLang(lang) {
 }
 
 // Fetch rates on load
-fetchRates();
+window.addEventListener('load', fetchRates);
 
 // Mobile menu
 let menuOpen=false;
@@ -1118,6 +1127,9 @@ function toggleMenu(){
   menuOpen=!menuOpen;
   document.getElementById('mobileMenu').classList.toggle('open',menuOpen);
   document.body.style.overflow=menuOpen?'hidden':'';
+  const btn=document.getElementById('burgerBtn');
+  btn.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+  btn.setAttribute('aria-label', menuOpen ? 'Close navigation menu' : 'Open navigation menu');
   document.getElementById('b1').style.transform=menuOpen?'rotate(45deg) translate(4px,4px)':'';
   document.getElementById('b2').style.opacity=menuOpen?'0':'1';
   document.getElementById('b3').style.transform=menuOpen?'rotate(-45deg) translate(4px,-4px)':'';
@@ -1126,6 +1138,9 @@ function closeMenu(){
   menuOpen=false;
   document.getElementById('mobileMenu').classList.remove('open');
   document.body.style.overflow='';
+  const btn=document.getElementById('burgerBtn');
+  btn.setAttribute('aria-expanded','false');
+  btn.setAttribute('aria-label','Open navigation menu');
   document.getElementById('b1').style.transform='';
   document.getElementById('b2').style.opacity='1';
   document.getElementById('b3').style.transform='';
@@ -1163,7 +1178,7 @@ function chQty(d){qty=Math.max(1,qty+d);document.getElementById('d-qty').textCon
 const WA_NUMBER = '94XXXXXXXXX';
 
 function orderWhatsApp(){
-  if(WA_NUMBER === '94716399502'){
+  if(WA_NUMBER === '94XXXXXXXXX'){
     alert('⚠️ Please set your WhatsApp number in the code first!\nOpen index.html and replace 94XXXXXXXXX with your real number.');
     return;
   }
