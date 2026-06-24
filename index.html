@@ -27,8 +27,10 @@
 <meta property="og:url" content="https://abijatea.me/"/>
 <meta property="og:title" content="Abija Tea | Pure Ceylon Tea, Talawakelle Estate"/>
 <meta property="og:description" content="Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Pure, uncoloured, unflavoured Ceylon tea. No blends. No shortcuts. For people who know real tea."/>
-<meta property="og:image" content="https://abijatea.me/og-image.jpg"/>
-<meta property="og:image:width" content="1200"/>
+<link rel="icon" type="image/png" href="/logo.png"/>
+<link rel="apple-touch-icon" href="/logo.png"/>
+<meta property="og:image" content="https://abijatea.me/logo.png"/>
+<meta property="og:image:width" content="630"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:image:alt" content="Abija Tea — Pure Ceylon Tea from Talawakelle, Kandy, Sri Lanka"/>
 <meta property="og:locale" content="en_GB"/>
@@ -365,7 +367,8 @@ body{background:var(--ink);color:var(--parchment);font-family:'Inter',sans-serif
 
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 24px;background:rgba(10,8,4,0.88);backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(200,169,110,0.12);}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);text-decoration:none;}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.12em;color:var(--parchment);text-decoration:none;display:flex;align-items:center;gap:10px;}
+.nav-logo-img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;}
 .nav-logo span{color:var(--gold);}
 .nav-links{display:flex;gap:28px;list-style:none;}
 .nav-links a{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,237,216,0.5);text-decoration:none;transition:color 0.2s;}
@@ -374,7 +377,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .burger:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px;}
 .burger span{display:block;width:22px;height:1px;background:var(--gold);transition:all 0.3s;}
 .lang-switcher{display:flex;align-items:center;gap:2px;background:rgba(200,169,110,0.08);border:0.5px solid rgba(200,169,110,0.2);border-radius:20px;padding:3px;}
-.lang-btn{font-size:10px;font-weight:500;letter-spacing:0.08em;padding:5px 11px;border-radius:16px;border:none;background:transparent;color:rgba(200,169,110,0.5);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap;}
+.lang-btn{font-size:10px;font-weight:500;letter-spacing:0.08em;padding:5px 11px;border-radius:16px;border:none;background:transparent;color:rgba(200,169,110,0.85);cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;white-space:nowrap;}
 .lang-btn.active{background:var(--gold);color:var(--ink);}
 .lang-btn:hover:not(.active){color:var(--gold);}
 .currency-badge{font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(200,169,110,0.80);margin-bottom:2px;}
@@ -399,8 +402,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .btn-ghost{display:inline-block;padding:14px 36px;background:transparent;border:0.5px solid rgba(200,169,110,0.3);color:var(--gold);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:all 0.2s;cursor:pointer;}
 .btn-ghost:hover{border-color:var(--gold);background:rgba(200,169,110,0.08);}
 .hero-right{display:flex;justify-content:center;align-items:center;}
-.hero-ring{width:min(340px,80vw);height:min(340px,80vw);border-radius:50%;border:0.5px solid rgba(200,169,110,0.15);display:flex;align-items:center;justify-content:center;position:relative;}
-.hero-ring::before{content:'';position:absolute;width:85%;height:85%;border-radius:50%;border:0.5px solid rgba(200,169,110,0.07);}
+.hero-logo-wrap{position:relative;display:flex;align-items:center;justify-content:center;}
+.hero-logo-ring{width:min(360px,82vw);height:min(360px,82vw);border-radius:50%;border:0.5px solid rgba(200,169,110,0.2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at center,rgba(44,24,16,0.4) 0%,transparent 70%);}
+.hero-logo-ring::before{content:'';position:absolute;width:105%;height:105%;border-radius:50%;border:0.5px solid rgba(200,169,110,0.08);}
+.hero-logo-img{width:88%;height:88%;object-fit:contain;border-radius:50%;filter:drop-shadow(0 0 32px rgba(200,169,110,0.25));}
+.hero-logo-glow{position:absolute;width:min(360px,82vw);height:min(360px,82vw);border-radius:50%;background:radial-gradient(ellipse at center,rgba(200,169,110,0.06) 0%,transparent 65%);pointer-events:none;}
 
 /* ── MARQUEE ── */
 .marquee-bar{border-top:0.5px solid rgba(200,169,110,0.15);border-bottom:0.5px solid rgba(200,169,110,0.15);padding:14px 0;overflow:hidden;white-space:nowrap;}
@@ -478,7 +484,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 .footer-links{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
 .footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.75);text-decoration:none;transition:color 0.2s;}
 .footer-links a:hover{color:var(--gold);}
-.footer-copy{font-size:11px;color:rgba(245,237,216,0.2);letter-spacing:0.08em;}
+.footer-copy{font-size:11px;color:rgba(245,237,216,0.65);letter-spacing:0.08em;}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--mahogany);border:0.5px solid var(--gold);color:var(--parchment);font-size:11px;letter-spacing:0.12em;padding:12px 28px;transition:transform 0.3s;z-index:300;white-space:nowrap;border-radius:2px;}
@@ -544,7 +550,10 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 
 <!-- NAV -->
 <nav aria-label="Main navigation">
-  <a href="#hero" class="nav-logo" aria-label="Abija Tea — Home">Abija <span>Tea</span></a>
+  <a href="#hero" class="nav-logo" aria-label="Abija Tea — Home">
+    <img src="/logo.png" alt="Abija Tea logo" class="nav-logo-img" width="36" height="36"/>
+    Abija <span>Tea</span>
+  </a>
   <ul class="nav-links">
     <li><a href="#hero" class="active">Home</a></li>
     <li><a href="#shop">Shop</a></li>
@@ -564,6 +573,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu" aria-modal="true">
+  <img src="/logo.png" alt="Abija Tea" style="width:80px;height:80px;border-radius:50%;object-fit:contain;margin-bottom:8px;opacity:0.9;"/>
   <a href="#hero" onclick="closeMenu()">Home</a>
   <a href="#shop" onclick="closeMenu()">Shop</a>
   <a href="#about" onclick="closeMenu()">About</a>
@@ -587,104 +597,11 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     </div>
   </div>
   <div class="hero-right">
-    <div class="hero-luxury-wrap">
-      <div class="luxury-img-frame">
-        <div class="luxury-corner tl"></div>
-        <div class="luxury-corner tr"></div>
-        <div class="luxury-corner bl"></div>
-        <div class="luxury-corner br"></div>
-        <!-- Luxury tea scene SVG -->
-        <svg class="lux-tea-svg" width="260" height="320" viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="teaLiquid" cx="50%" cy="35%" r="60%">
-              <stop offset="0%" stop-color="#8B4513" stop-opacity="0.95"/>
-              <stop offset="60%" stop-color="#5C2A0A" stop-opacity="1"/>
-              <stop offset="100%" stop-color="#3D1A0A" stop-opacity="1"/>
-            </radialGradient>
-            <radialGradient id="cupBody" cx="25%" cy="15%" r="85%">
-              <stop offset="0%" stop-color="#F0E6D0"/>
-              <stop offset="50%" stop-color="#D8C898"/>
-              <stop offset="100%" stop-color="#B8A878"/>
-            </radialGradient>
-            <radialGradient id="saucerGrad" cx="30%" cy="20%" r="80%">
-              <stop offset="0%" stop-color="#E8D8B0"/>
-              <stop offset="100%" stop-color="#C4A86A"/>
-            </radialGradient>
-            <radialGradient id="teaGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#C8A96E" stop-opacity="0.15"/>
-              <stop offset="100%" stop-color="#C8A96E" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="3" result="blur"/>
-              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-            <filter id="softShadow">
-              <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.4"/>
-            </filter>
-          </defs>
-
-          <!-- Ambient glow -->
-          <ellipse cx="130" cy="210" rx="90" ry="30" fill="url(#teaGlow)"/>
-
-          <!-- Saucer shadow -->
-          <ellipse cx="130" cy="228" rx="72" ry="10" fill="#000" opacity="0.3"/>
-
-          <!-- Saucer -->
-          <ellipse cx="130" cy="222" rx="70" ry="12" fill="url(#saucerGrad)"/>
-          <ellipse cx="130" cy="220" rx="68" ry="10" fill="none" stroke="#C8A96E" stroke-width="0.5" opacity="0.6"/>
-          <ellipse cx="130" cy="219" rx="48" ry="6" fill="none" stroke="#C8A96E" stroke-width="0.3" opacity="0.4"/>
-
-          <!-- Cup body -->
-          <path d="M80 155 Q77 205 90 214 Q130 224 170 214 Q183 205 180 155 Z" fill="url(#cupBody)" filter="url(#softShadow)"/>
-
-          <!-- Cup interior shadow -->
-          <path d="M85 158 Q83 200 92 210 Q130 218 168 210 Q177 200 175 158 Z" fill="rgba(0,0,0,0.08)"/>
-
-          <!-- Tea surface -->
-          <ellipse cx="130" cy="155" rx="50" ry="14" fill="url(#teaLiquid)"/>
-
-          <!-- Tea surface sheen -->
-          <ellipse cx="118" cy="152" rx="18" ry="5" fill="rgba(200,140,60,0.25)" transform="rotate(-15,118,152)"/>
-
-          <!-- Cup rim -->
-          <ellipse cx="130" cy="155" rx="50" ry="14" fill="none" stroke="#C8A96E" stroke-width="1" opacity="0.7"/>
-          <path d="M80 155 Q83 148 130 145 Q177 148 180 155" fill="none" stroke="#D8C898" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- Handle -->
-          <path d="M178 165 Q202 165 202 182 Q202 200 178 198" fill="none" stroke="#C8A96E" stroke-width="3" stroke-linecap="round"/>
-          <path d="M178 165 Q198 165 198 182 Q198 196 178 196" fill="none" stroke="#D8C898" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-
-          <!-- Gold trim line on cup -->
-          <path d="M81 162 Q130 157 179 162" fill="none" stroke="#C8A96E" stroke-width="0.8" opacity="0.5"/>
-
-          <!-- Steam wisps (animated) -->
-          <path d="M108 142 Q103 125 108 108 Q113 92 108 76" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" opacity="0">
-            <animate attributeName="opacity" dur="3.2s" repeatCount="indefinite" values="0;0.55;0" begin="0s"/>
-            <animate attributeName="d" dur="3.2s" repeatCount="indefinite" values="M108 142 Q103 125 108 108 Q113 92 108 76;M108 142 Q114 124 108 107 Q102 90 108 73;M108 142 Q103 125 108 108 Q113 92 108 76"/>
-          </path>
-          <path d="M130 140 Q125 120 130 100 Q135 82 130 64" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" opacity="0">
-            <animate attributeName="opacity" dur="3.8s" repeatCount="indefinite" values="0;0.65;0" begin="0.6s"/>
-            <animate attributeName="d" dur="3.8s" repeatCount="indefinite" values="M130 140 Q125 120 130 100 Q135 82 130 64;M130 140 Q136 119 130 99 Q124 80 130 62;M130 140 Q125 120 130 100 Q135 82 130 64"/>
-          </path>
-          <path d="M152 142 Q157 124 152 108 Q147 92 152 76" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" opacity="0">
-            <animate attributeName="opacity" dur="2.9s" repeatCount="indefinite" values="0;0.45;0" begin="1.2s"/>
-          </path>
-
-          <!-- Spoon -->
-          <line x1="88" y1="215" x2="56" y2="248" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
-          <ellipse cx="52" cy="252" rx="8" ry="5" fill="none" stroke="#C8A96E" stroke-width="1.2" opacity="0.6"/>
-
-          <!-- Tea leaf accent -->
-          <path d="M168 232 Q176 226 180 232 Q176 238 168 232Z" fill="#6B4E3D" opacity="0.5"/>
-          <path d="M172 229 Q172 235" fill="none" stroke="#6B4E3D" stroke-width="0.8" opacity="0.4"/>
-        </svg>
-
-        <div class="lux-estate-tag">Talawakelle · Kandy · Ceylon</div>
+    <div class="hero-logo-wrap">
+      <div class="hero-logo-ring">
+        <img src="/logo.png" alt="Abija Tea — Psychedelic Blends, Tea Co. Est. 2024" class="hero-logo-img" width="340" height="340"/>
       </div>
-      <div class="lux-badge-wrap">
-        <span>Pure</span>
-        <span>Ceylon</span>
-      </div>
+      <div class="hero-logo-glow" aria-hidden="true"></div>
     </div>
   </div>
 </section>
@@ -808,14 +725,8 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
 <!-- ABOUT -->
 <section id="about" aria-label="About Abija Tea">
   <div class="about-img">
-    <div class="about-box">
-      <svg width="100" height="100" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.25" aria-hidden="true">
-        <circle cx="60" cy="60" r="50" stroke="#C8A96E" stroke-width="0.5"/>
-        <circle cx="60" cy="60" r="36" stroke="#C8A96E" stroke-width="0.5"/>
-        <path d="M60 20 Q70 40 60 60 Q50 80 60 100" stroke="#C8A96E" stroke-width="1" fill="none"/>
-        <path d="M20 60 Q40 50 60 60 Q80 70 100 60" stroke="#C8A96E" stroke-width="1" fill="none"/>
-        <circle cx="60" cy="60" r="4" fill="#C8A96E"/>
-      </svg>
+    <div class="about-box" style="padding:0;overflow:hidden;background:transparent;border:none;">
+      <img src="/logo.png" alt="Abija Tea brand logo" style="width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 8px 32px rgba(200,169,110,0.2));" width="400" height="500"/>
       <div class="about-badge">
         <span>2024</span>
         <span>Founded</span>
@@ -858,7 +769,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px;display:f
     <a href="https://www.facebook.com/TEA-abija" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on Facebook">Facebook</a>
     <a href="https://www.linkedin.com/company/abija-tea" target="_blank" rel="noopener noreferrer" aria-label="Abija Tea on LinkedIn">LinkedIn</a>
   </nav>
-  <div class="footer-copy">© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka · <a href="https://abijatea.me" style="color:inherit;text-decoration:none;">abijatea.me</a></div>
+  <div class="footer-copy">© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka · <a href="https://abijatea.me" style="color:rgba(245,237,216,0.65);text-decoration:underline;text-underline-offset:2px;">abijatea.me</a></div>
 </footer>
 
 <!-- DRAWER (bottom sheet on mobile) -->
