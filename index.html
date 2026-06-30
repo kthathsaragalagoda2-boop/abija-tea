@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -84,7 +85,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "offers": {
         "@type": "Offer",
         "url": "https://abijatea.me/#shop",
-        "price": "12.99",
+        "price": "2.25",
         "priceCurrency": "GBP",
         "availability": "https://schema.org/InStock",
         "seller": { "@id": "https://abijatea.me/#organization" }
@@ -858,15 +859,11 @@ window.addEventListener('scroll', () => {
   ['hero','shop','about'].forEach((id, i) => {
     const el = document.getElementById(id);
     if (el) {
-      const r = el.getBoundingClientRect();
-      if (r.top <= 100 && r.bottom > 100) {
-        links.forEach(l => l && l.classList.remove('active'));
-        links[i] && links[i].classList.add('active');
-      }
+      const r = el.getBoundingClientRect(); // <-- forces layout, runs on every scroll tick
+      ...
     }
   });
 }, { passive: true });
-
 window.addEventListener('load', fetchRates);
 </script>
 </body>
