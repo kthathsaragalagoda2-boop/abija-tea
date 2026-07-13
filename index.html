@@ -53,8 +53,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "description": "Abija is a premium Sri Lankan tea brand built on purity, truth, and deep knowledge of real tea. All products are sourced from Talawakelle estate, Kandy region, Sri Lanka. 100% pure Ceylon tea — unblended, uncoloured, unflavoured, free from chemicals or additives.",
       "areaServed": ["LK", "GB", "IN"],
       "sameAs": [
-        "https://www.facebook.com/abijatea/",
-        "https://www.linkedin.com/in/abijatea/"
+        "https://web.facebook.com/TEA-abija",
+        "https://www.linkedin.com/company/abija-tea"
       ],
       "contactPoint": {
         "@type": "ContactPoint",
@@ -67,7 +67,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@id": "https://abijatea.me/#store",
       "name": "Abija Tea",
       "url": "https://abijatea.me",
-      "image": "https://abijatea.me/Product.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "Abija Tea sells pure, unblended, uncoloured, unflavoured Ceylon tea from the Talawakelle estate in Kandy, Sri Lanka.",
       "priceRange": "Rs-RsRsRs",
       "currenciesAccepted": "LKR, INR, GBP",
@@ -77,7 +77,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "@id": "https://abijatea.me/#product-bop",
       "name": "Abija Black BOP Tea",
-      "image": "https://abijatea.me/BOP.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma. No colouring, no flavouring.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
       "category": "Ceylon Black Tea",
@@ -94,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "@id": "https://abijatea.me/#product-dust",
       "name": "Abija Black Dust Tea",
-      "image": "https://abijatea.me/Dust.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "Export-quality Ceylon black dust tea from Talawakelle. Strong, clean, honest daily tea at a budget-friendly price. Pure and unblended.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
       "category": "Ceylon Black Tea",
@@ -111,7 +111,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "@id": "https://abijatea.me/#product-green",
       "name": "Abija Pure Green Tea",
-      "image": "https://abijatea.me/Green.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "Pure, unflavoured Ceylon green tea from Talawakelle, Kandy. No additives. Natural antioxidants, supports metabolism and mental clarity.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
       "category": "Ceylon Green Tea",
@@ -128,7 +128,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "@id": "https://abijatea.me/#product-silver",
       "name": "Abija Silver Tips",
-      "image": "https://abijatea.me/Silver.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "Ultra-premium, rare handpicked white tea buds from Talawakelle, Kandy. Minimal, elegant, gift-worthy. Limited harvest.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
       "category": "Ceylon White Tea",
@@ -145,7 +145,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "@type": "Product",
       "@id": "https://abijatea.me/#product-golden",
       "name": "Abija Golden Tips",
-      "image": "https://abijatea.me/Golden.webp",
+      "image": "https://abijatea.me/logo.png",
       "description": "The crown jewel of Abija Tea. Prestige product from a limited harvest in Talawakelle, Kandy. Deep aroma and smooth body.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
       "category": "Ceylon Premium Tea",
@@ -291,6 +291,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .drawer-handle{width:36px;height:3px;background:rgba(200,169,110,0.3);border-radius:2px;margin:0 auto -8px;}
 .drawer-close{align-self:flex-end;background:none;border:none;color:rgba(200,169,110,0.6);font-size:24px;cursor:pointer;line-height:1;}
 .drawer-close:hover{color:var(--gold);}
+.drawer-img-wrap{width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;background:var(--mahogany);}
+.drawer-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:opacity 0.3s;}
+.drawer-img.hidden{opacity:0;}
 .drawer-product{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--parchment);line-height:1.1;}
 .drawer-sub{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(200,169,110,0.65);margin-bottom:4px;}
 .drawer-divider{height:0.5px;background:rgba(200,169,110,0.15);}
@@ -455,7 +458,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
   <h2 class="section-title" id="shop-title">The Abija<br><em>Collection</em></h2>
   <div class="products-grid">
 
-    <article class="product-card bop-hero" onclick="openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99')" aria-label="Abija Black BOP Tea — most popular">
+    <article class="product-card bop-hero" onclick="openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Abija Black BOP Tea — most popular">
       <div class="card-tag" data-en="Best Seller · Mid-Range" data-si="හොඳම විකිණුම · මධ්‍යම ගණය" data-ta="சிறந்த விற்பனை · நடுத்தர தரம்">Best Seller · Mid-Range</div>
       <h3 class="card-name" data-en="Black BOP Tea" data-si="කළු BOP තේ" data-ta="கருப்பு BOP தேநீர்">Black BOP Tea</h3>
       <p class="card-desc" data-en="Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma — not too strong, not too light. No colouring. No flavouring. You taste the leaf itself." data-si="අබිජා කළු BOP යනු Talawakelle, Kandy හි සිට ලැබෙන, පිරිසිදු, නොමිශ්‍ර Ceylon තේ කොළකි. ශක්තිය හා සුවඳ සමතුලිත. වර්ණ නැත. සුවඳ නැත. ඔබ සැබෑ තේ රස ගන්නවා." data-ta="அபிஜா கருப்பு BOP என்பது Talawakelle, Kandy இலிருந்து வரும் தூய, கலப்படமற்ற Ceylon தேயிலை. வலிமை மற்றும் வாசனை சமநிலை. நிறமில்லை. சுவையில்லை. இலையே ருசிக்கும்.">Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma — not too strong, not too light. No colouring. No flavouring. You taste the leaf itself.</p>
@@ -471,20 +474,20 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
         <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="12.99">12.99</span></div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span></div>
       </div>
-      <button class="bop-quick-btn" onclick="event.stopPropagation();openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99')" aria-label="Quick order Black BOP Tea">
+      <button class="bop-quick-btn" onclick="event.stopPropagation();openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Quick order Black BOP Tea">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-1.45-5c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16z"/></svg>
         Order Black BOP Now
       </button>
     </article>
 
-    <div class="product-card" onclick="openDrawer('Black Dust Tea','Export Quality · Daily Tea','8.99')">
+    <div class="product-card" onclick="openDrawer('Black Dust Tea','Export Quality · Daily Tea','8.99','Dst.webp')">
       <div class="card-tag" data-en="Budget · Export Quality" data-si="ජනකාන්ත · අපනයන ගුණත්වය" data-ta="பட்ஜெட் · ஏற்றுமதி தரம்">Budget · Export Quality</div>
       <h3 class="card-name" data-en="Black Dust Tea" data-si="කළු ඩස්ට් තේ" data-ta="கருப்பு டஸ்ட் தேநீர்">Black Dust Tea</h3>
       <p class="card-desc" data-en="Strong, clean, honest daily tea from Talawakelle. Export-quality black dust — pure and unblended at an honest price. What tea was before shortcuts existed." data-si="Talawakelle හි ශක්තිමත්, පිරිසිදු, අවංක දෛනික තේ. නිකමට ගිනිකෙළි නොකළ, නොමිශ්‍ර, අපනයන ගුණත්වයේ." data-ta="Talawakelle இலிருந்து வலுவான, சுத்தமான, நேர்மையான தினசரி தேநீர். ஏற்றுமதி தர கருப்பு டஸ்ட் — தூய்மையான மற்றும் கலப்படமற்றது.">Strong, clean, honest daily tea from Talawakelle. Export-quality black dust — pure and unblended at an honest price. What tea was before shortcuts existed.</p>
       <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="8.99">8.99</span></div></div>
     </div>
 
-    <div class="product-card green-card" onclick="openDrawer('Pure Green Tea','Wellness · Unflavoured','13.99')">
+    <div class="product-card green-card" onclick="openDrawer('Pure Green Tea','Wellness · Unflavoured','13.99','Green.webp')">
       <span class="green-icon" aria-hidden="true">🍃</span>
       <div class="card-tag" data-en="Wellness · Unflavoured" data-si="සෞඛ්‍ය · රස නොකළ" data-ta="ஆரோக்கியம் · சுவையில்லாத">Wellness · Unflavoured</div>
       <h3 class="card-name" data-en="Pure Green Tea" data-si="පිරිසිදු කොළ තේ" data-ta="தூய பச்சை தேநீர்">Pure Green Tea</h3>
@@ -492,7 +495,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="13.99">13.99</span></div></div>
     </div>
 
-    <div class="product-card silver-card" onclick="openDrawer('Silver Tips','Ultra-Premium · Rare','34.99')">
+    <div class="product-card silver-card" onclick="openDrawer('Silver Tips','Ultra-Premium · Rare','34.99','Silver.webp')">
       <span class="silver-icon" aria-hidden="true">🥈</span>
       <div class="card-tag" data-en="Ultra-Premium · Rare" data-si="අති-ප්‍රිමියම් · දුර්ලභ" data-ta="அல்ட்ரா-பிரீமியம் · அரிய">Ultra-Premium · Rare</div>
       <h3 class="card-name" data-en="Silver Tips" data-si="රිදී ඉඟිලි" data-ta="சில்வர் டிப்ஸ்">Silver Tips</h3>
@@ -500,7 +503,7 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="34.99">34.99</span></div></div>
     </div>
 
-    <div class="product-card golden-card" onclick="openDrawer('Golden Tips','Prestige · Limited Harvest','44.99')">
+    <div class="product-card golden-card" onclick="openDrawer('Golden Tips','Prestige · Limited Harvest','44.99','Golden.webp')">
       <span class="golden-icon" aria-hidden="true">✨</span>
       <div class="card-tag" data-en="Prestige · Crown Jewel" data-si="ප්‍රතිශ්ඨා · ශ්‍රේෂ්ඨතම" data-ta="கௌரவம் · கிரீட மணி">Prestige · Crown Jewel</div>
       <h3 class="card-name" data-en="Golden Tips" data-si="රන් ඉඟිලි" data-ta="கோல்டன் டிப்ஸ்">Golden Tips</h3>
@@ -562,6 +565,9 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Order product">
   <div class="drawer-handle"></div>
   <button class="drawer-close" onclick="closeDrawer()" aria-label="Close order panel">×</button>
+  <div class="drawer-img-wrap">
+    <img class="drawer-img" id="d-img" src="/BOP.webp" alt="Product image" width="800" height="450"/>
+  </div>
   <div>
     <p class="drawer-sub" id="d-sub">Mid-range · Balanced Strength</p>
     <h3 class="drawer-product" id="d-name">Black BOP Tea</h3>
@@ -731,10 +737,14 @@ function setLang(lang) {
   currentLang = lang;
   const c = CONTENT[lang];
 
+  // Active button
   document.querySelectorAll('.lang-bar-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('btn-' + lang).classList.add('active');
+
+  // Body class for Pawana font
   document.body.className = 'lang-' + lang;
 
+  // Nav
   document.getElementById('nav-home').textContent = c.home;
   document.getElementById('nav-shop').textContent = c.shop;
   document.getElementById('nav-about').textContent = c.about;
@@ -742,6 +752,7 @@ function setLang(lang) {
   document.getElementById('mob-shop').textContent = c.shop;
   document.getElementById('mob-about').textContent = c.about;
 
+  // Hero
   document.getElementById('hero-eyebrow').textContent = c.heroEye;
   document.getElementById('hero-title').innerHTML = c.heroTitle;
   document.getElementById('hero-sub').textContent = c.heroSub;
@@ -749,13 +760,16 @@ function setLang(lang) {
   document.getElementById('btn-shop-now').textContent = c.shopNow;
   document.getElementById('btn-our-belief').textContent = c.ourBelief;
 
+  // Shop
   document.getElementById('shop-eyebrow').textContent = c.shopEye;
   document.getElementById('shop-title').innerHTML = c.shopTitle;
 
+  // Product cards via data attributes
   document.querySelectorAll('[data-' + lang + ']').forEach(el => {
     el.innerHTML = el.getAttribute('data-' + lang);
   });
 
+  // About
   document.getElementById('about-eyebrow').textContent = c.aboutEye;
   document.getElementById('about-title').innerHTML = c.aboutTitle;
   document.getElementById('about-p1').textContent = c.aboutP1;
@@ -765,17 +779,19 @@ function setLang(lang) {
   document.getElementById('sl-stat3').textContent = c.stat3;
   document.getElementById('sl-stat4').textContent = c.stat4;
 
+  // Footer
   document.getElementById('foot-home').textContent = c.home;
   document.getElementById('foot-shop').textContent = c.shop;
   document.getElementById('foot-about').textContent = c.about;
   document.getElementById('footer-copy').firstChild.textContent = c.footCopy + ' · ';
 
+  // Drawer CTA
   document.querySelector('.d-cta').lastChild.textContent = ' ' + c.orderBtn;
 
   refreshAllPrices();
 }
 
-/* ─── Mobile menu ─────────────────────────────────────────── */
+// Mobile menu
 let menuOpen = false;
 function toggleMenu() {
   menuOpen = !menuOpen;
@@ -799,8 +815,8 @@ function closeMenu() {
   document.getElementById('b3').style.transform = '';
 }
 
-/* ─── Drawer ──────────────────────────────────────────────── */
-function openDrawer(name, sub, price) {
+// Drawer
+function openDrawer(name, sub, price, img) {
   drawerBaseGBP = parseFloat(price) * 2;
   document.getElementById('d-name').textContent = name;
   document.getElementById('d-sub').textContent = sub;
@@ -808,6 +824,18 @@ function openDrawer(name, sub, price) {
   document.getElementById('d-qty').textContent = 1;
   document.querySelectorAll('.d-wbtn').forEach((b, i) => b.classList.toggle('active', i === 1));
   updateDrawerPrice();
+  // Show product image
+  const imgEl = document.getElementById('d-img');
+  if (img) {
+    imgEl.classList.add('hidden');
+    imgEl.src = '/' + img;
+    imgEl.alt = name;
+    imgEl.onload = () => imgEl.classList.remove('hidden');
+    imgEl.onerror = () => { imgEl.src = '/logo.png'; imgEl.classList.remove('hidden'); };
+    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'block';
+  } else {
+    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'none';
+  }
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -842,41 +870,20 @@ function orderWhatsApp() {
   setTimeout(() => t.classList.remove('show'), 2500);
 }
 
-/* ─── Active nav via IntersectionObserver (no forced reflow) ─
-   Replaces the old scroll listener that called getBoundingClientRect()
-   on every scroll event, which caused repeated forced layout/reflow.
-   IntersectionObserver fires only when visibility actually changes,
-   keeping the main thread free during scrolling.
-──────────────────────────────────────────────────────────────── */
-(function initNavObserver() {
-  const navLinks = {
-    hero:  document.getElementById('nav-home'),
-    shop:  document.getElementById('nav-shop'),
-    about: document.getElementById('nav-about')
-  };
-
-  // rootMargin: top offset matches the fixed nav height (~57px), bottom
-  // shrinks the trigger zone so the link activates when the section
-  // occupies roughly the top quarter of the viewport — matching the
-  // original `top <= 100 && bottom > 100` logic.
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          Object.values(navLinks).forEach(l => l && l.classList.remove('active'));
-          const link = navLinks[entry.target.id];
-          if (link) link.classList.add('active');
-        }
-      });
-    },
-    { rootMargin: '-57px 0px -75% 0px' }
-  );
-
-  ['hero', 'shop', 'about'].forEach(id => {
+// Active nav on scroll
+window.addEventListener('scroll', () => {
+  const links = [document.getElementById('nav-home'), document.getElementById('nav-shop'), document.getElementById('nav-about')];
+  ['hero','shop','about'].forEach((id, i) => {
     const el = document.getElementById(id);
-    if (el) observer.observe(el);
+    if (el) {
+      const r = el.getBoundingClientRect();
+      if (r.top <= 100 && r.bottom > 100) {
+        links.forEach(l => l && l.classList.remove('active'));
+        links[i] && links[i].classList.add('active');
+      }
+    }
   });
-})();
+}, { passive: true });
 
 window.addEventListener('load', fetchRates);
 </script>
