@@ -299,8 +299,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .drawer-divider{height:0.5px;background:rgba(200,169,110,0.15);}
 .d-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(200,169,110,0.65);margin-bottom:8px;}
 .d-weights{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
-.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.25);color:rgba(245,237,216,0.72);font-size:11px;padding:12px 4px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;touch-action:manipulation;}
+.d-wbtn{background:transparent;border:0.5px solid rgba(200,169,110,0.25);color:rgba(245,237,216,0.72);font-size:11px;padding:10px 4px;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;touch-action:manipulation;position:relative;text-align:center;line-height:1.3;}
 .d-wbtn:hover,.d-wbtn.active{border-color:var(--gold);color:var(--gold-light);background:rgba(200,169,110,0.1);}
+.d-wbtn.unavailable{opacity:0.35;cursor:not-allowed;border-style:dashed;}
+.d-wbtn.unavailable:hover{border-color:rgba(200,169,110,0.25);color:rgba(245,237,216,0.72);background:transparent;}
+.d-wbtn.best-val{border-color:var(--gold);background:rgba(200,169,110,0.06);}
+.d-wbtn .wbtn-size{display:block;font-size:12px;font-weight:500;}
+.d-wbtn .wbtn-price{display:block;font-size:10px;color:var(--gold);margin-top:2px;}
+.d-wbtn .wbtn-was{display:block;font-size:9px;color:rgba(245,237,216,0.35);text-decoration:line-through;}
+.d-wbtn .wbtn-badge{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-size:8px;font-weight:600;letter-spacing:0.1em;padding:2px 6px;white-space:nowrap;border-radius:2px;}
+.d-wbtn .wbtn-avail{display:block;font-size:8px;color:rgba(200,200,100,0.7);margin-top:2px;letter-spacing:0.05em;}
+.d-weights{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;}
+.avail-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-bottom:12px;}
+.avail-badge.in{background:rgba(100,200,100,0.12);color:#7DC87D;border:0.5px solid rgba(100,200,100,0.25);}
+.avail-badge.out{background:rgba(200,100,100,0.08);color:#C88080;border:0.5px solid rgba(200,100,100,0.2);}
+.avail-badge.soon{background:rgba(200,169,110,0.08);color:var(--gold);border:0.5px solid rgba(200,169,110,0.2);}
+.card-avail{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.unit-label{font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(200,169,110,0.5);margin-bottom:2px;}
 .d-qty{display:flex;align-items:center;width:fit-content;}
 .d-qbtn{width:44px;height:44px;background:transparent;border:0.5px solid rgba(200,169,110,0.25);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;touch-action:manipulation;}
 .d-qbtn:hover{background:rgba(200,169,110,0.1);}
@@ -458,7 +473,13 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
   <div class="products-grid">
 
     <article class="product-card bop-hero" onclick="openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Abija Black BOP Tea — most popular">
-      <div class="card-tag" data-en="Best Seller · Mid-Range" data-si="හොඳම විකිණුම · මධ්‍යම ගණය" data-ta="சிறந்த விற்பனை · நடுத்தர தரம்">Best Seller · Mid-Range</div>
+      <div class="card-avail">
+        <span class="avail-badge out">✗ BOP — Unavailable</span>
+        <span class="avail-badge out">✗ BOPF — Unavailable</span>
+        <span class="avail-badge in">✓ Fannings — Available</span>
+        <span class="avail-badge in">✓ Dust — Available</span>
+      </div>
+      <div class="card-tag" data-en="Available Now · Rs 2,500/kg" data-si="හොඳම විකිණුම · මධ්‍යම ගණය" data-ta="சிறந்த விற்பனை · நடுத்தர தரம்">Best Seller · Mid-Range</div>
       <h3 class="card-name" data-en="Black BOP Tea" data-si="කළු BOP තේ" data-ta="கருப்பு BOP தேநீர்">Black BOP Tea</h3>
       <p class="card-desc" data-en="Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma — not too strong, not too light. No colouring. No flavouring. You taste the leaf itself." data-si="අබිජා කළු BOP යනු Talawakelle, Kandy හි සිට ලැබෙන, පිරිසිදු, නොමිශ්‍ර Ceylon තේ කොළකි. ශක්තිය හා සුවඳ සමතුලිත. වර්ණ නැත. සුවඳ නැත. ඔබ සැබෑ තේ රස ගන්නවා." data-ta="அபிஜா கருப்பு BOP என்பது Talawakelle, Kandy இலிருந்து வரும் தூய, கலப்படமற்ற Ceylon தேயிலை. வலிமை மற்றும் வாசனை சமநிலை. நிறமில்லை. சுவையில்லை. இலையே ருசிக்கும்.">Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma — not too strong, not too light. No colouring. No flavouring. You taste the leaf itself.</p>
       <ul style="list-style:none;margin-bottom:20px;display:flex;flex-wrap:wrap;gap:6px;" aria-label="Product specifications">
@@ -470,8 +491,11 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
         <li style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(200,169,110,0.75);border:0.5px solid rgba(200,169,110,0.2);padding:4px 10px;">✗ No Blending</li>
       </ul>
       <div class="card-footer">
-        <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="12.99">12.99</span></div>
-        <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span></div>
+        <div>
+          <div class="unit-label">From</div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="0.53" data-lkr="200">200</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+        </div>
+        <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
       <button class="bop-quick-btn" onclick="event.stopPropagation();openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Quick order Black BOP Tea">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-1.45-5c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16z"/></svg>
@@ -483,7 +507,13 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-tag" data-en="Budget · Export Quality" data-si="ජනකාන්ත · අපනයන ගුණත්වය" data-ta="பட்ஜெட் · ஏற்றுமதி தரம்">Budget · Export Quality</div>
       <h3 class="card-name" data-en="Black Dust Tea" data-si="කළු ඩස්ට් තේ" data-ta="கருப்பு டஸ்ட் தேநீர்">Black Dust Tea</h3>
       <p class="card-desc" data-en="Strong, clean, honest daily tea from Talawakelle. Export-quality black dust — pure and unblended at an honest price. What tea was before shortcuts existed." data-si="Talawakelle හි ශක්තිමත්, පිරිසිදු, අවංක දෛනික තේ. නිකමට ගිනිකෙළි නොකළ, නොමිශ්‍ර, අපනයන ගුණත්වයේ." data-ta="Talawakelle இலிருந்து வலுவான, சுத்தமான, நேர்மையான தினசரி தேநீர். ஏற்றுமதி தர கருப்பு டஸ்ட் — தூய்மையான மற்றும் கலப்படமற்றது.">Strong, clean, honest daily tea from Talawakelle. Export-quality black dust — pure and unblended at an honest price. What tea was before shortcuts existed.</p>
-      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="8.99">8.99</span></div></div>
+      <div class="card-avail"><span class="avail-badge in">✓ Available Now</span></div>
+      <div class="card-footer">
+        <div>
+          <div class="unit-label">From</div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="0.53" data-lkr="200">200</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+        </div>
+      </div>
     </div>
 
     <div class="product-card green-card" onclick="openDrawer('Pure Green Tea','Wellness · Unflavoured','13.99','Green.webp')">
@@ -491,7 +521,14 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-tag" data-en="Wellness · Unflavoured" data-si="සෞඛ්‍ය · රස නොකළ" data-ta="ஆரோக்கியம் · சுவையில்லாத">Wellness · Unflavoured</div>
       <h3 class="card-name" data-en="Pure Green Tea" data-si="පිරිසිදු කොළ තේ" data-ta="தூய பச்சை தேநீர்">Pure Green Tea</h3>
       <p class="card-desc" data-en="Pure, unflavoured Ceylon green tea from Talawakelle. Natural antioxidants. Supports fat burning, metabolism, and mental clarity. The real green tea — not the flavoured version the market sells." data-si="Talawakelle හි, රස නොකළ, පිරිසිදු Ceylon කොළ තේ. ස්වාභාවික ප්‍රතිඔක්සිකාරක. ශරීරය සහ මනස සෞඛ්‍ය සම්පන්නව තබයි." data-ta="Talawakelle இலிருந்து தூய, சுவையில்லாத Ceylon பச்சை தேநீர். இயற்கை ஆன்டிஆக்ஸிடன்ட்கள். கொழுப்பு எரிசக்தி, வளர்சிதை மாற்றம், மன தெளிவை ஆதரிக்கிறது.">Pure, unflavoured Ceylon green tea from Talawakelle. Natural antioxidants. Supports fat burning, metabolism, and mental clarity. The real green tea — not the flavoured version the market sells.</p>
-      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="13.99">13.99</span></div></div>
+      <div class="card-avail"><span class="avail-badge in">✓ Green — Available</span><span class="avail-badge in">✓ Leafy — Available</span></div>
+      <div class="card-footer">
+        <div>
+          <div class="unit-label">From</div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="1.05" data-lkr="400">400</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+        </div>
+        <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
+      </div>
     </div>
 
     <div class="product-card silver-card" onclick="openDrawer('Silver Tips','Ultra-Premium · Rare','34.99','Silver.webp')">
@@ -499,7 +536,14 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-tag" data-en="Ultra-Premium · Rare" data-si="අති-ප්‍රිමියම් · දුර්ලභ" data-ta="அல்ட்ரா-பிரீமியம் · அரிய">Ultra-Premium · Rare</div>
       <h3 class="card-name" data-en="Silver Tips" data-si="රිදී ඉඟිලි" data-ta="சில்வர் டிப்ஸ்">Silver Tips</h3>
       <p class="card-desc" data-en="Rare, handpicked white tea buds from Talawakelle. Minimal. Elegant. Gift-worthy. Silver Tips are what tea is at its most honest — nothing added, nothing taken away." data-si="Talawakelle හි දුර්ලභ, අත්‍රේරූ සුදු තේ අංකුර. සරල. ශ්‍රේෂ්ඨ. තෑගි ලෙස ලබා දීමට සුදුසු." data-ta="Talawakelle இலிருந்து அரிய, கைகளால் பறிக்கப்பட்ட வெள்ளை தேயிலை மொட்டுகள். குறைந்தபட்சம். நேர்த்தி. பரிசாக தரத்தக்கது.">Rare, handpicked white tea buds from Talawakelle. Minimal. Elegant. Gift-worthy. Silver Tips are what tea is at its most honest — nothing added, nothing taken away.</p>
-      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="34.99">34.99</span></div></div>
+      <div class="card-avail"><span class="avail-badge soon">⏱ Available within a week</span></div>
+      <div class="card-footer">
+        <div>
+          <div class="unit-label">From</div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="2.24" data-lkr="850">850</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+        </div>
+        <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
+      </div>
     </div>
 
     <div class="product-card golden-card" onclick="openDrawer('Golden Tips','Prestige · Limited Harvest','44.99','Golden.webp')">
@@ -507,7 +551,14 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
       <div class="card-tag" data-en="Prestige · Crown Jewel" data-si="ප්‍රතිශ්ඨා · ශ්‍රේෂ්ඨතම" data-ta="கௌரவம் · கிரீட மணி">Prestige · Crown Jewel</div>
       <h3 class="card-name" data-en="Golden Tips" data-si="රන් ඉඟිලි" data-ta="கோல்டன் டிப்ஸ்">Golden Tips</h3>
       <p class="card-desc" data-en="The crown jewel of Abija. A limited harvest from Talawakelle — deep aroma, smooth body, and a richness that cannot be manufactured. This is what tea greatness tastes like." data-si="අබිජා හි ශ්‍රේෂ්ඨතම නිෂ්පාදනය. Talawakelle හි සීමිත අස්වනුවකි — ගැඹුරු සුවඳ, මෘදු ශරීරය. කෘත්‍රිමව සාදා ගත නොහැකි රසකි." data-ta="அபிஜாவின் கிரீட மணி. Talawakelle இலிருந்து வரையறுக்கப்பட்ட அறுவடை — ஆழமான நறுமணம், மென்மையான உடல். இது தேயிலை மகத்துவம்.">The crown jewel of Abija. A limited harvest from Talawakelle — deep aroma, smooth body, and a richness that cannot be manufactured. This is what tea greatness tastes like.</p>
-      <div class="card-footer"><div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="44.99">44.99</span></div></div>
+      <div class="card-avail"><span class="avail-badge soon">⏱ Available within a week</span></div>
+      <div class="card-footer">
+        <div>
+          <div class="unit-label">From</div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="2.24" data-lkr="850">850</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+        </div>
+        <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
+      </div>
     </div>
 
   </div>
@@ -574,10 +625,11 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
   <div class="drawer-divider"></div>
   <div>
     <p class="d-label">Select Weight</p>
-    <div class="d-weights">
-      <button class="d-wbtn" onclick="selW(this,'12.99')">100g</button>
-      <button class="d-wbtn active" onclick="selW(this,'25.99')">250g</button>
-      <button class="d-wbtn" onclick="selW(this,'45.99')">500g</button>
+    <div class="d-weights" id="d-weights-container">
+      <button class="d-wbtn" id="dwbtn-0" onclick="selWt(this,0)">100g</button>
+      <button class="d-wbtn" id="dwbtn-1" onclick="selWt(this,1)">250g</button>
+      <button class="d-wbtn" id="dwbtn-2" onclick="selWt(this,2)">500g</button>
+      <button class="d-wbtn" id="dwbtn-3" onclick="selWt(this,3)">1kg</button>
     </div>
   </div>
   <div>
@@ -614,8 +666,8 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
 
 <div class="lang-bar" role="navigation" aria-label="Language selector">
   <button class="lang-bar-btn active" onclick="setLang('en')" id="btn-en" aria-label="Switch to English">
-    <span class="lb-flag">🇬🇧</span>
-    <span class="lb-label">English</span>
+    <span class="lb-flag">🇱🇰</span>
+    <span class="lb-label">සිං / EN</span>
   </button>
   <div class="lang-bar-divider" aria-hidden="true"></div>
   <button class="lang-bar-btn" onclick="setLang('si')" id="btn-si" aria-label="සිංහලට මාරු කරන්න">
@@ -625,7 +677,12 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
   <div class="lang-bar-divider" aria-hidden="true"></div>
   <button class="lang-bar-btn" onclick="setLang('ta')" id="btn-ta" aria-label="தமிழுக்கு மாற்றவும்">
     <span class="lb-flag">🇮🇳</span>
-    <span class="lb-label">தமிழ்</span>
+    <span class="lb-label">தமிழ் ₹</span>
+  </button>
+  <div class="lang-bar-divider" aria-hidden="true"></div>
+  <button class="lang-bar-btn" onclick="setLang('gb')" id="btn-gb" aria-label="Switch to GBP">
+    <span class="lb-flag">🇬🇧</span>
+    <span class="lb-label">EN £</span>
   </button>
 </div>
 
@@ -637,10 +694,34 @@ footer{border-top:0.5px solid rgba(200,169,110,0.12);padding:40px 24px 80px;disp
 <script>
 const WA_NUMBER = '94716399502';
 
+// ── PRODUCT PRICING (LKR base, 1kg = full price) ──
+// Weights: [100g, 250g, 500g, 1000g]
+// Discounted prices (15% off smaller packs), 1kg = full price
+const PRODUCTS = {
+  'Black BOP Tea':    { group:'black', lkr:[625,1563,3125,2500], avail:[false,false,false,false], soon:false, img:'BOP.webp',  note:'Unavailable' },
+  'Black BOPF Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[false,false,false,false], soon:false, img:'BOP.webp',  note:'Unavailable' },
+  'Black Fannings':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dst.webp',  note:'' },
+  'Black Dust Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dst.webp',  note:'' },
+  'Pure Green Tea':   { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green.webp',note:'' },
+  'Leafy Green Tea':  { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green.webp',note:'' },
+  'Silver Tips':      { group:'tips',  lkr:[2500,6250,12500,10000],avail:[false,false,false,false],soon:true,  img:'Silver.webp',note:'Within a week' },
+  'Golden Tips':      { group:'tips',  lkr:[2500,6250,12500,10000],avail:[false,false,false,false],soon:true,  img:'Golden.webp',note:'Within a week' }
+};
+
+// Original prices before discount (per 100g, 250g, 500g, 1kg in LKR)
+const ORIG_LKR = {
+  black: [750, 1875, 3750, 3000],
+  green: [1500, 3750, 7500, 6000],
+  tips:  [3000, 7500, 15000, 12000]
+};
+
+const WEIGHTS = ['100g','250g','500g','1kg'];
+
 const LANGS = {
-  en: { sym:'Rs', code:'LKR', label:'LKR - Sri Lanka Rupee' },
-  si: { sym:'Rs', code:'LKR', label:'LKR - Sri Lanka Rupee' },
-  ta: { sym:'Rs', code:'INR', label:'INR - Indian Rupee' }
+  en: { sym:'Rs',  code:'LKR', label:'LKR — Sri Lanka Rupee' },
+  si: { sym:'Rs',  code:'LKR', label:'LKR — ශ්‍රී ලංකා රුපියල' },
+  ta: { sym:'₹',   code:'INR', label:'INR — Indian Rupee' },
+  gb: { sym:'£',   code:'GBP', label:'GBP — British Pound' }
 };
 
 const CONTENT = {
@@ -694,59 +775,163 @@ const CONTENT = {
     stat1:'தயாரிப்புகள்', stat2:'சேர்க்கைகள்', stat3:'தூய Ceylon', stat4:'தோட்ட தோற்றம்',
     footCopy:'© 2024 அபிஜா தே · Pure Ceylon Tea · இலங்கை',
     orderBtn:'WhatsApp வழியாக ஆர்டர்'
+  },
+  gb: {
+    home:'Home', shop:'Shop', about:'About',
+    heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
+    heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
+    heroSub:'උසස් — elevated through knowledge',
+    heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncoloured, unflavoured, and free from additives.',
+    shopNow:'Shop Now', ourBelief:'Our Belief',
+    shopEye:'Talawakelle, Kandy · Sri Lanka',
+    shopTitle:'The Abija<br><em>Collection</em>',
+    aboutEye:'Our Belief',
+    aboutTitle:'<em>Real</em> tea.<br>Nothing else.',
+    aboutP1:'Abija is a premium Sri Lankan tea brand built on purity, truth, and deep knowledge of real tea. Every product is sourced from Talawakelle, Kandy — 100% pure Ceylon tea, unblended, uncoloured, unflavoured, and free from chemicals or additives.',
+    aboutP2:'Most tea brands today use colouring to fake strength, add flavours to hide poor quality, and blend waste tea. Abija exists to set a different standard.',
+    stat1:'Products', stat2:'Additives', stat3:'Pure Ceylon', stat4:'Estate Origin',
+    footCopy:'© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka',
+    orderBtn:'Order via WhatsApp'
   }
 };
 
 let currentLang = 'en';
-let rates = { LKR: 380, INR: 107 };
-let drawerBaseGBP = 25.99;
+let rates = { LKR: 380, INR: 107, GBP: 1 };
+let currentProduct = null;
+let currentWeightIdx = 1; // default 250g
 let qty = 1;
+
+// ── GEO-BASED CURRENCY DETECTION ──
+async function detectLocationCurrency() {
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    const country = data.country_code;
+    if (country === 'IN') setLang('ta');
+    else if (country === 'LK') setLang('si');
+    else if (['GB','IE','DE','FR','NL','AU','CA','US','SG','AE'].includes(country)) setLang('gb');
+    else setLang('en');
+  } catch(e) { setLang('en'); }
+}
 
 async function fetchRates() {
   try {
-    const res = await fetch('https://open.er-api.com/v6/latest/GBP');
+    const res = await fetch('https://open.er-api.com/v6/latest/LKR');
     const data = await res.json();
-    rates.LKR = data.rates.LKR;
     rates.INR = data.rates.INR;
+    rates.GBP = data.rates.GBP;
+    rates.LKR = 1;
     refreshAllPrices();
   } catch(e) { refreshAllPrices(); }
 }
 
-function getRate(code) {
-  return code === 'LKR' ? rates.LKR : code === 'INR' ? rates.INR : 1;
-}
-
-function convertPrice(gbp, code) {
-  if (code === 'GBP') return gbp.toFixed(2);
-  return Math.round(gbp * getRate(code)).toLocaleString();
+function convertFromLKR(lkr, code) {
+  if (code === 'LKR') return Math.round(lkr).toLocaleString();
+  if (code === 'INR') return Math.round(lkr * rates.INR).toLocaleString();
+  if (code === 'GBP') return (lkr * rates.GBP).toFixed(2);
+  return lkr;
 }
 
 function refreshAllPrices() {
   const lang = LANGS[currentLang];
-  document.querySelectorAll('.amt').forEach(el => {
-    el.textContent = convertPrice(parseFloat(el.dataset.gbp), lang.code);
+  document.querySelectorAll('.amt[data-lkr]').forEach(el => {
+    const lkr = parseFloat(el.dataset.lkr);
+    el.textContent = convertFromLKR(lkr, lang.code);
   });
   document.querySelectorAll('.sym').forEach(el => el.textContent = lang.sym);
+  if (currentProduct) renderDrawerWeights();
+}
+
+// ── DRAWER ──
+function openDrawer(name, sub, price, img) {
+  currentProduct = PRODUCTS[name] || null;
+  currentWeightIdx = 1;
+  qty = 1;
+  document.getElementById('d-name').textContent = name;
+  document.getElementById('d-sub').textContent = sub;
+  document.getElementById('d-qty').textContent = 1;
+  const imgEl = document.getElementById('d-img');
+  if (img) {
+    imgEl.classList.add('hidden');
+    imgEl.src = '/' + img;
+    imgEl.alt = name;
+    imgEl.onload = () => imgEl.classList.remove('hidden');
+    imgEl.onerror = () => { imgEl.src = '/logo.png'; imgEl.classList.remove('hidden'); };
+    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'block';
+  }
+  renderDrawerWeights();
+  updateDrawerPrice();
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderDrawerWeights() {
+  if (!currentProduct) return;
+  const lang = LANGS[currentLang];
+  const p = currentProduct;
+  const origPrices = ORIG_LKR[p.group];
+  WEIGHTS.forEach((w, i) => {
+    const btn = document.getElementById('dwbtn-' + i);
+    if (!btn) return;
+    const lkr = p.lkr[i];
+    const origLkr = origPrices[i];
+    const avail = p.avail[i];
+    const soon = p.soon;
+    const isDisc = lkr < origLkr;
+    const priceStr = convertFromLKR(lkr, lang.code);
+    const origStr = convertFromLKR(origLkr, lang.code);
+    btn.className = 'd-wbtn' +
+      (i === currentWeightIdx ? ' active' : '') +
+      (!avail && !soon ? ' unavailable' : '') +
+      (i === 3 ? ' best-val' : '');
+    btn.innerHTML =
+      (i === 3 ? '<span class="wbtn-badge">BEST VALUE</span>' : '') +
+      '<span class="wbtn-size">' + w + '</span>' +
+      (isDisc ? '<span class="wbtn-was">' + lang.sym + origStr + '</span>' : '') +
+      '<span class="wbtn-price">' + lang.sym + priceStr + '</span>' +
+      (soon ? '<span class="wbtn-avail">~1 week</span>' : '') +
+      (!avail && !soon ? '<span class="wbtn-avail">Unavailable</span>' : '');
+    btn.disabled = !avail && !soon;
+    btn.onclick = avail || soon ? () => selWt(btn, i) : null;
+  });
+  // auto-select first available weight
+  if (!currentProduct.avail[currentWeightIdx] && !currentProduct.soon) {
+    const firstAvail = currentProduct.avail.findIndex(a => a) !== -1
+      ? currentProduct.avail.findIndex(a => a) : 0;
+    currentWeightIdx = firstAvail;
+    renderDrawerWeights();
+  }
+}
+
+function selWt(el, idx) {
+  currentWeightIdx = idx;
+  renderDrawerWeights();
   updateDrawerPrice();
 }
 
 function updateDrawerPrice() {
   const lang = LANGS[currentLang];
-  const unitPrice = convertPrice(drawerBaseGBP, lang.code);
-  document.getElementById('d-price').textContent = unitPrice;
+  if (!currentProduct) return;
+  const lkr = currentProduct.lkr[currentWeightIdx];
+  const price = convertFromLKR(lkr, lang.code);
+  document.getElementById('d-price').textContent = price;
   document.getElementById('d-curr').textContent = lang.sym;
   document.getElementById('d-currency-badge').textContent = lang.label;
-  const note = document.getElementById('d-rate-note');
-  note.textContent = lang.code !== 'GBP' ? '1 GBP = ' + Math.round(getRate(lang.code)) + ' ' + lang.code + ' (live rate)' : '';
+  document.getElementById('d-rate-note').textContent =
+    lang.code === 'INR' ? 'Converted from LKR (live rate)' :
+    lang.code === 'GBP' ? 'Converted from LKR (live rate)' : '';
   updateTotal();
 }
 
 function updateTotal() {
   const lang = LANGS[currentLang];
-  const totalGBP = drawerBaseGBP * qty;
+  if (!currentProduct) return;
+  const lkr = currentProduct.lkr[currentWeightIdx];
+  const totalLkr = lkr * qty;
   const totalRow = document.getElementById('d-total-row');
   if (qty > 1) {
-    document.getElementById('d-total').textContent = convertPrice(totalGBP, lang.code);
+    document.getElementById('d-total').textContent = convertFromLKR(totalLkr, lang.code);
     document.getElementById('d-total-curr').textContent = lang.sym;
     totalRow.style.display = 'block';
   } else {
@@ -754,43 +939,58 @@ function updateTotal() {
   }
 }
 
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function chQty(d) {
+  qty = Math.max(1, qty + d);
+  document.getElementById('d-qty').textContent = qty;
+  updateTotal();
+}
+
+function orderWhatsApp() {
+  if (!currentProduct) return;
+  const name = document.getElementById('d-name').textContent;
+  const weight = WEIGHTS[currentWeightIdx];
+  const lang = LANGS[currentLang];
+  const lkr = currentProduct.lkr[currentWeightIdx];
+  const price = convertFromLKR(lkr, lang.code);
+  const totalLkr = lkr * qty;
+  const total = convertFromLKR(totalLkr, lang.code);
+  const soon = currentProduct.soon ? '\n⚠️ Note: Available within 1 week.' : '';
+  const totalLine = qty > 1 ? '\n- Total: ' + lang.sym + ' ' + total + ' (' + lang.code + ')' : '';
+  const msg = 'Hi Abija Tea! 🍵\n\nI would like to order:\n- ' + name + '\n- Weight: ' + weight + '\n- Qty: ' + qty + '\n- Unit: ' + lang.sym + ' ' + price + ' (' + lang.code + ')' + totalLine + soon + '\n\nPlease confirm and share delivery details. Thank you!';
+  closeDrawer();
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ── LANGUAGE SWITCHING ──
 function setLang(lang) {
   currentLang = lang;
   const c = CONTENT[lang];
-
-  // Active button
   document.querySelectorAll('.lang-bar-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('btn-' + lang).classList.add('active');
-
-  // Body class for Pawana font
   document.body.className = 'lang-' + lang;
-
-  // Nav
   document.getElementById('nav-home').textContent = c.home;
   document.getElementById('nav-shop').textContent = c.shop;
   document.getElementById('nav-about').textContent = c.about;
   document.getElementById('mob-home').textContent = c.home;
   document.getElementById('mob-shop').textContent = c.shop;
   document.getElementById('mob-about').textContent = c.about;
-
-  // Hero
   document.getElementById('hero-eyebrow').textContent = c.heroEye;
   document.getElementById('hero-title').innerHTML = c.heroTitle;
   document.getElementById('hero-sub').textContent = c.heroSub;
   document.getElementById('hero-desc').textContent = c.heroDesc;
   document.getElementById('btn-shop-now').textContent = c.shopNow;
   document.getElementById('btn-our-belief').textContent = c.ourBelief;
-
-  // Shop
   document.getElementById('shop-eyebrow').textContent = c.shopEye;
   document.getElementById('shop-title').innerHTML = c.shopTitle;
-
-  // Product cards via data attributes
   document.querySelectorAll('[data-' + lang + ']').forEach(el => {
     el.innerHTML = el.getAttribute('data-' + lang);
   });
-
-  // About
   document.getElementById('about-eyebrow').textContent = c.aboutEye;
   document.getElementById('about-title').innerHTML = c.aboutTitle;
   document.getElementById('about-p1').textContent = c.aboutP1;
@@ -799,20 +999,15 @@ function setLang(lang) {
   document.getElementById('sl-stat2').textContent = c.stat2;
   document.getElementById('sl-stat3').textContent = c.stat3;
   document.getElementById('sl-stat4').textContent = c.stat4;
-
-  // Footer
   document.getElementById('foot-home').textContent = c.home;
   document.getElementById('foot-shop').textContent = c.shop;
   document.getElementById('foot-about').textContent = c.about;
   document.getElementById('footer-copy').firstChild.textContent = c.footCopy + ' · ';
-
-  // Drawer CTA
   document.querySelector('.d-cta').lastChild.textContent = ' ' + c.orderBtn;
-
   refreshAllPrices();
 }
 
-// Mobile menu
+// ── MOBILE MENU ──
 let menuOpen = false;
 function toggleMenu() {
   menuOpen = !menuOpen;
@@ -836,61 +1031,7 @@ function closeMenu() {
   document.getElementById('b3').style.transform = '';
 }
 
-// Drawer
-function openDrawer(name, sub, price, img) {
-  drawerBaseGBP = parseFloat(price) * 2;
-  document.getElementById('d-name').textContent = name;
-  document.getElementById('d-sub').textContent = sub;
-  qty = 1;
-  document.getElementById('d-qty').textContent = 1;
-  document.querySelectorAll('.d-wbtn').forEach((b, i) => b.classList.toggle('active', i === 1));
-  updateDrawerPrice();
-  // Show product image
-  const imgEl = document.getElementById('d-img');
-  if (img) {
-    imgEl.classList.add('hidden');
-    imgEl.src = '/' + img;
-    imgEl.alt = name;
-    imgEl.onload = () => imgEl.classList.remove('hidden');
-    imgEl.onerror = () => { imgEl.src = '/logo.png'; imgEl.classList.remove('hidden'); };
-    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'block';
-  } else {
-    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'none';
-  }
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function selW(el, gbpPrice) {
-  document.querySelectorAll('.d-wbtn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
-  drawerBaseGBP = parseFloat(gbpPrice);
-  updateDrawerPrice();
-}
-function chQty(d) {
-  qty = Math.max(1, qty + d);
-  document.getElementById('d-qty').textContent = qty;
-  updateTotal();
-}
-
-function orderWhatsApp() {
-  const name = document.getElementById('d-name').textContent;
-  const weight = document.querySelector('.d-wbtn.active').textContent;
-  const price = document.getElementById('d-price').textContent;
-  const sym = LANGS[currentLang].sym;
-  const code = LANGS[currentLang].code;
-  const total = qty > 1 ? '\n- Total: ' + sym + ' ' + document.getElementById('d-total').textContent + ' (' + code + ')' : '';
-  const msg = 'Hi Abija Tea!\n\nI would like to order:\n- ' + name + '\n- Weight: ' + weight + '\n- Qty: ' + qty + '\n- Unit price: ' + sym + ' ' + price + ' (' + code + ')' + total + '\n\nPlease confirm availability and delivery. Thank you!';
-  closeDrawer();
-  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// Active nav on scroll
+// ── SCROLL NAV ──
 window.addEventListener('scroll', () => {
   const links = [document.getElementById('nav-home'), document.getElementById('nav-shop'), document.getElementById('nav-about')];
   ['hero','shop','about'].forEach((id, i) => {
@@ -905,7 +1046,12 @@ window.addEventListener('scroll', () => {
   });
 }, { passive: true });
 
-window.addEventListener('load', fetchRates);
+// ── INIT ──
+window.addEventListener('load', () => {
+  fetchRates();
+  detectLocationCurrency();
+});
+
 </script>
 </body>
 </html>
