@@ -67,8 +67,12 @@ function positionGuidePointer(target) {
   const pointer = document.getElementById('guidePointer');
   if (!target || !pointer) return;
   const rect = target.getBoundingClientRect();
+  if (rect.top < 112 || rect.top > window.innerHeight - 90) {
+    pointer.classList.remove('open');
+    return;
+  }
   pointer.style.left = Math.min(window.innerWidth - 44, Math.max(44, rect.left + rect.width / 2)) + 'px';
-  pointer.style.top = Math.max(72, rect.top - 46) + 'px';
+  pointer.style.top = (rect.top - 46) + 'px';
   pointer.classList.add('open');
 }
 function refreshGuidePointer() {
@@ -574,6 +578,7 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 window.addEventListener('resize', refreshGuidePointer, { passive: true });
+document.getElementById('drawer').addEventListener('scroll', refreshGuidePointer, { passive: true });
 
 window.addEventListener('keydown', event => {
   if (event.key === 'Escape' && document.getElementById('imageLightbox').classList.contains('open')) {
