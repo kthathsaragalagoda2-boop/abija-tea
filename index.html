@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TS7BGZVC');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <link rel="canonical" href="https://abijatea.me/"/>
@@ -156,7 +149,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Sans+Sinhala:wght@400;500&family=Noto+Sans+Tamil:wght@400;500&family=Noto+Serif+Sinhala:wght@400;500;600&family=Noto+Serif+Tamil:wght@300;400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 body.lang-si h1,body.lang-si h2,body.lang-si h3,body.lang-si p,
 body.lang-si .card-name,body.lang-si .card-desc,body.lang-si .card-tag,
@@ -233,6 +226,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .btn-ghost:hover{border-color:var(--gold);background:rgba(200,169,110,0.08);}
 .hero-right{display:flex;justify-content:center;align-items:stretch;overflow:hidden;}
 .hero-art-wrap{position:relative;width:100%;height:100%;min-height:500px;}
+.hero-art-wrap picture{display:block;width:100%;height:100%;}
 .hero-art-img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;}
 .hero-art-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--ink) 0%,rgba(10,8,4,0.55) 35%,rgba(10,8,4,0) 65%),linear-gradient(to top,var(--ink) 0%,transparent 25%);pointer-events:none;}
 
@@ -454,7 +448,7 @@ facebook
   <div class="hero-left">
     <div class="hero-eyebrow" id="hero-eyebrow">Abija Tea · Talawakelle, Kandy · Est. 2024</div>
     <h1 class="hero-title" id="hero-title">Real tea.<br><em>Nothing<br>else.</em></h1>
-    <p class="hero-sub" id="hero-sub">උසස් — elevated through knowledge</p>
+    <p class="hero-sub" id="hero-sub">Elevated through knowledge</p>
     <p class="hero-desc" id="hero-desc">Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncoloured, unflavoured, and free from additives. Abija tea is for people who know what real tea is supposed to be.</p>
     <div class="btn-row">
       <a href="#shop" class="btn-primary" id="btn-shop-now">Shop Now</a>
@@ -463,7 +457,10 @@ facebook
   </div>
   <div class="hero-right" aria-hidden="true">
     <div class="hero-art-wrap">
-      <img src="/hero-art.webp" alt="" class="hero-art-img" id="hero-art-img" fetchpriority="high" decoding="async" width="800" height="1000"/>
+      <picture>
+        <source id="hero-art-mobile-source" media="(max-width: 600px)" srcset="/hero-art-mobile.webp"/>
+        <img src="/hero-art.webp" alt="" class="hero-art-img" id="hero-art-img" fetchpriority="high" decoding="async" width="800" height="1000"/>
+      </picture>
       <div class="hero-art-overlay"></div>
     </div>
   </div>
@@ -706,6 +703,28 @@ function trackEvent(name, params = {}) {
   window.dataLayer.push({ event: name, ...params });
 }
 
+function loadAnalytics() {
+  if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
+  window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TS7BGZVC';
+  document.head.appendChild(script);
+}
+
+const LANGUAGE_FONT_URLS = {
+  si: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500&family=Noto+Serif+Sinhala:wght@400;500;600&display=swap',
+  ta: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500&family=Noto+Serif+Tamil:wght@300;400;600&display=swap'
+};
+function loadLanguageFonts(lang) {
+  if (!LANGUAGE_FONT_URLS[lang] || document.getElementById('language-font-' + lang)) return;
+  const link = document.createElement('link');
+  link.id = 'language-font-' + lang;
+  link.rel = 'stylesheet';
+  link.href = LANGUAGE_FONT_URLS[lang];
+  document.head.appendChild(link);
+}
+
 // ── PRODUCT PRICING (LKR base, 1kg = full price) ──
 // Weights: [100g, 250g, 500g, 1000g]
 // Discounted prices (15% off smaller packs), 1kg = full price
@@ -742,7 +761,7 @@ const CONTENT = {
     home:'Home', shop:'Shop', about:'About',
     heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
     heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'උසස් — elevated through knowledge',
+    heroSub:'Elevated through knowledge',
     heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncoloured, unflavoured, and free from additives. Abija tea is for people who know what real tea is supposed to be.',
     shopNow:'Shop Now', ourBelief:'Our Belief',
     shopEye:'Talawakelle, Kandy · Sri Lanka',
@@ -759,7 +778,7 @@ const CONTENT = {
     home:'Home', shop:'Shop', about:'About',
     heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
     heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'උසස් — elevated through knowledge',
+    heroSub:'Elevated through knowledge',
     heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncolored, unflavored, and free from additives. Abija tea is for people who know what real tea is supposed to be.',
     shopNow:'Shop Now', ourBelief:'Our Belief',
     shopEye:'Talawakelle, Kandy · Sri Lanka',
@@ -810,7 +829,7 @@ const CONTENT = {
     home:'Home', shop:'Shop', about:'About',
     heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
     heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'උසස් — elevated through knowledge',
+    heroSub:'Elevated through knowledge',
     heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncolored, unflavored, and free from additives.',
     shopNow:'Shop Now', ourBelief:'Our Belief',
     shopEye:'Talawakelle, Kandy · Sri Lanka',
@@ -843,6 +862,7 @@ async function detectLocationCurrency() {
 
 function applyRegionalExperience(isUs) {
   const heroImage = document.getElementById('hero-art-img');
+  document.getElementById('hero-art-mobile-source').srcset = isUs ? '/slUsa-hero-mobile.webp' : '/hero-art-mobile.webp';
   heroImage.src = isUs ? '/slUsa-hero.webp' : '/hero-art.webp';
   heroImage.width = isUs ? 1696 : 800;
   heroImage.height = isUs ? 2528 : 1000;
@@ -1040,6 +1060,7 @@ function orderWhatsApp() {
 // ── LANGUAGE SWITCHING ──
 function setLang(lang) {
   currentLang = lang;
+  loadLanguageFonts(lang);
   const c = CONTENT[lang];
   document.querySelectorAll('.lang-bar-btn').forEach(b => b.classList.remove('active'));
   const langButton = document.getElementById('btn-' + lang);
@@ -1129,6 +1150,11 @@ window.addEventListener('load', () => {
     window.requestIdleCallback(detectLocationCurrency, { timeout: 2000 });
   } else {
     window.setTimeout(detectLocationCurrency, 500);
+  }
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(loadAnalytics, { timeout: 5000 });
+  } else {
+    window.setTimeout(loadAnalytics, 3000);
   }
 });
 
