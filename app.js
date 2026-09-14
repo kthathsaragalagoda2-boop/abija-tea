@@ -43,10 +43,10 @@ function loadLanguageFonts(lang) {
 // Weights: [100g, 250g, 500g, 1000g]
 // Discounted prices (15% off smaller packs), 1kg = full price
 const PRODUCTS = {
-  'Black BOP Tea':    { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'BOP-1200.webp',  note:'' },
-  'Black BOPF Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[false,false,false,false], soon:false, img:'BOP-1200.webp',  note:'Unavailable' },
-  'Black Fannings':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dust-1200.webp',  note:'' },
-  'Black Dust Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dust-1200.webp',  note:'' },
+  'Black BOP Tea':    { group:'black', lkr:[250,625,1250,2500], avail:[true, true, true, true],  soon:false, img:'BOP-1200.webp',  note:'' },
+  'Black BOPF Tea':   { group:'black', lkr:[250,625,1250,2500], avail:[false,false,false,false], soon:false, img:'BOP-1200.webp',  note:'Unavailable' },
+  'Black Fannings':   { group:'black', lkr:[250,625,1250,2500], avail:[true, true, true, true],  soon:false, img:'Dust-1200.webp',  note:'' },
+  'Black Dust Tea':   { group:'black', lkr:[250,625,1250,2500], avail:[true, true, true, true],  soon:false, img:'Dust-1200.webp',  note:'' },
   'Pure Green Tea':   { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green-1200.webp',note:'' },
   'Leafy Green Tea':  { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green-1200.webp',note:'' },
   'Silver Tips':      { group:'tips',  lkr:[2500,6250,12500,10000],avail:[false,false,false,false],soon:true,  img:'Silver-1200.webp',note:'Within a week' },
@@ -55,7 +55,7 @@ const PRODUCTS = {
 
 // Original prices before discount (per 100g, 250g, 500g, 1kg in LKR)
 const ORIG_LKR = {
-  black: [750, 1875, 3750, 3000],
+  black: [250, 625, 1250, 2500],
   green: [1500, 3750, 7500, 6000],
   tips:  [3000, 7500, 15000, 12000]
 };
