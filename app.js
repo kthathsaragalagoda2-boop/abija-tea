@@ -16,6 +16,16 @@ function loadAnalytics() {
   document.head.appendChild(script);
 }
 
+function loadVideo(button) {
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://www.youtube-nocookie.com/embed/2QSEUZa4D40?autoplay=1&rel=0';
+  iframe.title = 'Abija Tea video';
+  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+  iframe.allowFullscreen = true;
+  iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+  button.replaceWith(iframe);
+}
+
 const LANGUAGE_FONT_URLS = {
   si: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500&family=Noto+Serif+Sinhala:wght@400;500;600&display=swap',
   ta: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500&family=Noto+Serif+Tamil:wght@300;400;600&display=swap'
