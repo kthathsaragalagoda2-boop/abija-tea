@@ -1,4 +1,4 @@
-const WA_NUMBER = '94716399502';
+const WA_NUMBER = '94775670480';
 
 // Google Tag Manager reads these GA4-recommended events from the data layer.
 // In GTM, create a GA4 Event tag using the Event Name variable and publish it.
