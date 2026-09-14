@@ -77,9 +77,16 @@
       "offers": {
         "@type": "Offer",
         "url": "https://abijatea.me/#shop",
-        "price": "2500",
+        "price": "2100",
         "priceCurrency": "LKR",
+        "priceValidUntil": "2026-09-30",
         "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": { "@type": "MonetaryAmount", "value": "450", "currency": "LKR" },
+          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "LK", "addressRegion": ["Central Province", "Western Province"] },
+          "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 7, "unitCode": "DAY" } }
+        },
         "seller": { "@id": "https://abijatea.me/#organization" }
       }
     },
@@ -94,9 +101,16 @@
       "offers": {
         "@type": "Offer",
         "url": "https://abijatea.me/#shop",
-        "price": "2500",
+        "price": "2100",
         "priceCurrency": "LKR",
+        "priceValidUntil": "2026-09-30",
         "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": { "@type": "MonetaryAmount", "value": "450", "currency": "LKR" },
+          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "LK", "addressRegion": ["Central Province", "Western Province"] },
+          "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 7, "unitCode": "DAY" } }
+        },
         "seller": { "@id": "https://abijatea.me/#organization" }
       }
     },
@@ -111,9 +125,16 @@
       "offers": {
         "@type": "Offer",
         "url": "https://abijatea.me/#shop",
-        "price": "5000",
+        "price": "4200",
         "priceCurrency": "LKR",
+        "priceValidUntil": "2026-09-30",
         "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": { "@type": "MonetaryAmount", "value": "450", "currency": "LKR" },
+          "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "LK", "addressRegion": ["Central Province", "Western Province"] },
+          "deliveryTime": { "@type": "ShippingDeliveryTime", "handlingTime": { "@type": "QuantitativeValue", "minValue": 0, "maxValue": 1, "unitCode": "DAY" }, "transitTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 7, "unitCode": "DAY" } }
+        },
         "seller": { "@id": "https://abijatea.me/#organization" }
       }
     },
@@ -213,9 +234,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 .mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;color:var(--parchment);text-decoration:none;}
 .mobile-menu a:hover{color:var(--gold);}
 
+/* MONTHLY OFFER */
+.promo-banner{position:fixed;top:57px;left:0;right:0;z-index:98;min-height:34px;padding:8px 20px;background:var(--gold);color:var(--ink);display:flex;justify-content:center;align-items:center;gap:10px;text-align:center;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;}
+.promo-banner strong{font-size:11px;}
+.promo-countdown{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
 /* HERO */
 #hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;padding:0;gap:0;}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:120px 48px 100px;position:relative;z-index:2;}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:154px 48px 100px;position:relative;z-index:2;}
 .hero-eyebrow{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
 .hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--gold);}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;line-height:0.95;color:var(--parchment);margin-bottom:12px;}
@@ -419,7 +445,9 @@ facebook
   .nav-links{display:none;}
   .burger{display:flex;}
   #hero{padding:88px 20px 60px;}
-  .hero-left{padding:88px 20px 60px;}
+  .mobile-menu{top:91px;}
+  .promo-banner{min-height:34px;padding:8px 12px;font-size:9px;letter-spacing:0.08em;gap:6px;}
+  .hero-left{padding:122px 20px 60px;}
   .hero-title{font-size:clamp(44px,13vw,64px);}
   #shop{padding:64px 16px 100px;}
   .products-grid{grid-template-columns:1fr;}
@@ -460,6 +488,10 @@ facebook
     <span id="b1"></span><span id="b2"></span><span id="b3"></span>
   </button>
 </nav>
+
+<div class="promo-banner" id="monthlyOffer" role="status">
+  <strong>September special — 30% off all tea</strong><span aria-hidden="true">·</span><span class="promo-countdown" id="promoCountdown">Ends soon</span>
+</div>
 
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Navigation menu" aria-modal="true">
   <a href="#hero" onclick="closeMenu()" id="mob-home">Home</a>
@@ -535,7 +567,7 @@ facebook
       <div class="card-footer">
         <div>
           <div class="unit-label">From</div>
-          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="0.53" data-lkr="200">200</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-lkr="625" data-sale-lkr="525">525</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
         </div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
@@ -553,7 +585,7 @@ facebook
       <div class="card-footer">
         <div>
           <div class="unit-label">From</div>
-          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="0.53" data-lkr="200">200</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-lkr="625" data-sale-lkr="525">525</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
         </div>
       </div>
     </div>
@@ -567,7 +599,7 @@ facebook
       <div class="card-footer">
         <div>
           <div class="unit-label">From</div>
-          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="1.05" data-lkr="400">400</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-lkr="1250" data-sale-lkr="1050">1,050</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
         </div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
@@ -582,7 +614,7 @@ facebook
       <div class="card-footer">
         <div>
           <div class="unit-label">From</div>
-          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="2.24" data-lkr="850">850</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-lkr="2500" data-sale-lkr="2100">2,100</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
         </div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
@@ -597,7 +629,7 @@ facebook
       <div class="card-footer">
         <div>
           <div class="unit-label">From</div>
-          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-gbp="2.24" data-lkr="850">850</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
+          <div class="card-price"><span class="sym">Rs</span> <span class="amt" data-lkr="2500" data-sale-lkr="2100">2,100</span> <span style="font-size:13px;color:rgba(245,237,216,0.4);">/ 100g</span></div>
         </div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
@@ -649,6 +681,8 @@ facebook
     <details><summary>Where does Abija Tea come from?</summary><p>Abija Tea is sourced from Talawakelle, Sri Lanka. Estate origin is printed on every product for clarity and traceability.</p></details>
     <details><summary>Are your teas flavored or blended?</summary><p>No. Abija Tea is sold without added coloring, flavoring, or additives, so the character of the tea leaf remains the focus.</p></details>
     <details><summary>Which teas are available today?</summary><p>Current availability is shown on each product card. If a limited-harvest tea is not ready, contact us on WhatsApp and we will confirm its next availability.</p></details>
+    <details><summary>Where do you deliver and how much does it cost?</summary><p>Delivery is available around Kandy and along the A1 road towards Colombo for Rs 450. Orders normally arrive within 3 to 7 days. We confirm the delivery address and timing on WhatsApp before the order is placed.</p></details>
+    <details><summary>What is the return policy?</summary><p>Tea orders are generally not returnable. As a one-time exception, a regular customer with more than 10 completed purchases may request one return for an unopened pack under 500 g, subject to confirmation on WhatsApp.</p></details>
   </div>
 </section>
 </main>

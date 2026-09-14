@@ -60,6 +60,31 @@ const ORIG_LKR = {
   tips:  [3000, 7500, 15000, 12000]
 };
 
+const MONTHLY_SALE_END = new Date('2026-09-30T23:59:59+05:30');
+const MONTHLY_SALE_PERCENT = 30;
+function monthlySaleIsActive() {
+  return new Date() <= MONTHLY_SALE_END;
+}
+function currentLkrPrice(product, index) {
+  const regular = product.lkr[index];
+  if (!monthlySaleIsActive()) return regular;
+  return Math.round(ORIG_LKR[product.group][index] * (1 - MONTHLY_SALE_PERCENT / 100));
+}
+function updateMonthlyOffer() {
+  const offer = document.getElementById('monthlyOffer');
+  const countdown = document.getElementById('promoCountdown');
+  if (!offer || !countdown) return;
+  const remaining = MONTHLY_SALE_END - new Date();
+  if (remaining <= 0) {
+    offer.hidden = true;
+    return;
+  }
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  countdown.textContent = 'Ends in ' + days + 'd ' + hours + 'h ' + minutes + 'm';
+}
+
 const WEIGHTS = ['100g','250g','500g','1kg'];
 
 const LANGS = {
@@ -215,7 +240,7 @@ function convertFromLKR(lkr, code) {
 function refreshAllPrices() {
   const lang = LANGS[currentLang];
   document.querySelectorAll('.amt[data-lkr]').forEach(el => {
-    const lkr = parseFloat(el.dataset.lkr);
+    const lkr = monthlySaleIsActive() && el.dataset.saleLkr ? parseFloat(el.dataset.saleLkr) : parseFloat(el.dataset.lkr);
     el.textContent = convertFromLKR(lkr, lang.code);
   });
   document.querySelectorAll('.sym').forEach(el => el.textContent = lang.sym);
@@ -247,7 +272,7 @@ function openDrawer(name, sub, price, img) {
   document.body.style.overflow = 'hidden';
   trackEvent('view_item', {
     currency: LANGS[currentLang].code,
-    value: currentProduct ? Number(convertFromLKR(currentProduct.lkr[currentWeightIdx], LANGS[currentLang].code)) : undefined,
+    value: currentProduct ? Number(convertFromLKR(currentLkrPrice(currentProduct, currentWeightIdx), LANGS[currentLang].code)) : undefined,
     items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
   });
 }
@@ -260,7 +285,7 @@ function renderDrawerWeights() {
   WEIGHTS.forEach((w, i) => {
     const btn = document.getElementById('dwbtn-' + i);
     if (!btn) return;
-    const lkr = p.lkr[i];
+    const lkr = currentLkrPrice(p, i);
     const origLkr = origPrices[i];
     const avail = p.avail[i];
     const soon = p.soon;
@@ -299,7 +324,7 @@ function selWt(el, idx) {
 function updateDrawerPrice() {
   const lang = LANGS[currentLang];
   if (!currentProduct) return;
-  const lkr = currentProduct.lkr[currentWeightIdx];
+  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
   const price = convertFromLKR(lkr, lang.code);
   document.getElementById('d-price').textContent = price;
   document.getElementById('d-curr').textContent = lang.sym;
@@ -313,7 +338,7 @@ function updateDrawerPrice() {
 function updateTotal() {
   const lang = LANGS[currentLang];
   if (!currentProduct) return;
-  const lkr = currentProduct.lkr[currentWeightIdx];
+  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
   const totalLkr = lkr * qty;
   const totalRow = document.getElementById('d-total-row');
   if (qty > 1) {
@@ -356,7 +381,7 @@ function orderWhatsApp() {
   const name = document.getElementById('d-name').textContent;
   const weight = WEIGHTS[currentWeightIdx];
   const lang = LANGS[currentLang];
-  const lkr = currentProduct.lkr[currentWeightIdx];
+  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
   const price = convertFromLKR(lkr, lang.code);
   const totalLkr = lkr * qty;
   const total = convertFromLKR(totalLkr, lang.code);
@@ -461,6 +486,9 @@ window.addEventListener('keydown', event => {
 });
 
 // ── INIT ──
+updateMonthlyOffer();
+refreshAllPrices();
+window.setInterval(updateMonthlyOffer, 60000);
 window.addEventListener('load', () => {
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(detectLocationCurrency, { timeout: 2000 });
