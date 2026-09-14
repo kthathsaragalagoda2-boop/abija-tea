@@ -26,6 +26,59 @@ function loadVideo(button) {
   button.replaceWith(iframe);
 }
 
+// ── FIRST-ORDER GUIDE ──
+let purchaseGuideActive = false;
+let purchaseGuideStep = 0;
+function setPurchaseGuideStep(step) {
+  if (!purchaseGuideActive) return;
+  purchaseGuideStep = step;
+  const guide = document.getElementById('purchaseGuide');
+  const arrow = document.getElementById('guideScrollArrow');
+  const title = document.getElementById('guideTitle');
+  const message = document.getElementById('guideMessage');
+  const stepLabel = document.getElementById('guideStep');
+  document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
+  guide.classList.add('open');
+  guide.classList.toggle('drawer-mode', step > 1);
+  arrow.classList.toggle('open', step === 1);
+  const steps = {
+    1: ['Step 1 of 5 · Find your tea', 'Scroll down to the Black Fannings Tea card.'],
+    2: ['Step 2 of 5 · Choose product', 'Tap “View price & order” on Black Fannings Tea.'],
+    3: ['Step 3 of 5 · Choose weight', 'Select the 100g option to start your order.'],
+    4: ['Step 4 of 5 · Set quantity', 'Tap + to add one more pack, or continue with one.'],
+    5: ['Step 5 of 5 · Send order', 'Tap Confirm order on WhatsApp. Your order summary is ready.']
+  };
+  const copy = steps[step];
+  stepLabel.textContent = step + '/5';
+  title.textContent = copy[0];
+  message.textContent = copy[1];
+  const target = step === 2 ? document.getElementById('black-fannings-card') :
+    step === 3 ? document.getElementById('dwbtn-0') :
+    step === 4 ? document.querySelector('.d-qty') :
+    step === 5 ? document.querySelector('.d-cta') : null;
+  if (target) target.classList.add('guide-target');
+}
+function startPurchaseGuide() {
+  let seen = false;
+  try { seen = localStorage.getItem('abija-order-guide-seen') === '1'; } catch (error) {}
+  if (purchaseGuideActive || seen) return;
+  purchaseGuideActive = true;
+  try { localStorage.setItem('abija-order-guide-seen', '1'); } catch (error) {}
+  setPurchaseGuideStep(1);
+}
+function finishPurchaseGuide() {
+  purchaseGuideActive = false;
+  document.getElementById('purchaseGuide').classList.remove('open', 'drawer-mode');
+  document.getElementById('guideScrollArrow').classList.remove('open');
+  document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
+}
+function updatePurchaseGuideOnScroll() {
+  if (!purchaseGuideActive || purchaseGuideStep !== 1) return;
+  const product = document.getElementById('black-fannings-card');
+  const rect = product.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.72 && rect.bottom > 100) setPurchaseGuideStep(2);
+}
+
 const LANGUAGE_FONT_URLS = {
   si: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500&family=Noto+Serif+Sinhala:wght@400;500;600&display=swap',
   ta: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500&family=Noto+Serif+Tamil:wght@300;400;600&display=swap'
@@ -286,6 +339,7 @@ function openDrawer(name, sub, price, img) {
     item_list_name: 'Abija Tea Collection',
     items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
   });
+  if (purchaseGuideActive && name === 'Black Fannings Tea') setPurchaseGuideStep(3);
 }
 
 function renderDrawerWeights() {
@@ -330,6 +384,7 @@ function selWt(el, idx) {
   currentWeightIdx = idx;
   renderDrawerWeights();
   updateDrawerPrice();
+  if (purchaseGuideActive && purchaseGuideStep === 3 && idx === 0) setPurchaseGuideStep(4);
 }
 
 function updateDrawerPrice() {
@@ -385,6 +440,7 @@ function chQty(d) {
   qty = Math.max(1, qty + d);
   document.getElementById('d-qty').textContent = qty;
   updateTotal();
+  if (purchaseGuideActive && purchaseGuideStep === 4 && d > 0) setPurchaseGuideStep(5);
 }
 
 function orderWhatsApp() {
@@ -411,6 +467,7 @@ function orderWhatsApp() {
     value: numericFromLKR(orderTotalLkr, lang.code),
     items: [{ item_name: name, item_variant: weight, quantity: qty }]
   });
+  finishPurchaseGuide();
   closeDrawer();
   window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
 }
@@ -483,6 +540,7 @@ function closeMenu() {
 
 // ── SCROLL NAV ──
 window.addEventListener('scroll', () => {
+  updatePurchaseGuideOnScroll();
   const links = [document.getElementById('nav-home'), document.getElementById('nav-shop'), document.getElementById('nav-about')];
   ['hero','shop','about'].forEach((id, i) => {
     const el = document.getElementById(id);
@@ -511,6 +569,7 @@ trackEvent('view_item_list', {
 });
 window.setInterval(updateMonthlyOffer, 60000);
 window.addEventListener('load', () => {
+  window.setTimeout(startPurchaseGuide, 900);
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(detectLocationCurrency, { timeout: 2000 });
   } else {
