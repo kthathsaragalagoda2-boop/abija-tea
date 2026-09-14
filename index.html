@@ -80,7 +80,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       "image": "https://abijatea.me/BOP.webp",
       "description": "Abija Black BOP (Broken Orange Pekoe) is a pure, unblended Ceylon tea from Talawakelle, Kandy. Balanced in strength and aroma. No colouring, no flavouring.",
       "brand": { "@type": "Brand", "name": "Abija Tea" },
-      "category": "Ceylon Black Tea"
+      "category": "Ceylon Black Tea",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://abijatea.me/#shop",
+        "price": "2500",
+        "priceCurrency": "LKR",
+        "availability": "https://schema.org/InStock",
+        "seller": { "@id": "https://abijatea.me/#organization" }
+      }
     },
     {
       "@type": "Product",
@@ -260,7 +268,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content
 /* BOP HERO */
 .product-card.bop-hero{grid-column:span 2;background:linear-gradient(135deg,rgba(200,169,110,0.10) 0%,rgba(44,24,16,0.6) 100%);border:1px solid rgba(200,169,110,0.35);}
 .product-card.bop-hero::before{content:'MOST POPULAR';position:absolute;top:0;right:0;background:var(--gold);color:var(--ink);font-size:9px;font-weight:600;letter-spacing:0.22em;padding:5px 14px;}
-.bop-quick-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif;margin-top:12px;}
+.bop-quick-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:var(--gold);color:var(--ink);font-size:11px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif;margin-top:12px;position:relative;z-index:2;touch-action:manipulation;}
 .bop-quick-btn:hover{background:var(--gold-light);}
 
 /* SILVER */
@@ -485,7 +493,7 @@ facebook
 
     <article class="product-card bop-hero" onclick="openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Abija Black BOP Tea — most popular">
       <div class="card-avail">
-        <span class="avail-badge out">✗ BOP — Unavailable</span>
+        <span class="avail-badge in">✓ BOP — Available</span>
         <span class="avail-badge out">✗ BOPF — Unavailable</span>
         <span class="avail-badge in">✓ Fannings — Available</span>
         <span class="avail-badge in">✓ Dust — Available</span>
@@ -508,7 +516,7 @@ facebook
         </div>
         <div class="card-weights"><span class="w-pill sel">100g</span><span class="w-pill">250g</span><span class="w-pill">500g</span><span class="w-pill">1kg</span></div>
       </div>
-      <button class="bop-quick-btn" onclick="event.stopPropagation();openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Quick order Black BOP Tea">
+      <button class="bop-quick-btn" type="button" onclick="event.stopPropagation();openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP.webp')" aria-label="Quick order Black BOP Tea">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-1.45-5c.75 0 1.41-.41 1.75-1.03L21 4H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H16z"/></svg>
         Order Black BOP Now
       </button>
@@ -714,7 +722,7 @@ function trackEvent(name, params = {}) {
 // Weights: [100g, 250g, 500g, 1000g]
 // Discounted prices (15% off smaller packs), 1kg = full price
 const PRODUCTS = {
-  'Black BOP Tea':    { group:'black', lkr:[625,1563,3125,2500], avail:[false,false,false,false], soon:false, img:'BOP.webp',  note:'Unavailable' },
+  'Black BOP Tea':    { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'BOP.webp',  note:'' },
   'Black BOPF Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[false,false,false,false], soon:false, img:'BOP.webp',  note:'Unavailable' },
   'Black Fannings':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dust.webp',  note:'' },
   'Black Dust Tea':   { group:'black', lkr:[625,1563,3125,2500], avail:[true, true, true, true],  soon:false, img:'Dust.webp',  note:'' },
