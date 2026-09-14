@@ -549,9 +549,6 @@ facebook
     <article class="product-card bop-hero" onclick="openDrawer('Black BOP Tea','Mid-range · Balanced Strength','12.99','BOP-1200.webp')" aria-label="Abija Black BOP Tea — most popular">
       <div class="card-avail">
         <span class="avail-badge in">✓ BOP — Available</span>
-        <span class="avail-badge out">✗ BOPF — Unavailable</span>
-        <span class="avail-badge in">✓ Fannings — Available</span>
-        <span class="avail-badge in">✓ Dust — Available</span>
       </div>
       <div class="card-tag" data-en="Available Now · Rs 2,500/kg" data-si="හොඳම විකිණුම · මධ්‍යම ගණය" data-ta="சிறந்த விற்பனை · நடுத்தர தரம்">Best Seller · Mid-Range</div>
       <h3 class="card-name" data-en="Black BOP Tea" data-si="කළු BOP තේ" data-ta="கருப்பு BOP தேநீர்">Black BOP Tea</h3>
@@ -736,18 +733,21 @@ facebook
       <span class="d-price" id="d-price">0</span>
     </div>
     <div class="rate-note" id="d-rate-note"></div>
-    <div id="d-total-row" style="margin-top:8px;display:none;">
-      <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,169,110,0.65);margin-bottom:3px;">Total</div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;font-size:12px;color:rgba(245,237,216,0.75);">
+      <span>Delivery (Kandy–Colombo / A1 area)</span><span><span id="d-delivery-curr">Rs</span> <span id="d-delivery">450</span></span>
+    </div>
+    <div id="d-total-row" style="margin-top:12px;display:none;">
+      <div style="font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(200,169,110,0.65);margin-bottom:3px;">Order total (delivery included)</div>
       <div style="display:flex;align-items:baseline;gap:5px;">
         <span style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);" id="d-total-curr">Rs</span>
         <span style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);" id="d-total">0</span>
       </div>
     </div>
-    <p style="margin-top:14px;font-size:11px;line-height:1.6;color:rgba(245,237,216,0.6);">Delivery, availability, and the final total are confirmed on WhatsApp before your order is placed.</p>
+    <p style="margin-top:14px;font-size:11px;line-height:1.6;color:rgba(245,237,216,0.6);">Estimated delivery: 3–7 days. We confirm your address and delivery date on WhatsApp.</p>
   </div>
   <button class="d-cta" onclick="orderWhatsApp()">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L.057 23.571a.75.75 0 00.921.921l5.716-1.471A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.704 9.704 0 01-4.953-1.355l-.355-.211-3.676.945.963-3.573-.231-.368A9.712 9.712 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
-    Order via WhatsApp
+    <span id="d-cta-label">Confirm order on WhatsApp</span>
   </button>
 </div>
 

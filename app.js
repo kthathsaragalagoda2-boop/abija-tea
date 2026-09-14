@@ -62,6 +62,7 @@ const ORIG_LKR = {
 
 const MONTHLY_SALE_END = new Date('2026-09-30T23:59:59+05:30');
 const MONTHLY_SALE_PERCENT = 30;
+const DELIVERY_LKR = 450;
 function monthlySaleIsActive() {
   return new Date() <= MONTHLY_SALE_END;
 }
@@ -236,6 +237,10 @@ function convertFromLKR(lkr, code) {
   if (code === 'USD') return (lkr * rates.USD).toFixed(2);
   return lkr;
 }
+function numericFromLKR(lkr, code) {
+  if (code === 'LKR') return Math.round(lkr);
+  return Number((lkr * rates[code]).toFixed(2));
+}
 
 function refreshAllPrices() {
   const lang = LANGS[currentLang];
@@ -244,7 +249,10 @@ function refreshAllPrices() {
     el.textContent = convertFromLKR(lkr, lang.code);
   });
   document.querySelectorAll('.sym').forEach(el => el.textContent = lang.sym);
-  if (currentProduct) renderDrawerWeights();
+  if (currentProduct) {
+    renderDrawerWeights();
+    updateDrawerPrice();
+  }
 }
 
 // ── DRAWER ──
@@ -272,7 +280,11 @@ function openDrawer(name, sub, price, img) {
   document.body.style.overflow = 'hidden';
   trackEvent('view_item', {
     currency: LANGS[currentLang].code,
-    value: currentProduct ? Number(convertFromLKR(currentLkrPrice(currentProduct, currentWeightIdx), LANGS[currentLang].code)) : undefined,
+    value: currentProduct ? numericFromLKR(currentLkrPrice(currentProduct, currentWeightIdx), LANGS[currentLang].code) : undefined,
+    items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
+  });
+  trackEvent('select_item', {
+    item_list_name: 'Abija Tea Collection',
     items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
   });
 }
@@ -339,15 +351,15 @@ function updateTotal() {
   const lang = LANGS[currentLang];
   if (!currentProduct) return;
   const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
-  const totalLkr = lkr * qty;
+  const teaTotalLkr = lkr * qty;
+  const orderTotalLkr = teaTotalLkr + DELIVERY_LKR;
   const totalRow = document.getElementById('d-total-row');
-  if (qty > 1) {
-    document.getElementById('d-total').textContent = convertFromLKR(totalLkr, lang.code);
-    document.getElementById('d-total-curr').textContent = lang.sym;
-    totalRow.style.display = 'block';
-  } else {
-    totalRow.style.display = 'none';
-  }
+  document.getElementById('d-delivery').textContent = convertFromLKR(DELIVERY_LKR, lang.code);
+  document.getElementById('d-delivery-curr').textContent = lang.sym;
+  document.getElementById('d-total').textContent = convertFromLKR(orderTotalLkr, lang.code);
+  document.getElementById('d-total-curr').textContent = lang.sym;
+  document.getElementById('d-cta-label').textContent = 'Confirm order on WhatsApp — ' + lang.sym + convertFromLKR(orderTotalLkr, lang.code);
+  totalRow.style.display = 'block';
 }
 
 function closeDrawer() {
@@ -383,15 +395,21 @@ function orderWhatsApp() {
   const lang = LANGS[currentLang];
   const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
   const price = convertFromLKR(lkr, lang.code);
-  const totalLkr = lkr * qty;
-  const total = convertFromLKR(totalLkr, lang.code);
+  const teaTotalLkr = lkr * qty;
+  const delivery = convertFromLKR(DELIVERY_LKR, lang.code);
+  const orderTotalLkr = teaTotalLkr + DELIVERY_LKR;
+  const total = convertFromLKR(orderTotalLkr, lang.code);
   const soon = currentProduct.soon ? '\n⚠️ Note: Available within 1 week.' : '';
-  const totalLine = qty > 1 ? '\n- Total: ' + lang.sym + ' ' + total + ' (' + lang.code + ')' : '';
-  const msg = 'Hi Abija Tea! 🍵\n\nI would like to order:\n- ' + name + '\n- Weight: ' + weight + '\n- Qty: ' + qty + '\n- Unit: ' + lang.sym + ' ' + price + ' (' + lang.code + ')' + totalLine + soon + '\n\nPlease confirm and share delivery details. Thank you!';
+  const msg = 'Hi Abija Tea! 🍵\n\nI would like to order:\n- ' + name + '\n- Weight: ' + weight + '\n- Qty: ' + qty + '\n- Unit: ' + lang.sym + ' ' + price + ' (' + lang.code + ')' + '\n- Tea subtotal: ' + lang.sym + ' ' + convertFromLKR(teaTotalLkr, lang.code) + '\n- Delivery: ' + lang.sym + ' ' + delivery + '\n- Order total: ' + lang.sym + ' ' + total + ' (' + lang.code + ')' + soon + '\n\nMy delivery address is: \n\nPlease confirm my delivery date. Thank you!';
+  trackEvent('begin_checkout', {
+    currency: lang.code,
+    value: numericFromLKR(orderTotalLkr, lang.code),
+    items: [{ item_name: name, item_variant: weight, quantity: qty }]
+  });
   trackEvent('generate_lead', {
     method: 'WhatsApp',
     currency: lang.code,
-    value: Number(total),
+    value: numericFromLKR(orderTotalLkr, lang.code),
     items: [{ item_name: name, item_variant: weight, quantity: qty }]
   });
   closeDrawer();
@@ -436,7 +454,7 @@ function setLang(lang) {
   document.getElementById('foot-shop').textContent = c.shop;
   document.getElementById('foot-about').textContent = c.about;
   document.getElementById('footer-copy').firstChild.textContent = c.footCopy + ' · ';
-  document.querySelector('.d-cta').lastChild.textContent = ' ' + c.orderBtn;
+  document.getElementById('d-cta-label').textContent = c.orderBtn;
   refreshAllPrices();
 }
 
@@ -488,6 +506,10 @@ window.addEventListener('keydown', event => {
 // ── INIT ──
 updateMonthlyOffer();
 refreshAllPrices();
+trackEvent('view_item_list', {
+  item_list_name: 'Abija Tea Collection',
+  items: ['Black BOP Tea', 'Black Dust Tea', 'Pure Green Tea', 'Silver Tips', 'Golden Tips'].map(item_name => ({ item_name }))
+});
 window.setInterval(updateMonthlyOffer, 60000);
 window.addEventListener('load', () => {
   if ('requestIdleCallback' in window) {
