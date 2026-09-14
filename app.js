@@ -34,6 +34,7 @@ function setPurchaseGuideStep(step) {
   purchaseGuideStep = step;
   const guide = document.getElementById('purchaseGuide');
   const arrow = document.getElementById('guideScrollArrow');
+  const pointer = document.getElementById('guidePointer');
   const title = document.getElementById('guideTitle');
   const message = document.getElementById('guideMessage');
   const stepLabel = document.getElementById('guideStep');
@@ -41,6 +42,7 @@ function setPurchaseGuideStep(step) {
   guide.classList.add('open');
   guide.classList.toggle('drawer-mode', step > 1);
   arrow.classList.toggle('open', step === 1);
+  pointer.classList.remove('open');
   const steps = {
     1: ['Step 1 of 5 · Find your tea', 'Scroll down to the Black Fannings Tea card.'],
     2: ['Step 2 of 5 · Choose product', 'Tap “View price & order” on Black Fannings Tea.'],
@@ -56,7 +58,22 @@ function setPurchaseGuideStep(step) {
     step === 3 ? document.getElementById('dwbtn-0') :
     step === 4 ? document.querySelector('.d-qty') :
     step === 5 ? document.querySelector('.d-cta') : null;
-  if (target) target.classList.add('guide-target');
+  if (target) {
+    target.classList.add('guide-target');
+    positionGuidePointer(target);
+  }
+}
+function positionGuidePointer(target) {
+  const pointer = document.getElementById('guidePointer');
+  if (!target || !pointer) return;
+  const rect = target.getBoundingClientRect();
+  pointer.style.left = Math.min(window.innerWidth - 44, Math.max(44, rect.left + rect.width / 2)) + 'px';
+  pointer.style.top = Math.max(72, rect.top - 46) + 'px';
+  pointer.classList.add('open');
+}
+function refreshGuidePointer() {
+  if (!purchaseGuideActive || purchaseGuideStep < 2) return;
+  positionGuidePointer(document.querySelector('.guide-target'));
 }
 function startPurchaseGuide() {
   let seen = false;
@@ -70,6 +87,7 @@ function finishPurchaseGuide() {
   purchaseGuideActive = false;
   document.getElementById('purchaseGuide').classList.remove('open', 'drawer-mode');
   document.getElementById('guideScrollArrow').classList.remove('open');
+  document.getElementById('guidePointer').classList.remove('open');
   document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
 }
 function updatePurchaseGuideOnScroll() {
@@ -541,6 +559,7 @@ function closeMenu() {
 // ── SCROLL NAV ──
 window.addEventListener('scroll', () => {
   updatePurchaseGuideOnScroll();
+  refreshGuidePointer();
   const links = [document.getElementById('nav-home'), document.getElementById('nav-shop'), document.getElementById('nav-about')];
   ['hero','shop','about'].forEach((id, i) => {
     const el = document.getElementById(id);
@@ -553,6 +572,8 @@ window.addEventListener('scroll', () => {
     }
   });
 }, { passive: true });
+
+window.addEventListener('resize', refreshGuidePointer, { passive: true });
 
 window.addEventListener('keydown', event => {
   if (event.key === 'Escape' && document.getElementById('imageLightbox').classList.contains('open')) {
