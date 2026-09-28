@@ -1,609 +1,588 @@
-const WA_NUMBER = '94775670480';
+import {
+  PRODUCTS,
+  DETAILS,
+  FEATURED,
+  WEIGHTS,
+  ORIG_LKR,
+  DELIVERY_LKR,
+  MONTHLY_SALE_PERCENT,
+  monthlySaleIsActive,
+  currentLkrPrice,
+  cartTotals,
+  WA_NUMBER,
+} from "./catalog.mjs";
 
-// Google Tag Manager reads these GA4-recommended events from the data layer.
-// In GTM, create a GA4 Event tag using the Event Name variable and publish it.
+// Preserve the existing GTM container and GA4 ecommerce data-layer events.
 window.dataLayer = window.dataLayer || [];
-function trackEvent(name, params = {}) {
-  window.dataLayer.push({ event: name, ...params });
+function trackEvent(event, params = {}) {
+  window.dataLayer.push({ event, ...params });
 }
-
 function loadAnalytics() {
-  if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]')) return;
-  window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-  const script = document.createElement('script');
+  if (document.querySelector('script[src*="googletagmanager.com/gtm.js"]'))
+    return;
+  window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+  const script = document.createElement("script");
   script.async = true;
-  script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TS7BGZVC';
+  script.src = "https://www.googletagmanager.com/gtm.js?id=GTM-TS7BGZVC";
   document.head.appendChild(script);
 }
-
-function loadVideo(button) {
-  const iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube-nocookie.com/embed/2QSEUZa4D40?autoplay=1&rel=0';
-  iframe.title = 'Abija Tea video';
-  iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-  iframe.allowFullscreen = true;
-  iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-  button.replaceWith(iframe);
-}
-
-// ── FIRST-ORDER GUIDE ──
-let purchaseGuideActive = false;
-let purchaseGuideStep = 0;
-function setPurchaseGuideStep(step) {
-  if (!purchaseGuideActive) return;
-  purchaseGuideStep = step;
-  const guide = document.getElementById('purchaseGuide');
-  const arrow = document.getElementById('guideScrollArrow');
-  const pointer = document.getElementById('guidePointer');
-  const title = document.getElementById('guideTitle');
-  const message = document.getElementById('guideMessage');
-  const stepLabel = document.getElementById('guideStep');
-  document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
-  guide.classList.add('open');
-  guide.classList.toggle('drawer-mode', step > 1);
-  arrow.classList.toggle('open', step === 1);
-  pointer.classList.remove('open');
-  const steps = {
-    1: ['Step 1 of 5 · Find your tea', 'Scroll down to the Black Fannings Tea card.'],
-    2: ['Step 2 of 5 · Choose product', 'Tap “View price & order” on Black Fannings Tea.'],
-    3: ['Step 3 of 5 · Choose weight', 'Select the 100g option to start your order.'],
-    4: ['Step 4 of 5 · Set quantity', 'Tap + to add one more pack, or continue with one.'],
-    5: ['Step 5 of 5 · Send order', 'Tap Confirm order on WhatsApp. Your order summary is ready.']
-  };
-  const copy = steps[step];
-  stepLabel.textContent = step + '/5';
-  title.textContent = copy[0];
-  message.textContent = copy[1];
-  const target = step === 2 ? document.getElementById('black-fannings-card') :
-    step === 3 ? document.getElementById('dwbtn-0') :
-    step === 4 ? document.querySelector('.d-qty') :
-    step === 5 ? document.querySelector('.d-cta') : null;
-  if (target) {
-    target.classList.add('guide-target');
-    positionGuidePointer(target);
+const $ = (id) => document.getElementById(id);
+const names = Object.keys(DETAILS);
+const slug = (name) => name.toLowerCase().replaceAll(" ", "-");
+const productUrl = (name) => "#tea/" + slug(name);
+const stored = (key, fallback) => {
+  try {
+    return JSON.parse(localStorage.getItem(key)) ?? fallback;
+  } catch {
+    return fallback;
   }
-}
-function positionGuidePointer(target) {
-  const pointer = document.getElementById('guidePointer');
-  if (!target || !pointer) return;
-  const rect = target.getBoundingClientRect();
-  if (rect.top < 112 || rect.top > window.innerHeight - 90) {
-    pointer.classList.remove('open');
-    return;
+};
+const save = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    /* Shopping works without browser storage. */
   }
-  pointer.style.left = Math.min(window.innerWidth - 44, Math.max(44, rect.left + rect.width / 2)) + 'px';
-  pointer.style.top = (rect.top - 46) + 'px';
-  pointer.classList.add('open');
-}
-function refreshGuidePointer() {
-  if (!purchaseGuideActive || purchaseGuideStep < 2) return;
-  positionGuidePointer(document.querySelector('.guide-target'));
-}
-function startPurchaseGuide() {
-  let seen = false;
-  try { seen = localStorage.getItem('abija-order-guide-seen') === '1'; } catch (error) {}
-  if (purchaseGuideActive || seen) return;
-  purchaseGuideActive = true;
-  try { localStorage.setItem('abija-order-guide-seen', '1'); } catch (error) {}
-  setPurchaseGuideStep(1);
-}
-function finishPurchaseGuide() {
-  purchaseGuideActive = false;
-  document.getElementById('purchaseGuide').classList.remove('open', 'drawer-mode');
-  document.getElementById('guideScrollArrow').classList.remove('open');
-  document.getElementById('guidePointer').classList.remove('open');
-  document.querySelectorAll('.guide-target').forEach(element => element.classList.remove('guide-target'));
-}
-function updatePurchaseGuideOnScroll() {
-  if (!purchaseGuideActive || purchaseGuideStep !== 1) return;
-  const product = document.getElementById('black-fannings-card');
-  const rect = product.getBoundingClientRect();
-  if (rect.top < window.innerHeight * 0.72 && rect.bottom > 100) setPurchaseGuideStep(2);
-}
-
-const LANGUAGE_FONT_URLS = {
-  si: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@400;500&family=Noto+Serif+Sinhala:wght@400;500;600&display=swap',
-  ta: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500&family=Noto+Serif+Tamil:wght@300;400;600&display=swap'
 };
-function loadLanguageFonts(lang) {
-  if (!LANGUAGE_FONT_URLS[lang] || document.getElementById('language-font-' + lang)) return;
-  const link = document.createElement('link');
-  link.id = 'language-font-' + lang;
-  link.rel = 'stylesheet';
-  link.href = LANGUAGE_FONT_URLS[lang];
-  document.head.appendChild(link);
-}
-
-// ── PRODUCT PRICING (LKR base, 1kg = full price) ──
-// Weights: [100g, 250g, 500g, 1000g]
-// Discounted prices (15% off smaller packs), 1kg = full price
-const PRODUCTS = {
-  'Black Fannings Tea': { group:'black', lkr:[250,625,1250,2500], avail:[true, true, true, true], soon:false, img:'BOP-1200.webp', note:'' },
-  'Black BOPF Tea':   { group:'black', lkr:[250,625,1250,2500], avail:[false,false,false,false], soon:false, img:'BOP-1200.webp',  note:'Unavailable' },
-  'Black Dust Tea':   { group:'black', lkr:[250,625,1250,2500], avail:[true, true, true, true],  soon:false, img:'Dust-1200.webp',  note:'' },
-  'Pure Green Tea':   { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green-1200.webp',note:'' },
-  'Leafy Green Tea':  { group:'green', lkr:[1250,3125,6250,5000],avail:[true, true, true, true],  soon:false, img:'Green-1200.webp',note:'' },
-  'Silver Tips':      { group:'tips',  lkr:[2500,6250,12500,10000],avail:[false,false,false,false],soon:true,  img:'Silver-1200.webp',note:'Within a week' },
-  'Golden Tips':      { group:'tips',  lkr:[2500,6250,12500,10000],avail:[false,false,false,false],soon:true,  img:'Golden-1200.webp',note:'Within a week' }
-};
-
-// Original prices before discount (per 100g, 250g, 500g, 1kg in LKR)
-const ORIG_LKR = {
-  black: [250, 625, 1250, 2500],
-  green: [1500, 3750, 7500, 6000],
-  tips:  [3000, 7500, 15000, 12000]
-};
-
-const MONTHLY_SALE_END = new Date('2026-09-30T23:59:59+05:30');
-const MONTHLY_SALE_PERCENT = 30;
-const DELIVERY_LKR = 450;
-function monthlySaleIsActive() {
-  return new Date() <= MONTHLY_SALE_END;
-}
-function currentLkrPrice(product, index) {
-  const regular = product.lkr[index];
-  if (!monthlySaleIsActive()) return regular;
-  return Math.round(ORIG_LKR[product.group][index] * (1 - MONTHLY_SALE_PERCENT / 100));
-}
-function updateMonthlyOffer() {
-  const offer = document.getElementById('monthlyOffer');
-  const countdown = document.getElementById('promoCountdown');
-  if (!offer || !countdown) return;
-  const remaining = MONTHLY_SALE_END - new Date();
-  if (remaining <= 0) {
-    offer.hidden = true;
-    return;
-  }
-  const days = Math.floor(remaining / 86400000);
-  const hours = Math.floor((remaining % 86400000) / 3600000);
-  const minutes = Math.floor((remaining % 3600000) / 60000);
-  countdown.textContent = 'Ends in ' + days + 'd ' + hours + 'h ' + minutes + 'm';
-}
-
-const WEIGHTS = ['100g','250g','500g','1kg'];
-
-const LANGS = {
-  en: { sym:'Rs',  code:'LKR', label:'LKR — Sri Lanka Rupee' },
-  us: { sym:'$',   code:'USD', label:'USD — United States Dollar' },
-  si: { sym:'Rs',  code:'LKR', label:'LKR — ශ්‍රී ලංකා රුපියල' },
-  ta: { sym:'₹',   code:'INR', label:'INR — Indian Rupee' },
-  gb: { sym:'£',   code:'GBP', label:'GBP — British Pound' }
-};
-
-const CONTENT = {
+let cart = stored("abija-bag-v1", []);
+cart = Array.isArray(cart)
+  ? cart
+      .filter(
+        (i) =>
+          i &&
+          names.includes(i.name) &&
+          Number.isInteger(i.weight) &&
+          i.weight >= 0 &&
+          i.weight < WEIGHTS.length &&
+          Number.isInteger(i.qty) &&
+          i.qty > 0 &&
+          i.qty <= 99 &&
+          (PRODUCTS[i.name].avail[i.weight] || PRODUCTS[i.name].soon),
+      )
+      .slice(0, 20)
+  : [];
+let language = stored("abija-language", "en");
+if (!["en", "si", "ta"].includes(language)) language = "en";
+let currency = "LKR",
+  rates = { LKR: 1 },
+  currentName = null,
+  weightIndex = 1,
+  quantity = 1,
+  slideIndex = 0;
+let currencyRequest = 0,
+  ratePromise,
+  toastTimer;
+const COPY = {
   en: {
-    home:'Home', shop:'Shop', about:'About',
-    heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
-    heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'Elevated through knowledge',
-    heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncoloured, unflavoured, and free from additives. Abija tea is for people who know what real tea is supposed to be.',
-    shopNow:'Shop Now', ourBelief:'Our Belief',
-    shopEye:'Talawakelle, Kandy · Sri Lanka',
-    shopTitle:'The Abija<br><em>Collection</em>',
-    aboutEye:'Our Belief',
-    aboutTitle:'<em>Real</em> tea.<br>Nothing else.',
-    aboutP1:'Abija is a premium Sri Lankan tea brand built on purity, truth, and deep knowledge of real tea. Every product is sourced from Talawakelle, Kandy — 100% pure Ceylon tea, unblended, uncoloured, unflavoured, and free from chemicals or additives.',
-    aboutP2:'Most tea brands today use colouring to fake strength, add flavours to hide poor quality, and blend waste tea. Abija exists to set a different standard. The estate name is printed boldly on every product.',
-    stat1:'Products', stat2:'Additives', stat3:'Pure Ceylon', stat4:'Estate Origin',
-    footCopy:'© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka',
-    orderBtn:'Order via WhatsApp'
-  },
-  us: {
-    home:'Home', shop:'Shop', about:'About',
-    heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
-    heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'Elevated through knowledge',
-    heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncolored, unflavored, and free from additives. Abija tea is for people who know what real tea is supposed to be.',
-    shopNow:'Shop Now', ourBelief:'Our Belief',
-    shopEye:'Talawakelle, Kandy · Sri Lanka',
-    shopTitle:'The Abija<br><em>Collection</em>',
-    aboutEye:'Our Belief',
-    aboutTitle:'<em>Real</em> tea.<br>Nothing else.',
-    aboutP1:'Abija is a premium Sri Lankan tea brand built on purity, truth, and deep knowledge of real tea. Every product is sourced from Talawakelle, Kandy — 100% pure Ceylon tea, unblended, uncolored, unflavored, and free from chemicals or additives.',
-    aboutP2:'Most tea brands today use coloring to fake strength, add flavors to hide poor quality, and blend waste tea. Abija exists to set a different standard. The estate name is printed boldly on every product.',
-    stat1:'Products', stat2:'Additives', stat3:'Pure Ceylon', stat4:'Estate Origin',
-    footCopy:'© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka',
-    orderBtn:'Order via WhatsApp'
+    shop: "Shop All",
+    title: "A tea for every moment.",
+    intro: "Three simple rituals. One honest cup of Ceylon tea.",
+    collection: "The Abija collection",
+    about: "Our story",
+    bag: "Your shopping bag",
+    choose: "CHOOSE YOUR TEA",
+    add: "ADD TO BAG",
+    added: "Added to your shopping bag",
+    size: "Pack size",
+    checkout: "ORDER ON WHATSAPP",
+    back: "Back to all teas",
+    related: "You might also like",
+    details: "VIEW TEA",
+    preorder: "PRE-ORDER",
+    from: "From",
   },
   si: {
-    home:'මුල් පිටුව', shop:'වෙළඳසැල', about:'අප ගැන',
-    heroEye:'අබිජා තේ · Talawakelle, Kandy · ආ. 2024',
-    heroTitle:'සැබෑ තේ.<br><em>වෙන<br>කිසිවක් නොවේ.</em>',
-    heroSub:'උසස් — දැනුමෙන් ඔසවා ඇත',
-    heroDesc:'අබිජා යනු Talawakelle, Kandy හි සිට ලැබෙන, 100% පිරිසිදු Ceylon තේ — නොමිශ්‍ර, වර්ණ නොකළ, සුවඳ නොකළ. සැබෑ තේ කුමක්දැයි දන්නා අය සඳහා.',
-    shopNow:'දැන් ගන්න', ourBelief:'අපේ විශ්වාසය',
-    shopEye:'Talawakelle, Kandy · ශ්‍රී ලංකාව',
-    shopTitle:'අබිජා<br><em>එකතුව</em>',
-    aboutEye:'අපේ විශ්වාසය',
-    aboutTitle:'<em>සැබෑ</em> තේ.<br>වෙන කිසිවක් නොවේ.',
-    aboutP1:'අබිජා යනු පිරිසිදුකම, සත්‍යය සහ සැබෑ තේ පිළිබඳ ගැඹුරු දැනුම මත ගොඩනඟා ඇති ශ්‍රී ලාංකික ප්‍රිමියම් තේ වෙළඳ නාමයකි. සෑම නිෂ්පාදනයක්ම Talawakelle, Kandy හි සිට ලැබෙන, 100% පිරිසිදු Ceylon තේ.',
-    aboutP2:'බොහෝ තේ වෙළඳ නාම ශක්තිය ව්‍යාජ කිරීමට වර්ණ, ගුණ නොමැති තේ සඟවා ගැනීමට රස සහ කසළ තේ මිශ්‍ර කරති. අබිජා වෙනස් ප්‍රමිතියක් තැබීමට පවතී.',
-    stat1:'නිෂ්පාදන', stat2:'එකතු කළ ද්‍රව්‍ය', stat3:'පිරිසිදු Ceylon', stat4:'ගොවිපල ප්‍රභවය',
-    footCopy:'© 2024 අබිජා තේ · Pure Ceylon Tea · ශ්‍රී ලංකාව',
-    orderBtn:'WhatsApp හරහා ඇණවුම් කරන්න'
+    shop: "තේ එකතුව",
+    title: "සෑම මොහොතකටම තේ.",
+    intro: "ඔබේ දවසට පිරිසිදු ලංකා තේ කෝප්පයක්.",
+    collection: "අබිජා තේ එකතුව",
+    about: "අපේ කතාව",
+    bag: "ඔබේ ඇණවුම",
+    choose: "තේ තෝරන්න",
+    add: "ඇණවුමට එක් කරන්න",
+    added: "ඇණවුමට එක් කරන ලදී",
+    size: "පැකට් ප්‍රමාණය",
+    checkout: "WhatsApp හරහා ඇණවුම් කරන්න",
+    back: "තේ එකතුවට ආපසු",
+    related: "ඔබ කැමති විය හැකි තේ",
+    details: "තේ බලන්න",
+    preorder: "පෙර ඇණවුම් කරන්න",
+    from: "සිට",
   },
   ta: {
-    home:'முகப்பு', shop:'கடை', about:'எங்களைப் பற்றி',
-    heroEye:'அபிஜா தே · Talawakelle, Kandy · நி. 2024',
-    heroTitle:'உண்மையான தேநீர்.<br><em>வேறு<br>எதுவுமில்லை.</em>',
-    heroSub:'உயர்ந்த — அறிவின் மூலம் உயர்த்தப்பட்டது',
-    heroDesc:'அபிஜா Talawakelle, Kandy இலிருந்து வரும் 100% தூய Ceylon தேயிலை — கலப்படமற்றது, நிறமில்லாதது, சுவையில்லாதது. உண்மையான தேயிலை என்னவென்று தெரிந்தவர்களுக்காக.',
-    shopNow:'இப்போது வாங்கவும்', ourBelief:'எங்கள் நம்பிக்கை',
-    shopEye:'Talawakelle, Kandy · இலங்கை',
-    shopTitle:'அபிஜா<br><em>தொகுப்பு</em>',
-    aboutEye:'எங்கள் நம்பிக்கை',
-    aboutTitle:'<em>உண்மையான</em> தேநீர்.<br>வேறு எதுவுமில்லை.',
-    aboutP1:'அபிஜா என்பது தூய்மை, உண்மை மற்றும் உண்மையான தேயிலையின் ஆழமான அறிவின் மீது கட்டப்பட்ட இலங்கையின் பிரீமியம் தேயிலை பிராண்ட். ஒவ்வொரு பொருளும் Talawakelle, Kandy இலிருந்து — 100% தூய Ceylon தேயிலை.',
-    aboutP2:'பெரும்பாலான தேயிலை பிராண்டுகள் வலிமையை போலியாக காட்ட நிறம் பயன்படுத்துகின்றன. அபிஜா வேறு தரத்தை நிறுவ உள்ளது.',
-    stat1:'தயாரிப்புகள்', stat2:'சேர்க்கைகள்', stat3:'தூய Ceylon', stat4:'தோட்ட தோற்றம்',
-    footCopy:'© 2024 அபிஜா தே · Pure Ceylon Tea · இலங்கை',
-    orderBtn:'WhatsApp வழியாக ஆர்டர்'
+    shop: "அனைத்து தேயிலைகள்",
+    title: "ஒவ்வொரு தருணத்திற்கும் தேநீர்.",
+    intro: "உங்கள் நாளுக்கு ஒரு கோப்பை தூய இலங்கை தேநீர்.",
+    collection: "அபிஜா தேயிலைத் தொகுப்பு",
+    about: "எங்கள் கதை",
+    bag: "உங்கள் பை",
+    choose: "தேயிலையைத் தேர்ந்தெடுக்கவும்",
+    add: "பையில் சேர்க்கவும்",
+    added: "உங்கள் பையில் சேர்க்கப்பட்டது",
+    size: "பொதி அளவு",
+    checkout: "WhatsApp வழியாக ஆர்டர்",
+    back: "தேயிலைகளுக்குத் திரும்பு",
+    related: "நீங்கள் விரும்பக்கூடியவை",
+    details: "தேயிலையைப் பார்க்க",
+    preorder: "முன்பதிவு",
+    from: "முதல்",
   },
-  gb: {
-    home:'Home', shop:'Shop', about:'About',
-    heroEye:'Abija Tea · Talawakelle, Kandy · Est. 2024',
-    heroTitle:'Real tea.<br><em>Nothing<br>else.</em>',
-    heroSub:'Elevated through knowledge',
-    heroDesc:'Abija is a premium Sri Lankan tea brand from Talawakelle, Kandy. Every product is 100% pure Ceylon tea — unblended, uncolored, unflavored, and free from additives.',
-    shopNow:'Shop Now', ourBelief:'Our Belief',
-    shopEye:'Talawakelle, Kandy · Sri Lanka',
-    shopTitle:'The Abija<br><em>Collection</em>',
-    aboutEye:'Our Belief',
-    aboutTitle:'<em>Real</em> tea.<br>Nothing else.',
-    aboutP1:'Abija is a premium Sri Lankan tea brand built on purity, truth, and deep knowledge of real tea. Every product is sourced from Talawakelle, Kandy — 100% pure Ceylon tea, unblended, uncolored, unflavored, and free from chemicals or additives.',
-    aboutP2:'Most tea brands today use coloring to fake strength, add flavors to hide poor quality, and blend waste tea. Abija exists to set a different standard.',
-    stat1:'Products', stat2:'Additives', stat3:'Pure Ceylon', stat4:'Estate Origin',
-    footCopy:'© 2024 Abija Tea · Pure Ceylon Tea · Sri Lanka',
-    orderBtn:'Order via WhatsApp'
-  }
 };
-
-let currentLang = 'en';
-let rates = { LKR: 1, INR: 107, GBP: 1, USD: 0.0033 };
-let currentProduct = null;
-let currentWeightIdx = 1; // default 250g
-let qty = 1;
-
-// ── GEO-BASED CURRENCY DETECTION ──
-async function detectLocationCurrency() {
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    const data = await res.json();
-    const country = data.country_code;
-    applyRegionalExperience(country === 'US');
-  } catch(e) { applyRegionalExperience(false); }
+const t = (key) => COPY[language][key] || COPY.en[key];
+const numeric = (lkr) =>
+  currency === "LKR"
+    ? Math.round(lkr)
+    : Number((lkr * rates[currency]).toFixed(2));
+const money = (lkr) =>
+  currency === "LKR"
+    ? "Rs " + Math.round(lkr).toLocaleString("en-US")
+    : new Intl.NumberFormat("en-US", { style: "currency", currency }).format(
+        numeric(lkr),
+      );
+const price = (name, index = 0) => currentLkrPrice(PRODUCTS[name], index);
+function toast(message) {
+  $("toast").textContent = message;
+  $("toast").classList.add("visible");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => $("toast").classList.remove("visible"), 2600);
 }
-
-function applyRegionalExperience(isUs) {
-  const heroImage = document.getElementById('hero-art-img');
-  document.getElementById('hero-art-mobile-avif-source').srcset = isUs ? '/slUsa-hero-mobile.avif' : '/hero-art-mobile.avif';
-  document.getElementById('hero-art-mobile-source').srcset = isUs ? '/slUsa-hero-mobile.webp' : '/hero-art-mobile.webp';
-  document.getElementById('hero-art-avif-source').srcset = isUs ? '/slUsa-hero.avif' : '/hero-art.avif';
-  heroImage.src = isUs ? '/slUsa-hero.webp' : '/hero-art.webp';
-  heroImage.width = isUs ? 1696 : 800;
-  heroImage.height = isUs ? 2528 : 1000;
-  document.getElementById('languageSwitcher').hidden = isUs;
-  setLang(isUs ? 'us' : 'en');
+function productCard(name) {
+  const p = PRODUCTS[name],
+    d = DETAILS[name];
+  return `<article class="product-card"><a class="product-image" href="${productUrl(name)}" aria-label="View ${name}"><img src="/${p.img}" alt="${name} from Abija Tea" width="400" height="400" loading="lazy"></a><h3><a href="${productUrl(name)}">${name}</a></h3><p>${d.notes[0]} · ${WEIGHTS[0]}–1kg</p><div class="price">${money(price(name))} <small>/ ${WEIGHTS[0]}</small></div><a class="button wide" href="${productUrl(name)}">${t("details")}</a></article>`;
 }
-
+function renderHome() {
+  $("experiences").innerHTML = FEATURED.map((name, i) => {
+    const p = PRODUCTS[name],
+      d = DETAILS[name];
+    return `<article class="experience ${d.tone}"><a class="experience-photo" href="${productUrl(name)}" aria-label="Explore ${name}"><img src="/${p.img}" alt="${name} with its Abija packaging" width="500" height="400" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}></a><div class="experience-copy"><h2>${d.ritual}</h2><p>${d.intro}</p><div class="experience-price">${money(price(name))} <small>/ ${WEIGHTS[0]}</small></div><a class="button" href="${productUrl(name)}">${t("choose")}</a></div></article>`;
+  }).join("");
+  $("product-grid").innerHTML = FEATURED.map(productCard).join("");
+  $("limited-grid").innerHTML = ["Silver Tips", "Golden Tips"]
+    .map(
+      (name) =>
+        `<article class="limited-card"><img src="/${PRODUCTS[name].img}" alt="${name}" width="125" height="180" loading="lazy"><div><h3>${name}</h3><p>${DETAILS[name].intro}<br>Available within a week · please confirm.</p><a class="text-link" href="${productUrl(name)}">${t("details")} →</a></div></article>`,
+    )
+    .join("");
+}
+function renderProduct() {
+  const name = currentName,
+    p = PRODUCTS[name],
+    d = DETAILS[name];
+  $("product-view").innerHTML =
+    `<a class="breadcrumb" href="#shop">← ${t("back")}</a><div class="product-shell"><div class="product-overview">
+    <div class="desktop-gallery"><button class="main-photo" data-zoom aria-label="Enlarge ${name} photo"><img id="main-photo" src="/${p.img}" alt="${name}" width="500" height="500"></button><div class="thumbnails" aria-label="Product photo views"><button class="thumbnail" data-photo="0" aria-pressed="true" aria-label="Full product photo"><img src="/${p.img}" alt="" width="64" height="64"></button><button class="thumbnail detail" data-photo="1" aria-pressed="false" aria-label="Close-up product photo"><img src="/${p.img}" alt="" width="64" height="64"></button></div></div>
+    <div class="mobile-carousel"><div class="carousel-track" id="carousel-track">${[0, 1].map((i) => `<button class="carousel-slide ${i ? "detail" : ""}" data-zoom aria-label="Enlarge ${name} ${i ? "detail" : "photo"}"><img src="/${p.img}" alt="${name}${i ? " close-up" : ""}" width="400" height="400"></button>`).join("")}</div><button class="carousel-arrow prev" data-slide="prev" aria-label="Previous photo"><img src="/assets/chevron-left.svg" width="24" height="24" alt=""></button><button class="carousel-arrow next" data-slide="next" aria-label="Next photo"><img src="/assets/chevron-right.svg" width="24" height="24" alt=""></button><div class="carousel-dots" aria-label="Choose photo"><button data-slide="0" aria-label="Photo 1" aria-current="true"></button><button data-slide="1" aria-label="Photo 2" aria-current="false"></button></div></div>
+    <div class="product-info"><p class="origin">PURE CEYLON · TALAWAKELLE, SRI LANKA</p><h1 id="product-title" tabindex="-1">${name}</h1><p class="description">${d.description}</p><div id="product-price" class="product-price" aria-live="polite"></div><fieldset class="weight-options"><legend>${t("size")}</legend>${WEIGHTS.map((w, i) => `<button class="weight-option" data-weight="${i}" aria-pressed="${i === weightIndex}" ${!p.avail[i] && !p.soon ? "disabled" : ""}>${w}</button>`).join("")}</fieldset><div class="product-facts"><span id="selected-weight">Weight: ${WEIGHTS[weightIndex]}</span><span>${d.notes[1]}</span></div><div class="purchase-row"><div class="quantity" aria-label="Quantity"><button id="quantity-minus" data-quantity="-1" aria-label="Decrease quantity">−</button><output id="product-quantity" aria-live="polite">${quantity}</output><button data-quantity="1" aria-label="Increase quantity">+</button></div><button class="button" id="add-to-bag">${p.soon ? t("preorder") : t("add")}</button></div><div class="badges"><span>CEYLON TEA</span><span>NO ADDED FLAVOURS</span></div><p class="delivery-note">${money(DELIVERY_LKR)} delivery · Kandy–Colombo / A1 area.<br>Usually 3–7 days. ${p.soon ? "Pre-order: availability within a week, subject to confirmation." : "Your order is confirmed on WhatsApp."}</p><p class="currency-note" ${currency === "LKR" ? "hidden" : ""}>Estimated conversion from LKR. Final amount confirmed on WhatsApp.</p><details class="brew"><summary>Make your perfect cup</summary><p>${d.brew}</p></details></div>
+    </div><section class="recommendations"><h2>${t("related")}</h2><div class="product-grid">${FEATURED.filter(
+      (n) => n !== name,
+    )
+      .map(productCard)
+      .join("")}</div></section></div>`;
+  updateProductPrice();
+  slideIndex = 0;
+  const track = $("carousel-track");
+  track.addEventListener(
+    "scroll",
+    () => {
+      const step = track.firstElementChild.getBoundingClientRect().width + 12;
+      slideIndex = Math.min(
+        1,
+        Math.max(0, Math.round(track.scrollLeft / step)),
+      );
+      document
+        .querySelectorAll(".carousel-dots button")
+        .forEach((b, i) =>
+          b.setAttribute("aria-current", String(i === slideIndex)),
+        );
+    },
+    { passive: true },
+  );
+}
+function updateProductPrice() {
+  if (!currentName) return;
+  const amount = price(currentName, weightIndex),
+    original = ORIG_LKR[PRODUCTS[currentName].group][weightIndex];
+  $("product-price").innerHTML =
+    `<span>${money(amount)}</span>${amount < original ? `<del>${money(original)}</del>` : ""}${monthlySaleIsActive() ? `<span class="sale-label">${MONTHLY_SALE_PERCENT}% SEPTEMBER OFFER</span>` : ""}<button class="icon-button" data-info aria-label="Tea brewing information"><img src="/assets/info.svg" width="26" height="26" alt=""></button>`;
+  $("selected-weight").textContent = "Weight: " + WEIGHTS[weightIndex];
+  $("product-quantity").textContent = quantity;
+  $("quantity-minus").disabled = quantity === 1;
+  document
+    .querySelectorAll("[data-weight]")
+    .forEach((b) =>
+      b.setAttribute(
+        "aria-pressed",
+        String(Number(b.dataset.weight) === weightIndex),
+      ),
+    );
+}
+function renderCart() {
+  const count = cart.reduce((sum, i) => sum + i.qty, 0);
+  $("cart-count").textContent = count;
+  $("cart-count").hidden = !count;
+  $("cart-open").setAttribute(
+    "aria-label",
+    `Open shopping bag, ${count} ${count === 1 ? "item" : "items"}`,
+  );
+  if (!cart.length) {
+    $("cart-items").innerHTML =
+      '<div class="empty-cart"><h3>A good cup is waiting.</h3><p>Your bag is empty. Find your everyday tea.</p><a class="button" href="#shop" data-close="cart-dialog">Explore the teas</a></div>';
+    $("cart-summary").innerHTML = "";
+    return;
+  }
+  $("cart-items").innerHTML = cart
+    .map(
+      (item, i) =>
+        `<article class="cart-item"><img src="/${PRODUCTS[item.name].img}" alt="${item.name}" width="76" height="94"><div><h3>${item.name}</h3><p>${WEIGHTS[item.weight]} · ${money(price(item.name, item.weight))} each${PRODUCTS[item.name].soon ? " · Pre-order" : ""}</p><div class="cart-item-controls"><div class="quantity"><button data-cart-change="${i}" data-delta="-1" aria-label="Decrease ${item.name} quantity" ${item.qty === 1 ? "disabled" : ""}>−</button><output>${item.qty}</output><button data-cart-change="${i}" data-delta="1" aria-label="Increase ${item.name} quantity">+</button></div><button class="text-link" data-remove="${i}">Remove</button></div><p>${money(price(item.name, item.weight) * item.qty)}</p></div></article>`,
+    )
+    .join("");
+  const totals = cartTotals(cart);
+  $("cart-summary").innerHTML =
+    `<div class="summary-row"><span>Tea subtotal</span><span>${money(totals.subtotal)}</span></div><div class="summary-row"><span>Delivery</span><span>${money(totals.delivery)}</span></div><div class="summary-row total"><span>Total</span><span>${money(totals.total)}</span></div><a class="button wide" id="checkout" href="${checkoutUrl()}" target="_blank" rel="noopener">${t("checkout")} ↗</a><p>Delivery: Kandy–Colombo / A1 area, usually 3–7 days. We confirm your address, availability, and final total on WhatsApp. No payment is taken here.</p>${currency !== "LKR" ? "<p>Converted estimate. The LKR total is also included in your order.</p>" : ""}`;
+}
+function checkoutUrl() {
+  const totals = cartTotals(cart);
+  const lines = cart.map(
+    (i) =>
+      `- ${i.name} · ${WEIGHTS[i.weight]} × ${i.qty}\n  Unit: ${money(price(i.name, i.weight))} | Subtotal: ${money(price(i.name, i.weight) * i.qty)}${PRODUCTS[i.name].soon ? "\n  Pre-order: please confirm availability within a week." : ""}`,
+  );
+  const msg = `Hi Abija Tea! 🍵\n\nI would like to order:\n${lines.join("\n\n")}\n\nTea subtotal: ${money(totals.subtotal)}\nDelivery: ${money(totals.delivery)}\nOrder total: ${money(totals.total)} (${currency})${currency !== "LKR" ? "\nLKR total: Rs " + totals.total.toLocaleString("en-US") : ""}\n\nMy delivery address is: \n\nPlease confirm availability and my delivery date. Thank you!`;
+  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+}
+function addToCart() {
+  const p = PRODUCTS[currentName];
+  if (!p || (!p.avail[weightIndex] && !p.soon)) return;
+  const item = cart.find(
+    (i) => i.name === currentName && i.weight === weightIndex,
+  );
+  if ((item?.qty || 0) + quantity > 99) {
+    toast("For more than 99 packs, please contact us on WhatsApp.");
+    return;
+  }
+  if (item) item.qty += quantity;
+  else cart.push({ name: currentName, weight: weightIndex, qty: quantity });
+  save("abija-bag-v1", cart);
+  renderCart();
+  trackEvent("add_to_cart", {
+    currency,
+    value: numeric(price(currentName, weightIndex) * quantity),
+    items: [
+      {
+        item_name: currentName,
+        item_variant: WEIGHTS[weightIndex],
+        quantity,
+        price: numeric(price(currentName, weightIndex)),
+      },
+    ],
+  });
+  toast(t("added"));
+  $("cart-dialog").showModal();
+}
+function renderSearch() {
+  const query = $("search-input").value.trim().toLowerCase();
+  const found = names.filter((name) =>
+    (name + " " + DETAILS[name].description).toLowerCase().includes(query),
+  );
+  $("search-results").innerHTML = found.length
+    ? found
+        .map(
+          (name) =>
+            `<a class="search-result" href="${productUrl(name)}" data-close="search-dialog"><img src="/${PRODUCTS[name].img}" alt="" width="64" height="64"><div><strong>${name}</strong><p>${money(price(name))} / ${WEIGHTS[0]}${PRODUCTS[name].soon ? " · Pre-order" : ""}</p></div></a>`,
+        )
+        .join("")
+    : "<p>No teas found. Try “black”, “green”, or “tips”.</p>";
+}
+function updateSale() {
+  const active = monthlySaleIsActive();
+  $("sale-banner").hidden = !active;
+  if (active)
+    $("sale-banner").textContent =
+      "September offer · 30% off original prices · Ends 30 Sep";
+}
+function setLanguage() {
+  document.documentElement.lang = language;
+  document.body.className = "lang-" + language;
+  $("language").value = language;
+  document
+    .querySelectorAll("[data-i18n]")
+    .forEach((el) => (el.textContent = t(el.dataset.i18n)));
+}
+function refresh() {
+  renderHome();
+  if (currentName) renderProduct();
+  renderCart();
+  renderSearch();
+  updateSale();
+  setLanguage();
+}
+function route({ focus = false } = {}) {
+  const hash = location.hash.slice(1);
+  const name = hash.startsWith("tea/")
+    ? names.find((n) => slug(n) === hash.slice(4))
+    : null;
+  currentName = name || null;
+  $("home-view").hidden = !!name;
+  $("product-view").hidden = !name;
+  if (name) {
+    weightIndex = 1;
+    quantity = 1;
+    renderProduct();
+    document.title = `${name} | Abija Tea`;
+    window.scrollTo({ top: 0, behavior: "instant" });
+    if (focus) $("product-title").focus({ preventScroll: true });
+    trackEvent("view_item", {
+      currency,
+      value: numeric(price(name, weightIndex)),
+      items: [{ item_name: name, item_category: PRODUCTS[name].group }],
+    });
+    trackEvent("select_item", {
+      item_list_name: "Abija Tea Collection",
+      items: [{ item_name: name, item_category: PRODUCTS[name].group }],
+    });
+  } else {
+    document.title = "Abija Tea | Pure Ceylon Tea, Talawakelle Estate";
+    if (["shop", "about", "hero", "faq"].includes(hash))
+      requestAnimationFrame(() =>
+        document.getElementById(hash)?.scrollIntoView(),
+      );
+    else if (focus) window.scrollTo({ top: 0, behavior: "instant" });
+  }
+}
 async function fetchRates() {
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/LKR');
-    const data = await res.json();
-    rates.INR = data.rates.INR;
-    rates.GBP = data.rates.GBP;
-    rates.USD = data.rates.USD;
-    rates.LKR = 1;
-    refreshAllPrices();
-  } catch(e) { refreshAllPrices(); }
+  if (rates.USD && rates.GBP && rates.INR) return;
+  ratePromise ||= fetch("https://open.er-api.com/v6/latest/LKR", {
+    signal: AbortSignal.timeout(7000),
+  })
+    .then((r) => {
+      if (!r.ok) throw new Error("Rate request failed");
+      return r.json();
+    })
+    .then((data) => {
+      for (const code of ["USD", "GBP", "INR"])
+        if (!Number.isFinite(data.rates?.[code]) || data.rates[code] <= 0)
+          throw new Error("Invalid rate");
+      rates = { ...data.rates, LKR: 1 };
+    })
+    .catch((error) => {
+      ratePromise = null;
+      throw error;
+    });
+  return ratePromise;
 }
-
-let rateRequest;
-function ensureRates() {
-  rateRequest ||= fetchRates();
-  return rateRequest;
-}
-
-function convertFromLKR(lkr, code) {
-  if (code === 'LKR') return Math.round(lkr).toLocaleString();
-  if (code === 'INR') return Math.round(lkr * rates.INR).toLocaleString();
-  if (code === 'GBP') return (lkr * rates.GBP).toFixed(2);
-  if (code === 'USD') return (lkr * rates.USD).toFixed(2);
-  return lkr;
-}
-function numericFromLKR(lkr, code) {
-  if (code === 'LKR') return Math.round(lkr);
-  return Number((lkr * rates[code]).toFixed(2));
-}
-
-function refreshAllPrices() {
-  const lang = LANGS[currentLang];
-  document.querySelectorAll('.amt[data-lkr]').forEach(el => {
-    const lkr = monthlySaleIsActive() && el.dataset.saleLkr ? parseFloat(el.dataset.saleLkr) : parseFloat(el.dataset.lkr);
-    el.textContent = convertFromLKR(lkr, lang.code);
-  });
-  document.querySelectorAll('.sym').forEach(el => el.textContent = lang.sym);
-  if (currentProduct) {
-    renderDrawerWeights();
-    updateDrawerPrice();
+document.addEventListener("click", (event) => {
+  if (event.target.closest('[data-info]')) {
+    const brew = document.querySelector('.brew');
+    brew.open = true;
+    brew.querySelector('summary').focus();
   }
-}
-
-// ── DRAWER ──
-function openDrawer(name, sub, price, img) {
-  ensureRates();
-  currentProduct = PRODUCTS[name] || null;
-  currentWeightIdx = 1;
-  qty = 1;
-  document.getElementById('d-name').textContent = name;
-  document.getElementById('d-sub').textContent = sub;
-  document.getElementById('d-qty').textContent = 1;
-  const imgEl = document.getElementById('d-img');
-  if (img) {
-    imgEl.classList.add('hidden');
-    imgEl.src = '/' + img;
-    imgEl.alt = name;
-    imgEl.onload = () => imgEl.classList.remove('hidden');
-    imgEl.onerror = () => { imgEl.src = '/Product.webp'; imgEl.classList.remove('hidden'); };
-    document.getElementById('drawer').querySelector('.drawer-img-wrap').style.display = 'block';
+  const close = event.target.closest("[data-close]");
+  if (close) $(close.dataset.close).close();
+  const weight = event.target.closest("[data-weight]");
+  if (weight && !weight.disabled) {
+    weightIndex = Number(weight.dataset.weight);
+    updateProductPrice();
   }
-  renderDrawerWeights();
-  updateDrawerPrice();
-  document.getElementById('drawer').classList.add('open');
-  document.getElementById('overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  trackEvent('view_item', {
-    currency: LANGS[currentLang].code,
-    value: currentProduct ? numericFromLKR(currentLkrPrice(currentProduct, currentWeightIdx), LANGS[currentLang].code) : undefined,
-    items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
-  });
-  trackEvent('select_item', {
-    item_list_name: 'Abija Tea Collection',
-    items: [{ item_name: name, item_category: currentProduct ? currentProduct.group : undefined }]
-  });
-  if (purchaseGuideActive && name === 'Black Fannings Tea') setPurchaseGuideStep(3);
-}
-
-function renderDrawerWeights() {
-  if (!currentProduct) return;
-  const lang = LANGS[currentLang];
-  const p = currentProduct;
-  const origPrices = ORIG_LKR[p.group];
-  WEIGHTS.forEach((w, i) => {
-    const btn = document.getElementById('dwbtn-' + i);
-    if (!btn) return;
-    const lkr = currentLkrPrice(p, i);
-    const origLkr = origPrices[i];
-    const avail = p.avail[i];
-    const soon = p.soon;
-    const isDisc = lkr < origLkr;
-    const priceStr = convertFromLKR(lkr, lang.code);
-    const origStr = convertFromLKR(origLkr, lang.code);
-    btn.className = 'd-wbtn' +
-      (i === currentWeightIdx ? ' active' : '') +
-      (!avail && !soon ? ' unavailable' : '') +
-      (i === 3 ? ' best-val' : '');
-    btn.innerHTML =
-      (i === 3 ? '<span class="wbtn-badge">BEST VALUE</span>' : '') +
-      '<span class="wbtn-size">' + w + '</span>' +
-      (isDisc ? '<span class="wbtn-was">' + lang.sym + origStr + '</span>' : '') +
-      '<span class="wbtn-price">' + lang.sym + priceStr + '</span>' +
-      (soon ? '<span class="wbtn-avail">~1 week</span>' : '') +
-      (!avail && !soon ? '<span class="wbtn-avail">Unavailable</span>' : '');
-    btn.disabled = !avail && !soon;
-    btn.onclick = avail || soon ? () => selWt(btn, i) : null;
-  });
-  // auto-select first available weight
-  if (!currentProduct.avail[currentWeightIdx] && !currentProduct.soon) {
-    const firstAvail = currentProduct.avail.findIndex(a => a) !== -1
-      ? currentProduct.avail.findIndex(a => a) : 0;
-    currentWeightIdx = firstAvail;
-    renderDrawerWeights();
+  const qty = event.target.closest("[data-quantity]");
+  if (qty) {
+    quantity = Math.min(
+      99,
+      Math.max(1, quantity + Number(qty.dataset.quantity)),
+    );
+    updateProductPrice();
   }
-}
-
-function selWt(el, idx) {
-  currentWeightIdx = idx;
-  renderDrawerWeights();
-  updateDrawerPrice();
-  if (purchaseGuideActive && purchaseGuideStep === 3 && idx === 0) setPurchaseGuideStep(4);
-}
-
-function updateDrawerPrice() {
-  const lang = LANGS[currentLang];
-  if (!currentProduct) return;
-  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
-  const price = convertFromLKR(lkr, lang.code);
-  document.getElementById('d-price').textContent = price;
-  document.getElementById('d-curr').textContent = lang.sym;
-  document.getElementById('d-currency-badge').textContent = lang.label;
-  document.getElementById('d-rate-note').textContent =
-    lang.code === 'INR' ? 'Converted from LKR (live rate)' :
-    ['GBP', 'USD'].includes(lang.code) ? 'Converted from LKR (live rate)' : '';
-  updateTotal();
-}
-
-function updateTotal() {
-  const lang = LANGS[currentLang];
-  if (!currentProduct) return;
-  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
-  const teaTotalLkr = lkr * qty;
-  const orderTotalLkr = teaTotalLkr + DELIVERY_LKR;
-  const totalRow = document.getElementById('d-total-row');
-  document.getElementById('d-delivery').textContent = convertFromLKR(DELIVERY_LKR, lang.code);
-  document.getElementById('d-delivery-curr').textContent = lang.sym;
-  document.getElementById('d-total').textContent = convertFromLKR(orderTotalLkr, lang.code);
-  document.getElementById('d-total-curr').textContent = lang.sym;
-  document.getElementById('d-cta-label').textContent = 'Confirm order on WhatsApp — ' + lang.sym + convertFromLKR(orderTotalLkr, lang.code);
-  totalRow.style.display = 'block';
-}
-
-function closeDrawer() {
-  document.getElementById('drawer').classList.remove('open');
-  document.getElementById('overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function openImagePreview() {
-  const source = document.getElementById('d-img');
-  if (!source || !source.src) return;
-  const preview = document.getElementById('previewImage');
-  preview.src = source.currentSrc || source.src;
-  preview.alt = source.alt || 'Abija Tea product image';
-  document.getElementById('imageLightbox').classList.add('open');
-  trackEvent('view_item_image', { item_name: document.getElementById('d-name').textContent });
-}
-
-function closeImagePreview() {
-  document.getElementById('imageLightbox').classList.remove('open');
-}
-
-function chQty(d) {
-  qty = Math.max(1, qty + d);
-  document.getElementById('d-qty').textContent = qty;
-  updateTotal();
-  if (purchaseGuideActive && purchaseGuideStep === 4 && d > 0) setPurchaseGuideStep(5);
-}
-
-function orderWhatsApp() {
-  if (!currentProduct) return;
-  const name = document.getElementById('d-name').textContent;
-  const weight = WEIGHTS[currentWeightIdx];
-  const lang = LANGS[currentLang];
-  const lkr = currentLkrPrice(currentProduct, currentWeightIdx);
-  const price = convertFromLKR(lkr, lang.code);
-  const teaTotalLkr = lkr * qty;
-  const delivery = convertFromLKR(DELIVERY_LKR, lang.code);
-  const orderTotalLkr = teaTotalLkr + DELIVERY_LKR;
-  const total = convertFromLKR(orderTotalLkr, lang.code);
-  const soon = currentProduct.soon ? '\n⚠️ Note: Available within 1 week.' : '';
-  const msg = 'Hi Abija Tea! 🍵\n\nI would like to order:\n- ' + name + '\n- Weight: ' + weight + '\n- Qty: ' + qty + '\n- Unit: ' + lang.sym + ' ' + price + ' (' + lang.code + ')' + '\n- Tea subtotal: ' + lang.sym + ' ' + convertFromLKR(teaTotalLkr, lang.code) + '\n- Delivery: ' + lang.sym + ' ' + delivery + '\n- Order total: ' + lang.sym + ' ' + total + ' (' + lang.code + ')' + soon + '\n\nMy delivery address is: \n\nPlease confirm my delivery date. Thank you!';
-  trackEvent('begin_checkout', {
-    currency: lang.code,
-    value: numericFromLKR(orderTotalLkr, lang.code),
-    items: [{ item_name: name, item_variant: weight, quantity: qty }]
-  });
-  trackEvent('generate_lead', {
-    method: 'WhatsApp',
-    currency: lang.code,
-    value: numericFromLKR(orderTotalLkr, lang.code),
-    items: [{ item_name: name, item_variant: weight, quantity: qty }]
-  });
-  finishPurchaseGuide();
-  closeDrawer();
-  window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
-}
-
-// ── LANGUAGE SWITCHING ──
-function setLang(lang) {
-  currentLang = lang;
-  loadLanguageFonts(lang);
-  const c = CONTENT[lang];
-  document.querySelectorAll('.lang-bar-btn').forEach(b => b.classList.remove('active'));
-  const langButton = document.getElementById('btn-' + lang);
-  if (langButton) langButton.classList.add('active');
-  document.body.className = 'lang-' + lang;
-  document.getElementById('nav-home').textContent = c.home;
-  document.getElementById('nav-shop').textContent = c.shop;
-  document.getElementById('nav-about').textContent = c.about;
-  document.getElementById('mob-home').textContent = c.home;
-  document.getElementById('mob-shop').textContent = c.shop;
-  document.getElementById('mob-about').textContent = c.about;
-  document.getElementById('hero-eyebrow').textContent = c.heroEye;
-  document.getElementById('hero-title').innerHTML = c.heroTitle;
-  document.getElementById('hero-sub').textContent = c.heroSub;
-  document.getElementById('hero-desc').textContent = c.heroDesc;
-  document.getElementById('btn-shop-now').textContent = c.shopNow;
-  document.getElementById('btn-our-belief').textContent = c.ourBelief;
-  document.getElementById('shop-eyebrow').textContent = c.shopEye;
-  document.getElementById('shop-title').innerHTML = c.shopTitle;
-  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
-    el.innerHTML = el.getAttribute('data-' + lang);
-  });
-  document.getElementById('about-eyebrow').textContent = c.aboutEye;
-  document.getElementById('about-title').innerHTML = c.aboutTitle;
-  document.getElementById('about-p1').textContent = c.aboutP1;
-  document.getElementById('about-p2').textContent = c.aboutP2;
-  document.getElementById('sl-stat1').textContent = c.stat1;
-  document.getElementById('sl-stat2').textContent = c.stat2;
-  document.getElementById('sl-stat3').textContent = c.stat3;
-  document.getElementById('sl-stat4').textContent = c.stat4;
-  document.getElementById('foot-home').textContent = c.home;
-  document.getElementById('foot-shop').textContent = c.shop;
-  document.getElementById('foot-about').textContent = c.about;
-  document.getElementById('footer-copy').firstChild.textContent = c.footCopy + ' · ';
-  document.getElementById('d-cta-label').textContent = c.orderBtn;
-  refreshAllPrices();
-}
-
-// ── MOBILE MENU ──
-let menuOpen = false;
-function toggleMenu() {
-  menuOpen = !menuOpen;
-  document.getElementById('mobileMenu').classList.toggle('open', menuOpen);
-  document.body.style.overflow = menuOpen ? 'hidden' : '';
-  const btn = document.getElementById('burgerBtn');
-  btn.setAttribute('aria-expanded', menuOpen);
-  btn.setAttribute('aria-label', menuOpen ? 'Close navigation menu' : 'Open navigation menu');
-  document.getElementById('b1').style.transform = menuOpen ? 'rotate(45deg) translate(4px,4px)' : '';
-  document.getElementById('b2').style.opacity = menuOpen ? '0' : '1';
-  document.getElementById('b3').style.transform = menuOpen ? 'rotate(-45deg) translate(4px,-4px)' : '';
-}
-function closeMenu() {
-  menuOpen = false;
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.body.style.overflow = '';
-  document.getElementById('burgerBtn').setAttribute('aria-expanded', 'false');
-  document.getElementById('burgerBtn').setAttribute('aria-label', 'Open navigation menu');
-  document.getElementById('b1').style.transform = '';
-  document.getElementById('b2').style.opacity = '1';
-  document.getElementById('b3').style.transform = '';
-}
-
-// ── SCROLL NAV ──
-window.addEventListener('scroll', () => {
-  updatePurchaseGuideOnScroll();
-  refreshGuidePointer();
-  const links = [document.getElementById('nav-home'), document.getElementById('nav-shop'), document.getElementById('nav-about')];
-  ['hero','shop','about'].forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const r = el.getBoundingClientRect();
-      if (r.top <= 100 && r.bottom > 100) {
-        links.forEach(l => l && l.classList.remove('active'));
-        links[i] && links[i].classList.add('active');
-      }
+  if (event.target.closest("#add-to-bag")) addToCart();
+  const change = event.target.closest("[data-cart-change]"),
+    remove = event.target.closest("[data-remove]");
+  if (change || remove) {
+    if (change) {
+      const i = cart[Number(change.dataset.cartChange)];
+      if (i)
+        i.qty = Math.min(99, Math.max(1, i.qty + Number(change.dataset.delta)));
     }
+    if (remove) {
+      const [item] = cart.splice(Number(remove.dataset.remove), 1);
+      if (item)
+        trackEvent("remove_from_cart", {
+          currency,
+          value: numeric(price(item.name, item.weight) * item.qty),
+          items: [
+            {
+              item_name: item.name,
+              item_variant: WEIGHTS[item.weight],
+              quantity: item.qty,
+            },
+          ],
+        });
+    }
+    save("abija-bag-v1", cart);
+    renderCart();
+  }
+  const photo = event.target.closest("[data-photo]");
+  if (photo) {
+    $("main-photo").style.transform =
+      photo.dataset.photo === "1" ? "scale(1.8)" : "";
+    document
+      .querySelectorAll("[data-photo]")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b === photo)));
+  }
+  if (event.target.closest("[data-zoom]") && currentName) {
+    $("zoom-image").src = "/" + PRODUCTS[currentName].img;
+    $("zoom-image").alt = currentName;
+    $("image-dialog").showModal();
+    trackEvent("view_item_image", { item_name: currentName });
+  }
+  const slide = event.target.closest("[data-slide]");
+  if (slide) {
+    const value = slide.dataset.slide;
+    const next =
+      value === "next"
+        ? (slideIndex + 1) % 2
+        : value === "prev"
+          ? (slideIndex + 1) % 2
+          : Number(value);
+    const track = $("carousel-track");
+    track.scrollTo({
+      left: next * (track.firstElementChild.getBoundingClientRect().width + 12),
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  }
+  const checkout = event.target.closest("#checkout");
+  if (checkout) {
+    if (!cart.length) {
+      event.preventDefault();
+      return;
+    }
+    checkout.href = checkoutUrl();
+    const totals = cartTotals(cart);
+    const params = {
+      currency,
+      value: numeric(totals.total),
+      items: cart.map((i) => ({
+        item_name: i.name,
+        item_variant: WEIGHTS[i.weight],
+        quantity: i.qty,
+        price: numeric(price(i.name, i.weight)),
+      })),
+    };
+    trackEvent("begin_checkout", params);
+    trackEvent("generate_lead", { method: "WhatsApp", ...params });
+  }
+});
+$("search-open").addEventListener("click", () => {
+  renderSearch();
+  $("search-dialog").showModal();
+  $("search-input").focus();
+});
+$("search-input").addEventListener("input", renderSearch);
+$("cart-open").addEventListener("click", () => {
+  renderCart();
+  $("cart-dialog").showModal();
+  trackEvent("view_cart", {
+    currency,
+    value: numeric(cartTotals(cart).subtotal),
+    items: cart.map((i) => ({
+      item_name: i.name,
+      item_variant: WEIGHTS[i.weight],
+      quantity: i.qty,
+    })),
   });
-}, { passive: true });
-
-window.addEventListener('resize', refreshGuidePointer, { passive: true });
-document.getElementById('drawer').addEventListener('scroll', refreshGuidePointer, { passive: true });
-
-window.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && document.getElementById('imageLightbox').classList.contains('open')) {
-    closeImagePreview();
+});
+document.querySelectorAll("dialog").forEach((dialog) =>
+  dialog.addEventListener("click", (event) => {
+    if (event.target !== dialog) return;
+    const r = dialog.getBoundingClientRect();
+    if (
+      event.clientX < r.left ||
+      event.clientX > r.right ||
+      event.clientY < r.top ||
+      event.clientY > r.bottom
+    )
+      dialog.close();
+  }),
+);
+$("language").addEventListener("change", () => {
+  language = $("language").value;
+  save("abija-language", language);
+  refresh();
+});
+$("currency").addEventListener("change", async () => {
+  const next = $("currency").value,
+    request = ++currencyRequest;
+  if (next === "LKR") {
+    currency = "LKR";
+    save("abija-currency", currency);
+    refresh();
+    return;
+  }
+  try {
+    await fetchRates();
+    if (request !== currencyRequest) return;
+    currency = next;
+    save("abija-currency", currency);
+    refresh();
+  } catch {
+    if (request !== currencyRequest) return;
+    $("currency").value = currency;
+    toast(
+      "Live exchange rates are unavailable. Prices stay in " + currency + ".",
+    );
   }
 });
-
-// ── INIT ──
-updateMonthlyOffer();
-refreshAllPrices();
-trackEvent('view_item_list', {
-  item_list_name: 'Abija Tea Collection',
-  items: ['Black Fannings Tea', 'Black Dust Tea', 'Pure Green Tea', 'Silver Tips', 'Golden Tips'].map(item_name => ({ item_name }))
+window.addEventListener("hashchange", () => route({ focus: true }));
+$("year").textContent = new Date().getFullYear();
+refresh();
+route();
+trackEvent("view_item_list", {
+  item_list_name: "Abija Tea Collection",
+  items: names.map((item_name) => ({ item_name })),
 });
-window.setInterval(updateMonthlyOffer, 60000);
-window.addEventListener('load', () => {
-  window.setTimeout(startPurchaseGuide, 900);
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(detectLocationCurrency, { timeout: 2000 });
-  } else {
-    window.setTimeout(detectLocationCurrency, 500);
+let lastSaleState = monthlySaleIsActive();
+setInterval(() => {
+  const active = monthlySaleIsActive();
+  if (active !== lastSaleState) {
+    lastSaleState = active;
+    refresh();
+    updateStructuredData();
   }
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(loadAnalytics, { timeout: 5000 });
-  } else {
-    window.setTimeout(loadAnalytics, 3000);
+}, 30000);
+function updateStructuredData() {
+  let script = $("catalog-schema");
+  if (!script) {
+    script = document.createElement("script");
+    script.id = "catalog-schema";
+    script.type = "application/ld+json";
+    document.head.appendChild(script);
   }
-});
+  script.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": names.map((name) => ({
+      "@type": "Product",
+      name: "Abija " + name,
+      image: "https://abijatea.me/" + PRODUCTS[name].img,
+      description: DETAILS[name].description,
+      brand: { "@type": "Brand", name: "Abija Tea" },
+      offers: {
+        "@type": "Offer",
+        url: "https://abijatea.me/" + productUrl(name),
+        price: price(name),
+        priceCurrency: "LKR",
+        availability: PRODUCTS[name].soon
+          ? "https://schema.org/PreOrder"
+          : "https://schema.org/InStock",
+        ...(monthlySaleIsActive() ? { priceValidUntil: "2026-09-30" } : {}),
+      },
+    })),
+  });
+}
+updateStructuredData();
+const preferredCurrency = stored("abija-currency", "LKR");
+if (["USD", "GBP", "INR"].includes(preferredCurrency)) {
+  $("currency").value = preferredCurrency;
+  $("currency").dispatchEvent(new Event("change"));
+}
+if ("requestIdleCallback" in window)
+  window.requestIdleCallback(loadAnalytics, { timeout: 5000 });
+else setTimeout(loadAnalytics, 3000);
