@@ -1,3 +1,18 @@
+/* Locally hosted Latin subsets; optional prevents late font-swap layout jumps. */
+@font-face {
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: optional;
+  src: url("/assets/fonts/roboto-condensed-latin.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: optional;
+  src: url("/assets/fonts/cormorant-latin.woff2") format("woff2");
+}
 :root {
   --ink: #22231f;
   --gold: #b79b50;
@@ -216,6 +231,12 @@ html {
 }
 .preferences p {
   color: var(--gold-dark);
+}
+#sale-banner {
+  min-height: 2.4em;
+}
+.about .eyebrow {
+  color: var(--ink);
 }
 .intro {
   text-align: center;
@@ -1076,6 +1097,7 @@ body:has(dialog[open]) {
   .preferences {
     gap: 4px;
     align-items: flex-start;
+    min-height: 70px;
   }
   .preferences > p {
     font-size: 11px;
