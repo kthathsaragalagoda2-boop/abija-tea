@@ -1,3 +1,4 @@
+import { slug, productUrl, imageAttributes, productCardMarkup, productMarkup } from "./product-view.mjs";
 import {
   PRODUCTS,
   DETAILS,
@@ -28,8 +29,7 @@ function loadAnalytics() {
 }
 const $ = (id) => document.getElementById(id);
 const names = Object.keys(DETAILS);
-const slug = (name) => name.toLowerCase().replaceAll(" ", "-");
-const productUrl = (name) => "#tea/" + slug(name);
+
 const stored = (key, fallback) => {
   try {
     return JSON.parse(localStorage.getItem(key)) ?? fallback;
@@ -146,19 +146,12 @@ function toast(message) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => $("toast").classList.remove("visible"), 2600);
 }
-// Keep original catalogue images for zoom; deliver appropriately sized previews.
-function imageAttributes(name, sizes = "(max-width: 620px) calc(100vw - 36px), 320px") {
-  const stem = PRODUCTS[name].img.replace("-1200.webp", "");
-  const srcset = [320, 640, 960].map(width => `/assets/products/${stem}-${width}.webp ${width}w`).join(", ");
-  return `src="/assets/products/${stem}-640.webp" srcset="${srcset}" sizes="${sizes}"`;
-}
 function productCard(name) {
-  const p = PRODUCTS[name],
-    d = DETAILS[name];
-  return `<article class="product-card"><a class="product-image" href="${productUrl(name)}" aria-label="View ${name}"><img ${imageAttributes(name)} alt="${name} from Abija Tea" width="400" height="400" loading="lazy"></a><h3><a href="${productUrl(name)}">${name}</a></h3><p>${d.notes[0]} · ${WEIGHTS[0]}–1kg</p><div class="price">${money(price(name))} <small>/ ${WEIGHTS[0]}</small></div><a class="button wide" href="${productUrl(name)}">${t("details")}</a></article>`;
+  return productCardMarkup(name, { money, price, t });
 }
 let homeHydrated = false;
 function renderHome() {
+  if (!$("experiences")) return;
   if (!homeHydrated && language === "en") {
     // Retain the already-loading hero image and update only dynamic prices.
     document.querySelectorAll(".experience-price").forEach((el, i) => {
@@ -183,15 +176,7 @@ function renderProduct() {
     p = PRODUCTS[name],
     d = DETAILS[name];
   $("product-view").innerHTML =
-    `<a class="breadcrumb" href="#shop">← ${t("back")}</a><div class="product-shell"><div class="product-overview">
-    <div class="desktop-gallery"><button class="main-photo" data-zoom aria-label="Enlarge ${name} photo"><img id="main-photo" ${imageAttributes(name)} alt="${name}" width="500" height="500"></button><div class="thumbnails" aria-label="Product photo views"><button class="thumbnail" data-photo="0" aria-pressed="true" aria-label="Full product photo"><img ${imageAttributes(name)} alt="" width="64" height="64"></button><button class="thumbnail detail" data-photo="1" aria-pressed="false" aria-label="Close-up product photo"><img ${imageAttributes(name)} alt="" width="64" height="64"></button></div></div>
-    <div class="mobile-carousel"><div class="carousel-track" id="carousel-track">${[0, 1].map((i) => `<button class="carousel-slide ${i ? "detail" : ""}" data-zoom aria-label="Enlarge ${name} ${i ? "detail" : "photo"}"><img ${imageAttributes(name)} alt="${name}${i ? " close-up" : ""}" width="400" height="400"></button>`).join("")}</div><button class="carousel-arrow prev" data-slide="prev" aria-label="Previous photo"><img src="/assets/chevron-left.svg" width="24" height="24" alt=""></button><button class="carousel-arrow next" data-slide="next" aria-label="Next photo"><img src="/assets/chevron-right.svg" width="24" height="24" alt=""></button><div class="carousel-dots" aria-label="Choose photo"><button data-slide="0" aria-label="Photo 1" aria-current="true"></button><button data-slide="1" aria-label="Photo 2" aria-current="false"></button></div></div>
-    <div class="product-info"><p class="origin">PURE CEYLON · TALAWAKELLE, SRI LANKA</p><h1 id="product-title" tabindex="-1">${name}</h1><p class="description">${d.description}</p><div id="product-price" class="product-price" aria-live="polite"></div><fieldset class="weight-options"><legend>${t("size")}</legend>${WEIGHTS.map((w, i) => `<button class="weight-option" data-weight="${i}" aria-pressed="${i === weightIndex}" ${!p.avail[i] && !p.soon ? "disabled" : ""}>${w}</button>`).join("")}</fieldset><div class="product-facts"><span id="selected-weight">Weight: ${WEIGHTS[weightIndex]}</span><span>${d.notes[1]}</span></div><div class="purchase-row"><div class="quantity" aria-label="Quantity"><button id="quantity-minus" data-quantity="-1" aria-label="Decrease quantity">−</button><output id="product-quantity" aria-live="polite">${quantity}</output><button data-quantity="1" aria-label="Increase quantity">+</button></div><button class="button" id="add-to-bag">${p.soon ? t("preorder") : t("add")}</button></div><div class="badges"><span>CEYLON TEA</span><span>NO ADDED FLAVOURS</span></div><p class="delivery-note">${money(DELIVERY_LKR)} delivery · Kandy–Colombo / A1 area.<br>Usually 3–7 days. ${p.soon ? "Pre-order: availability within a week, subject to confirmation." : "Your order is confirmed on WhatsApp."}</p><p class="currency-note" ${currency === "LKR" ? "hidden" : ""}>Estimated conversion from LKR. Final amount confirmed on WhatsApp.</p><details class="brew"><summary>Make your perfect cup</summary><p>${d.brew}</p></details></div>
-    </div><section class="recommendations"><h2>${t("related")}</h2><div class="product-grid">${FEATURED.filter(
-      (n) => n !== name,
-    )
-      .map(productCard)
-      .join("")}</div></section></div>`;
+    productMarkup(name, { money, price, t, weightIndex, quantity, currency });
   updateProductPrice();
   slideIndex = 0;
   const track = $("carousel-track");
@@ -221,6 +206,7 @@ function updateProductPrice() {
   $("selected-weight").textContent = "Weight: " + WEIGHTS[weightIndex];
   $("product-quantity").textContent = quantity;
   $("quantity-minus").disabled = quantity === 1;
+  updateStructuredData();
   document
     .querySelectorAll("[data-weight]")
     .forEach((b) =>
@@ -331,9 +317,14 @@ function refresh() {
 }
 function route({ focus = false } = {}) {
   const hash = location.hash.slice(1);
-  const name = hash.startsWith("tea/")
-    ? names.find((n) => slug(n) === hash.slice(4))
-    : null;
+  // Preserve old shared/bookmarked hash links, but send visitors to real pages.
+  const legacyName = hash.startsWith("tea/")
+    ? names.find((n) => slug(n) === hash.slice(4)) : null;
+  if (legacyName) {
+    location.replace(productUrl(legacyName));
+    return;
+  }
+  const name = names.find((n) => location.pathname === productUrl(n)) || null;
   currentName = name || null;
   $("home-view").hidden = !!name;
   $("product-view").hidden = !name;
@@ -341,7 +332,7 @@ function route({ focus = false } = {}) {
     weightIndex = 1;
     quantity = 1;
     renderProduct();
-    document.title = `${name} | Abija Tea`;
+    document.title = `${name} | Pure Ceylon Tea | Abija Tea`;
     window.scrollTo({ top: 0, behavior: "instant" });
     if (focus) $("product-title").focus({ preventScroll: true });
     trackEvent("view_item", {
@@ -569,24 +560,34 @@ function updateStructuredData() {
     script.type = "application/ld+json";
     document.head.appendChild(script);
   }
-  script.textContent = JSON.stringify({
+  // A product offer belongs to its dedicated page and currently selected pack.
+  // Compute it at runtime so a cached page cannot advertise an expired sale.
+  const name = currentName;
+  script.textContent = JSON.stringify(name ? {
     "@context": "https://schema.org",
-    "@graph": names.map((name) => ({
-      "@type": "Product",
-      name: "Abija " + name,
-      image: "https://abijatea.me/" + PRODUCTS[name].img,
-      description: DETAILS[name].description,
-      brand: { "@type": "Brand", name: "Abija Tea" },
-      offers: {
-        "@type": "Offer",
-        url: "https://abijatea.me/" + productUrl(name),
-        price: price(name),
-        priceCurrency: "LKR",
-        availability: PRODUCTS[name].soon
-          ? "https://schema.org/PreOrder"
-          : "https://schema.org/InStock",
-        ...(monthlySaleIsActive() ? { priceValidUntil: "2026-09-30" } : {}),
-      },
+    "@type": "Product",
+    "@id": "https://abijatea.me" + productUrl(name) + "#product",
+    name: "Abija " + name,
+    url: "https://abijatea.me" + productUrl(name),
+    image: "https://abijatea.me/" + PRODUCTS[name].img,
+    description: DETAILS[name].description,
+    brand: { "@type": "Brand", name: "Abija Tea" },
+    offers: {
+      "@type": "Offer",
+      url: "https://abijatea.me" + productUrl(name),
+      name: name + " — " + WEIGHTS[weightIndex],
+      price: price(name, weightIndex),
+      priceCurrency: "LKR",
+      availability: PRODUCTS[name].soon ? "https://schema.org/PreOrder"
+        : PRODUCTS[name].avail[weightIndex] ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      ...(monthlySaleIsActive() ? { priceValidUntil: "2026-09-30" } : {}),
+    },
+  } : {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: names.map((n, i) => ({
+      "@type": "ListItem", position: i + 1, name: n,
+      url: "https://abijatea.me" + productUrl(n),
     })),
   });
 }

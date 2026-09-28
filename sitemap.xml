@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://abijatea.me/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://abijatea.me/</loc></url>
+  <url><loc>https://abijatea.me/tea/black-dust-tea/</loc></url>
+  <url><loc>https://abijatea.me/tea/pure-green-tea/</loc></url>
+  <url><loc>https://abijatea.me/tea/black-fannings-tea/</loc></url>
+  <url><loc>https://abijatea.me/tea/silver-tips/</loc></url>
+  <url><loc>https://abijatea.me/tea/golden-tips/</loc></url>
 </urlset>
