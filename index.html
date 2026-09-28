@@ -27,12 +27,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Abija Tea — Pure Ceylon Tea" />
     <meta name="twitter:image" content="https://abijatea.me/Product.webp" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Roboto+Condensed:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preload" href="/assets/fonts/roboto-condensed-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/cormorant-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="modulepreload" href="/catalog.mjs" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="application/ld+json">
       {
@@ -117,7 +114,7 @@
       </nav>
     </header>
     <div class="preferences wrap">
-      <p id="sale-banner" hidden></p>
+      <p id="sale-banner" aria-live="polite"></p>
       <div>
         <label
           ><span class="sr-only">Language</span
@@ -150,7 +147,22 @@
           id="experiences"
           class="experiences"
           aria-label="Curated tea experiences"
-        ></section>
+        >
+          <!-- Initial content lets the browser discover the hero before JavaScript.
+               Prices are intentionally populated from the live catalogue only. -->
+          <article class="experience sand">
+            <a class="experience-photo" href="#tea/black-dust-tea" aria-label="Explore Black Dust Tea"><img src="/assets/products/Dust-640.webp" srcset="/assets/products/Dust-320.webp 320w, /assets/products/Dust-640.webp 640w, /assets/products/Dust-960.webp 960w" sizes="(max-width: 620px) calc((100vw - 60px) / 2), (max-width: 1120px) 42vw, 488px" alt="Black Dust Tea with its Abija packaging" width="500" height="400" fetchpriority="high"></a>
+            <div class="experience-copy"><h2>The Morning Ritual</h2><p>A rich, strong start to your day.</p><div class="experience-price">&nbsp; <small>/ 100g</small></div><a class="button" href="#tea/black-dust-tea">CHOOSE YOUR TEA</a></div>
+          </article>
+          <article class="experience sage">
+            <a class="experience-photo" href="#tea/pure-green-tea" aria-label="Explore Pure Green Tea"><img src="/assets/products/Green-640.webp" srcset="/assets/products/Green-320.webp 320w, /assets/products/Green-640.webp 640w, /assets/products/Green-960.webp 960w" sizes="(max-width: 620px) calc((100vw - 60px) / 2), (max-width: 1120px) 42vw, 488px" alt="Pure Green Tea with its Abija packaging" width="500" height="400" loading="lazy"></a>
+            <div class="experience-copy"><h2>The Zen Blend</h2><p>Pure Ceylon green tea for a quiet moment.</p><div class="experience-price">&nbsp; <small>/ 100g</small></div><a class="button" href="#tea/pure-green-tea">CHOOSE YOUR TEA</a></div>
+          </article>
+          <article class="experience dark">
+            <a class="experience-photo" href="#tea/black-fannings-tea" aria-label="Explore Black Fannings Tea"><img src="/assets/products/BOP-640.webp" srcset="/assets/products/BOP-320.webp 320w, /assets/products/BOP-640.webp 640w, /assets/products/BOP-960.webp 960w" sizes="(max-width: 620px) calc((100vw - 60px) / 2), (max-width: 1120px) 42vw, 488px" alt="Black Fannings Tea with its Abija packaging" width="500" height="400" loading="lazy"></a>
+            <div class="experience-copy"><h2>The Refined Evening</h2><p>A bright, full-bodied Ceylon black tea.</p><div class="experience-price">&nbsp; <small>/ 100g</small></div><a class="button" href="#tea/black-fannings-tea">CHOOSE YOUR TEA</a></div>
+          </article>
+        </section>
         <section
           id="shop"
           class="shop-section"

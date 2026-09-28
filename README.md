@@ -34,3 +34,22 @@ The pricing tests compare all products and weights to pre-redesign commit `f05f4
 Customers send an order request through WhatsApp; this website does not charge payments or claim a completed purchase. Prices are recomputed at checkout, including after the offer expires. Currency conversions are estimates; if the rate service is unavailable, the last successfully selected currency is retained.
 
 Merging to `main` updates the source for the existing host. Deployment is controlled by that host, not by this repository's application code.
+# Mobile performance maintenance
+
+Product previews use `assets/products/*-{320,640,960}.webp` with responsive
+`srcset`. The original catalogue photos remain available for full-size zoom.
+The three initial experience cards are present in HTML; keep their copy and
+image attributes aligned with `catalog.mjs` and `renderHome()` when editing.
+Prices are populated at runtime so cached HTML cannot retain an expired sale.
+Fonts are locally hosted Latin variable subsets (licenses in `assets/fonts`),
+with optional font display to avoid a late layout shift. Sinhala and Tamil
+continue to use system fallback fonts.
+
+Run `tests/performance.cjs` with the same Playwright setup as `tests/browser.cjs`.
+It deliberately delays JavaScript to check the initial layout independently.
+
+Hosting cache headers require configuration in the active hosting/CDN service;
+this patch does not change Cloudflare or DigitalOcean settings. For these
+unversioned assets use a short cache lifetime with revalidation, or introduce
+content-hashed filenames before setting a year-long immutable cache. Keep HTML
+revalidated so deployments and sale logic updates are picked up promptly.
