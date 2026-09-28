@@ -617,6 +617,7 @@ html {
   color: var(--muted);
 }
 .product-price {
+  min-height: 44px;
   font-size: 32px;
   font-weight: 600;
   display: flex;
