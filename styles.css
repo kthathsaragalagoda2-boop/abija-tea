@@ -1389,9 +1389,3 @@ body:has(dialog[open]) {
     animation: none !important;
   }
 }
-/* Product reviews are saved through the Google-hosted form. */
-.review-trigger{display:inline-flex;align-items:center;gap:8px;margin:8px 0 18px;padding:0;border:0;background:transparent;color:#705815;font:inherit;font-size:15px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.review-stars{font-size:22px;letter-spacing:1px;white-space:nowrap}.review-comment{font-size:15px}.review-trigger:focus-visible{outline:3px solid #426331;outline-offset:4px}
-.review-dialog{width:min(760px,calc(100vw - 28px));max-height:min(900px,calc(100vh - 28px));padding:0;border:0;border-radius:16px;background:#fff;color:#292c23;box-shadow:0 22px 70px rgba(32,35,28,.28)}
-.review-dialog::backdrop{background:rgba(26,29,23,.58)}.review-dialog-head{display:flex;justify-content:space-between;align-items:flex-start;padding:22px 24px 14px;border-bottom:1px solid #e1e2d8}.review-dialog-head .origin{margin:0 0 4px}.review-dialog-head h2{margin:0;font-size:28px}.dialog-close{width:42px;height:42px;border:0;border-radius:50%;background:#f1f1e9;color:#292c23;font-size:30px;line-height:1;cursor:pointer}.review-dialog iframe{display:block;width:100%;height:min(720px,calc(100vh - 170px));border:0}
-@media(max-width:540px){.review-trigger{gap:6px;font-size:14px}.review-stars{font-size:19px}.review-dialog-head{padding:18px}.review-dialog-head h2{font-size:24px}.review-dialog iframe{height:calc(100vh - 150px)}}
