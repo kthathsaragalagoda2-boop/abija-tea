@@ -380,6 +380,14 @@ document.addEventListener("click", (event) => {
     brew.open = true;
     brew.querySelector('summary').focus();
   }
+  const reviewOpen = event.target.closest("[data-open-reviews]");
+  if (reviewOpen) {
+    const dialog = $("review-dialog");
+    const frame = dialog.querySelector("iframe");
+    if (!frame.src) frame.src = frame.dataset.reviewSrc;
+    dialog.showModal();
+    dialog.querySelector("[data-close]").focus();
+  }
   const close = event.target.closest("[data-close]");
   if (close) $(close.dataset.close).close();
   const weight = event.target.closest("[data-weight]");
