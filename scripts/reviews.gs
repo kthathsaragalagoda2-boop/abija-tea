@@ -1,4 +1,3 @@
-/** @OnlyCurrentDoc */
 const SHEET_ID = '1CG8mG5IPqPINURttFxHBqIL7R0ahyD2ZQGgCbPDzV0w';
 const PRODUCTS = ['black-dust-tea','pure-green-tea','black-fannings-tea','silver-tips','golden-tips'];
 const HEADERS = ['id','created_at','product','rating','name','comment','status'];
