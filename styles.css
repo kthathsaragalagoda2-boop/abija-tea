@@ -1389,3 +1389,9 @@ body:has(dialog[open]) {
     animation: none !important;
   }
 }
+/* Product reviews are saved through the Google-hosted form. */
+.review-link{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0 18px;color:#705815;text-decoration:underline;text-underline-offset:3px;font-size:16px}
+.review-link span{font-size:21px;letter-spacing:1px}
+.customer-reviews{margin:40px 0;scroll-margin-top:100px;border:1px solid #d9dacd;border-radius:14px;padding:12px;background:#fff}
+.customer-reviews iframe{display:block;width:100%;height:800px;border:0;border-radius:10px}
+.customer-reviews>p{padding:0 16px;font-size:14px}
